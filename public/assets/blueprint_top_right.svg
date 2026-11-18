@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 650 450" width="100%" height="100%" fill="none" stroke="#71717a" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Downward Perspective Truss & Framework Blueprint (Roof Truss & Cantilever Structure) -->
+  
+  <!-- Main Structural Overhead Girders -->
+  <polygon points="120,40 580,140 520,380 60,280" stroke="#a1a1aa" stroke-width="0.8" stroke-dasharray="5 5" opacity="0.6"/>
+  
+  <!-- Primary Steel Truss Rafters -->
+  <line x1="80" y1="60" x2="620" y2="180" stroke="#3f3f46" stroke-width="2"/>
+  <line x1="80" y1="120" x2="620" y2="240" stroke="#3f3f46" stroke-width="2"/>
+  <line x1="80" y1="180" x2="620" y2="300" stroke="#52525b" stroke-width="1.5"/>
+
+  <!-- Cross Bracing & Web Members (Warren Truss Pattern) -->
+  <line x1="120" y1="69" x2="160" y2="138" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="200" y1="87" x2="160" y2="138" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="200" y1="87" x2="240" y2="155" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="280" y1="104" x2="240" y2="155" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="280" y1="104" x2="320" y2="173" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="360" y1="122" x2="320" y2="173" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="360" y1="122" x2="400" y2="191" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="440" y1="140" x2="400" y2="191" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="440" y1="140" x2="480" y2="209" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="520" y1="158" x2="480" y2="209" stroke="#71717a" stroke-width="1.2"/>
+  <line x1="520" y1="158" x2="560" y2="227" stroke="#71717a" stroke-width="1.2"/>
+
+  <!-- Vertical Web Posts -->
+  <line x1="120" y1="69" x2="120" y2="129" stroke="#71717a" stroke-width="1.4"/>
+  <line x1="200" y1="87" x2="200" y2="147" stroke="#71717a" stroke-width="1.4"/>
+  <line x1="280" y1="104" x2="280" y2="164" stroke="#71717a" stroke-width="1.4"/>
+  <line x1="360" y1="122" x2="360" y2="182" stroke="#71717a" stroke-width="1.4"/>
+  <line x1="440" y1="140" x2="440" y2="200" stroke="#71717a" stroke-width="1.4"/>
+  <line x1="520" y1="158" x2="520" y2="218" stroke="#71717a" stroke-width="1.4"/>
+
+  <!-- Lower Beam Transverse Ties -->
+  <line x1="120" y1="129" x2="160" y2="198" stroke="#b89565" stroke-width="1.2" opacity="0.8"/>
+  <line x1="200" y1="147" x2="240" y2="216" stroke="#b89565" stroke-width="1.2" opacity="0.8"/>
+  <line x1="280" y1="164" x2="320" y2="233" stroke="#b89565" stroke-width="1.2" opacity="0.8"/>
+  <line x1="360" y1="182" x2="400" y2="251" stroke="#b89565" stroke-width="1.2" opacity="0.8"/>
+  <line x1="440" y1="200" x2="480" y2="269" stroke="#b89565" stroke-width="1.2" opacity="0.8"/>
+  <line x1="520" y1="218" x2="560" y2="287" stroke="#b89565" stroke-width="1.2" opacity="0.8"/>
+
+  <!-- Structural Purlins Extrusion Lines (Isometric Perspective) -->
+  <line x1="120" y1="69" x2="40" y2="180" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="200" y1="87" x2="120" y2="198" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="280" y1="104" x2="200" y2="215" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="360" y1="122" x2="280" y2="233" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="440" y1="140" x2="360" y2="251" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="520" y1="158" x2="440" y2="269" stroke="#a1a1aa" stroke-width="1" stroke-dasharray="3 3"/>
+
+  <!-- Golden Grid Alignment Reference Line -->
+  <line x1="30" y1="220" x2="640" y2="80" stroke="#b89565" stroke-width="0.8" stroke-dasharray="6 4" opacity="0.7"/>
+</svg>

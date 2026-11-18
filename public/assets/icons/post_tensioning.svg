@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Concrete Slab Outline -->
+  <rect x="50" y="160" width="412" height="192" rx="16" fill="none" stroke="#343433" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Reinforcement Grid Hatching -->
+  <line x1="135" y1="160" x2="135" y2="352" stroke="#343433" stroke-width="12" stroke-dasharray="16 16"/>
+  <line x1="256" y1="160" x2="256" y2="352" stroke="#343433" stroke-width="12" stroke-dasharray="16 16"/>
+  <line x1="377" y1="160" x2="377" y2="352" stroke="#343433" stroke-width="12" stroke-dasharray="16 16"/>
+  <line x1="50" y1="210" x2="462" y2="210" stroke="#343433" stroke-width="10" stroke-dasharray="14 14"/>
+  <line x1="50" y1="302" x2="462" y2="302" stroke="#343433" stroke-width="10" stroke-dasharray="14 14"/>
+
+  <!-- Post Tensioning Draped Parabolic Tendon Cable -->
+  <path d="M 28 200 C 160 350, 352 350, 484 200" fill="none" stroke="#343433" stroke-width="26" stroke-linecap="round"/>
+
+  <!-- Left Wedge Anchor Head -->
+  <rect x="18" y="170" width="30" height="60" rx="6" fill="#343433"/>
+  <polygon points="48,180 62,200 48,220" fill="#343433"/>
+
+  <!-- Right Wedge Anchor Head -->
+  <rect x="464" y="170" width="30" height="60" rx="6" fill="#343433"/>
+  <polygon points="464,180 450,200 464,220" fill="#343433"/>
+
+  <!-- Tendon Tension Pull Arrows (Horizontal Jacking Force) -->
+  <line x1="18" y1="200" x2="-8" y2="200" stroke="#343433" stroke-width="14" stroke-linecap="round"/>
+  <polygon points="6,200 -12,186 -12,214" fill="#343433"/>
+
+  <line x1="494" y1="200" x2="520" y2="200" stroke="#343433" stroke-width="14" stroke-linecap="round"/>
+  <polygon points="506,200 524,186 524,214" fill="#343433"/>
+
+  <!-- Balancing Load Uplift Force Vectors -->
+  <path d="M 256 318 L 256 255" stroke="#343433" stroke-width="16" stroke-linecap="round"/>
+  <polygon points="256,238 242,264 270,264" fill="#343433"/>
+
+  <path d="M 185 305 L 185 258" stroke="#343433" stroke-width="14" stroke-linecap="round"/>
+  <polygon points="185,244 173,267 197,267" fill="#343433"/>
+
+  <path d="M 327 305 L 327 258" stroke="#343433" stroke-width="14" stroke-linecap="round"/>
+  <polygon points="327,244 315,267 339,267" fill="#343433"/>
+</svg>
