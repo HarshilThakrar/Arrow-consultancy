@@ -76,22 +76,19 @@ const Footer = () => {
                 <Link href="/" className="hover:text-white transition-colors">Home</Link>
               </li>
               <li>
-                <a href="#about" className="hover:text-white transition-colors">About Us</a>
+                <Link href="/about" className="hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <a href="#projects" className="hover:text-white transition-colors">Our Projects</a>
+                <Link href="/services" className="hover:text-white transition-colors">Services</Link>
               </li>
               <li>
-                <a href="#why-choose-us" className="hover:text-white transition-colors">Why Choose Us</a>
+                <Link href="/projects" className="hover:text-white transition-colors">Projects</Link>
               </li>
               <li>
-                <a href="#process" className="hover:text-white transition-colors">Our Process</a>
+                <Link href="/approach" className="hover:text-white transition-colors">Our Approach</Link>
               </li>
               <li>
-                <a href="#testimonials" className="hover:text-white transition-colors">Testimonials</a>
-              </li>
-              <li>
-                <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+                <Link href="/contact" className="hover:text-white transition-colors">Contact</Link>
               </li>
             </ul>
           </div>

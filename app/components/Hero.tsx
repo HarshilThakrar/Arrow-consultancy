@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -109,7 +110,10 @@ const Hero = () => {
 
         {/* Buttons */}
         <div className="flex flex-wrap items-center gap-6 mb-12">
-          <button className="relative overflow-hidden bg-[#8c6f4a] text-zinc-950 px-8 py-4 rounded-sm text-xs font-bold tracking-widest group shadow-[0_0_15px_rgba(184,149,101,0.2)] hover:shadow-[0_0_20px_rgba(184,149,101,0.4)] transition-all">
+          <Link 
+            href="/projects"
+            className="relative overflow-hidden bg-[#8c6f4a] text-zinc-950 px-8 py-4 rounded-sm text-xs font-bold tracking-widest group shadow-[0_0_15px_rgba(184,149,101,0.2)] hover:shadow-[0_0_20px_rgba(184,149,101,0.4)] transition-all inline-block cursor-pointer"
+          >
             {/* Spinning Shine Effect */}
             <span className="absolute inset-[-100%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_60%,#ffffff_100%)]"></span>
 
@@ -126,21 +130,7 @@ const Hero = () => {
                 <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </div>
-          </button>
-
-          <button className="flex items-center gap-4 text-xs text-white hover:text-[#b89565] transition-colors group">
-            <div className="w-12 h-12 rounded-full bg-white text-zinc-950 flex items-center justify-center group-hover:bg-[#b89565] transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className="ml-1">
-                <path d="M8 5V19L19 12L8 5Z" />
-              </svg>
-            </div>
-            <span
-              className="font-medium uppercase tracking-[6px] text-left leading-relaxed"
-              style={{ fontFamily: "'Montserrat', sans-serif" }}
-            >
-              WATCH <br /> OUR STORY
-            </span>
-          </button>
+          </Link>
         </div>
 
         {/* Core Pillars */}
@@ -150,11 +140,11 @@ const Hero = () => {
             <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center group-hover:border-[#b89565] group-hover:text-[#b89565] transition-all">
               {/* Structural Columns Icon */}
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 20h16"/>
-                <path d="M4 4h16"/>
-                <path d="M7 4v16"/>
-                <path d="M17 4v16"/>
-                <path d="M12 4v16"/>
+                <path d="M4 20h16" />
+                <path d="M4 4h16" />
+                <path d="M7 4v16" />
+                <path d="M17 4v16" />
+                <path d="M12 4v16" />
               </svg>
             </div>
             <div className="flex flex-col">
@@ -168,8 +158,8 @@ const Hero = () => {
             <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center group-hover:border-[#b89565] group-hover:text-[#b89565] transition-all">
               {/* Shield + Wave (Seismic Safety) Icon */}
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                <path d="M7 12h2l1-3 2 6 1-3h2"/>
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                <path d="M7 12h2l1-3 2 6 1-3h2" />
               </svg>
             </div>
             <div className="flex flex-col">
@@ -183,10 +173,10 @@ const Hero = () => {
             <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center group-hover:border-[#b89565] group-hover:text-[#b89565] transition-all">
               {/* Scale / Balance (Value Engineering) Icon */}
               <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 3v18"/>
-                <path d="M3 7h18"/>
-                <path d="M6 7l-3 7a3 3 0 0 0 6 0l-3-7z"/>
-                <path d="M18 7l-3 7a3 3 0 0 0 6 0l-3-7z"/>
+                <path d="M12 3v18" />
+                <path d="M3 7h18" />
+                <path d="M6 7l-3 7a3 3 0 0 0 6 0l-3-7z" />
+                <path d="M18 7l-3 7a3 3 0 0 0 6 0l-3-7z" />
               </svg>
             </div>
             <div className="flex flex-col">

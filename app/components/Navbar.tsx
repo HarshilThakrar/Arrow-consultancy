@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ArrowUpRight, X } from 'lucide-react';
 
 interface NavItem {
@@ -9,22 +10,21 @@ interface NavItem {
   number: string;
   title: string;
   href: string;
-  active?: boolean;
 }
 
 const navItems: NavItem[] = [
-  { id: 'home', number: '01', title: 'Home', href: '/', active: true },
-  { id: 'about', number: '02', title: 'About', href: '#about' },
-  { id: 'services', number: '03', title: 'Services', href: '#services' },
-  { id: 'projects', number: '04', title: 'Projects', href: '#projects' },
-  { id: 'approach', number: '05', title: 'Approach', href: '#approach' },
-  { id: 'blog', number: '06', title: 'Blog', href: '#blog' },
-  { id: 'contact', number: '07', title: 'Contact', href: '#contact' },
+  { id: 'home', number: '01', title: 'Home', href: '/' },
+  { id: 'about', number: '02', title: 'About', href: '/about' },
+  { id: 'services', number: '03', title: 'Services', href: '/services' },
+  { id: 'projects', number: '04', title: 'Projects', href: '/projects' },
+  { id: 'approach', number: '05', title: 'Approach', href: '/approach' },
+  { id: 'contact', number: '06', title: 'Contact', href: '/contact' },
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredId, setHoveredId] = useState<string | null>(null);
+  const pathname = usePathname();
 
   // Prevent background scroll when menu is open
   useEffect(() => {
@@ -41,26 +41,30 @@ const Navbar = () => {
   return (
     <>
       {/* Top Navbar Header */}
-      <nav className="absolute top-0 w-full z-40 flex items-center justify-between pl-12 sm:pl-20 md:pl-24 pr-8 sm:pr-14 py-7 text-sm font-medium tracking-wider text-white">
+      <nav className="absolute top-0 w-full z-40 flex items-center justify-between pl-8 sm:pl-16 md:pl-20 pr-8 sm:pr-14 py-7 text-sm font-medium tracking-wider text-white">
         {/* Left: Favicon Mark Logo */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="group flex items-center">
-            <img 
-              src="/assets/logo/favicon.png" 
-              alt="Arrow Logo Icon" 
+          <Link href="/" className="group flex items-center gap-3">
+            <img
+              src="/assets/logo/favicon.png"
+              alt="Arrow Logo Icon"
               className="h-10 sm:h-12 w-auto object-contain cursor-pointer transition-transform duration-300 group-hover:scale-105"
             />
+            <span className="hidden sm:inline-block font-semibold tracking-wider text-base text-zinc-100 uppercase">
+              Arrow <span className="text-[#b89565] font-light">Consultants</span>
+            </span>
           </Link>
         </div>
 
-        {/* Right side: Circular Hamburger Menu Toggle Button */}
+        {/* Right side: 3-line Hamburger Menu Toggle Button */}
         <div className="flex items-center gap-4">
-          <button 
+          <button
             onClick={() => setIsOpen(true)}
             aria-label="Open navigation menu"
             className="w-11 h-11 rounded-full border border-white/20 bg-black/40 hover:bg-[#b89565] hover:border-[#b89565] hover:text-black text-white flex items-center justify-center transition-all duration-300 backdrop-blur-md cursor-pointer group shadow-sm hover:scale-105"
           >
-            <div className="flex flex-col gap-1.5 w-4 items-center">
+            <div className="flex flex-col gap-1 w-4 items-center">
+              <span className="w-full h-0.5 bg-current transition-all duration-300" />
               <span className="w-full h-0.5 bg-current transition-all duration-300" />
               <span className="w-full h-0.5 bg-current transition-all duration-300" />
             </div>
@@ -69,10 +73,10 @@ const Navbar = () => {
       </nav>
 
       {/* Fullscreen Overlay Backdrop */}
-      <div 
+      <div
         className={`fixed inset-0 z-50 transition-all duration-700 ease-in-out ${
-          isOpen 
-            ? 'opacity-100 pointer-events-auto bg-black/30 backdrop-blur-lg' 
+          isOpen
+            ? 'opacity-100 pointer-events-auto bg-black/40 backdrop-blur-lg'
             : 'opacity-0 pointer-events-none bg-black/0 backdrop-blur-none'
         }`}
         onClick={() => setIsOpen(false)}
@@ -90,7 +94,7 @@ const Navbar = () => {
         onClick={(e) => e.stopPropagation()}
       >
         {/* Architectural Grid Lines Background - golden tinted grid */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: `
@@ -109,9 +113,9 @@ const Navbar = () => {
           {/* Actual Logo Image */}
           <div className="flex items-center gap-3">
             <Link href="/" onClick={() => setIsOpen(false)}>
-              <img 
-                src="/assets/logo/arrow-logo.png" 
-                alt="Arrow Structural Consultants Logo" 
+              <img
+                src="/assets/logo/arrow-logo.png"
+                alt="Arrow Structural Consultants Logo"
                 className="h-10 sm:h-11 w-auto object-contain cursor-pointer"
               />
             </Link>
@@ -131,12 +135,12 @@ const Navbar = () => {
         <div className="relative z-10 flex-1 flex flex-col justify-center pl-20 sm:pl-28 md:pl-32 pr-8 sm:pr-14 py-2 overflow-y-auto">
           <div className="flex flex-col divide-y divide-[#b89565]/20">
             {navItems.map((item) => {
+              const isActive = pathname === item.href;
               const isHovered = hoveredId === item.id;
-              const isDefaultActive = item.active && !hoveredId;
-              const isHighlighted = isHovered || isDefaultActive;
+              const isHighlighted = isHovered || (isActive && !hoveredId);
 
               return (
-                <a
+                <Link
                   key={item.id}
                   href={item.href}
                   onClick={() => setIsOpen(false)}
@@ -146,7 +150,7 @@ const Navbar = () => {
                 >
                   <div className="flex items-baseline gap-4 sm:gap-6">
                     {/* Item Number */}
-                    <span 
+                    <span
                       className={`text-xs sm:text-sm font-mono tracking-wider transition-colors duration-300 ${
                         isHighlighted ? 'text-[#b89565] font-semibold' : 'text-zinc-400'
                       }`}
@@ -156,7 +160,7 @@ const Navbar = () => {
 
                     {/* Title */}
                     <div>
-                      <h2 
+                      <h2
                         className={`text-2xl sm:text-3xl md:text-[30px] font-bold tracking-tight transition-all duration-300 leading-tight ${
                           isHighlighted ? 'text-[#b89565]' : 'text-zinc-900 group-hover:text-zinc-700'
                         }`}
@@ -169,23 +173,23 @@ const Navbar = () => {
 
                   {/* Right Status Badge / Arrow Button */}
                   <div className="flex items-center gap-3">
-                    {item.active && (
+                    {isActive && (
                       <span className="text-[10px] font-bold tracking-widest px-2.5 py-0.5 rounded border border-[#b89565]/40 text-[#b89565] uppercase bg-[#b89565]/5">
                         ACTIVE
                       </span>
                     )}
 
-                    <div 
+                    <div
                       className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all duration-300 ${
-                        isHighlighted 
-                          ? 'border border-[#b89565] text-[#b89565] bg-[#b89565]/10' 
+                        isHighlighted
+                          ? 'border border-[#b89565] text-[#b89565] bg-[#b89565]/10'
                           : 'border border-zinc-200/90 text-zinc-400 bg-white/70 group-hover:border-[#b89565]/40 group-hover:text-zinc-600'
                       }`}
                     >
                       <ArrowUpRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                     </div>
                   </div>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -203,13 +207,13 @@ const Navbar = () => {
               </h4>
             </div>
 
-            <a
-              href="#contact"
+            <Link
+              href="/contact"
               onClick={() => setIsOpen(false)}
               className="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-[#b89565] hover:bg-[#a37e50] text-white text-[11px] font-bold tracking-wider uppercase transition-colors duration-300 shadow-xs whitespace-nowrap cursor-pointer"
             >
               CONTACT US
-            </a>
+            </Link>
           </div>
         </div>
       </div>
