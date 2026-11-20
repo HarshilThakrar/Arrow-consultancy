@@ -229,31 +229,13 @@ const servicesList: ServiceItem[] = [
 
 export default function ServicesPage() {
   const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
-  const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const handleMouseEnter = (id: string) => {
-    if (leaveTimeoutRef.current) {
-      clearTimeout(leaveTimeoutRef.current);
-      leaveTimeoutRef.current = null;
+  const handleToggleViewDetails = (id: string, e?: React.MouseEvent) => {
+    if (e) {
+      e.stopPropagation();
     }
-    setSelectedServiceId(id);
-  };
-
-  const handleMouseLeave = () => {
-    if (leaveTimeoutRef.current) {
-      clearTimeout(leaveTimeoutRef.current);
-    }
-    // 450ms steady buffer allows user to comfortably glide mouse across gap to the side card and "Know More" button
-    leaveTimeoutRef.current = setTimeout(() => {
-      setSelectedServiceId(null);
-    }, 450);
-  };
-
-  const handleSidePanelEnter = () => {
-    if (leaveTimeoutRef.current) {
-      clearTimeout(leaveTimeoutRef.current);
-      leaveTimeoutRef.current = null;
-    }
+    // If already open, clicking toggle can close it, or select a new one
+    setSelectedServiceId((prev) => (prev === id ? null : id));
   };
 
   const activeService = selectedServiceId
@@ -340,7 +322,7 @@ export default function ServicesPage() {
                 }`}
             >
               {servicesList.map((service, index) => {
-                const isHovered = selectedServiceId === service.id;
+                const isSelected = selectedServiceId === service.id;
                 const IconComponent = service.icon;
 
                 return (
@@ -355,25 +337,23 @@ export default function ServicesPage() {
                       opacity: { duration: 0.5, delay: index * 0.05 },
                       y: { duration: 0.5, delay: index * 0.05, ease: "easeOut" }
                     }}
-                    onMouseEnter={() => handleMouseEnter(service.id)}
-                    onClick={() => handleMouseEnter(service.id)}
-                    whileHover={{ y: -8, scale: 1.015 }}
-                    className={`group relative rounded-3xl bg-white transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${isHovered
+                    whileHover={{ y: -6, scale: 1.01 }}
+                    className={`group relative rounded-3xl bg-white transition-all duration-300 overflow-hidden flex flex-col justify-between ${isSelected
                         ? "border-2 border-[#b89565] shadow-[0_20px_45px_rgba(184,149,101,0.28)] ring-4 ring-[#b89565]/20"
                         : "border border-zinc-200/90 hover:border-[#b89565]/60 hover:shadow-xl hover:shadow-[#b89565]/10"
                       }`}
                   >
-                    {/* Golden accent bar on hover */}
-                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] transition-opacity duration-300 z-10 ${isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+                    {/* Golden accent bar on hover or when selected */}
+                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] transition-opacity duration-300 z-10 ${isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
 
                     {/* Top Image Preview Banner (matching reference rounded aspect) */}
                     <div className="relative w-full h-40 sm:h-44 overflow-hidden bg-zinc-100">
                       <img
                         src={service.image}
                         alt={service.title}
-                        className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? "scale-110 contrast-105" : "group-hover:scale-108"}`}
+                        className={`w-full h-full object-cover transition-all duration-700 ${isSelected ? "scale-110 contrast-105" : "group-hover:scale-108"}`}
                       />
-                      <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? "bg-gradient-to-t from-black/60 via-black/20 to-transparent" : "bg-gradient-to-t from-black/40 via-transparent to-transparent"}`} />
+                      <div className={`absolute inset-0 transition-opacity duration-500 ${isSelected ? "bg-gradient-to-t from-black/60 via-black/20 to-transparent" : "bg-gradient-to-t from-black/40 via-transparent to-transparent"}`} />
 
                       {/* Number Tag with golden border */}
                       <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-zinc-900 border border-[#b89565]/40 shadow-xs flex items-center gap-1">
@@ -382,7 +362,7 @@ export default function ServicesPage() {
                       </span>
 
                       {/* Active indicator badge */}
-                      {isHovered && (
+                      {isSelected && (
                         <motion.span
                           initial={{ opacity: 0, scale: 0.8 }}
                           animate={{ opacity: 1, scale: 1 }}
@@ -399,7 +379,7 @@ export default function ServicesPage() {
                       <div>
                         <div className="flex items-start gap-3 mb-2.5">
                           {/* Service Icon */}
-                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 p-2 transition-all duration-300 ${isHovered
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 p-2 transition-all duration-300 ${isSelected
                               ? "bg-gradient-to-br from-[#b89565] to-[#8d6935] text-white shadow-md shadow-[#b89565]/30 scale-105"
                               : "bg-[#faf6ee] text-[#b89565] border border-[#b89565]/30 group-hover:bg-[#b89565] group-hover:text-white"
                             }`}>
@@ -407,7 +387,7 @@ export default function ServicesPage() {
                               <img
                                 src={service.imageIcon}
                                 alt={service.title}
-                                className={`w-full h-full object-contain ${isHovered ? "brightness-0 invert" : "group-hover:brightness-0 group-hover:invert"}`}
+                                className={`w-full h-full object-contain ${isSelected ? "brightness-0 invert" : "group-hover:brightness-0 group-hover:invert"}`}
                               />
                             ) : (
                               <IconComponent className="w-4 h-4 stroke-[1.8]" />
@@ -417,7 +397,7 @@ export default function ServicesPage() {
                           {/* Title */}
                           <div className="min-w-0 flex-1">
                             <h3
-                              className={`text-sm sm:text-[15px] font-bold tracking-tight leading-snug transition-colors duration-200 ${isHovered ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
+                              className={`text-sm sm:text-[15px] font-bold tracking-tight leading-snug transition-colors duration-200 ${isSelected ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
                                 }`}
                               style={{ fontFamily: "'Montserrat', sans-serif" }}
                             >
@@ -432,18 +412,22 @@ export default function ServicesPage() {
                         </p>
                       </div>
 
-                      {/* Bottom Circular Arrow Icon (matching reference exactly) */}
-                      <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between">
-                        <span className={`text-[11px] font-mono font-semibold transition-colors ${isHovered ? "text-[#8d6935]" : "text-[#a07c48]"}`}>
-                          {isHovered ? "Active Selection" : "View Details"}
+                      {/* Bottom "View Details" Clickable Button (opens only on click) */}
+                      <button
+                        type="button"
+                        onClick={(e) => handleToggleViewDetails(service.id, e)}
+                        className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between w-full group/btn cursor-pointer text-left focus:outline-none"
+                      >
+                        <span className={`text-[12px] font-mono font-bold transition-colors ${isSelected ? "text-[#8d6935]" : "text-[#b89565] group-hover/btn:text-[#8d6935]"}`}>
+                          {isSelected ? "Close Details" : "View Details"}
                         </span>
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${isHovered
+                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${isSelected
                             ? "bg-gradient-to-r from-[#b89565] to-[#8d6935] text-white scale-110 shadow-sm"
-                            : "border border-[#b89565]/40 text-[#b89565] group-hover:bg-[#b89565] group-hover:text-white"
+                            : "border border-[#b89565]/50 text-[#b89565] group-hover/btn:bg-[#b89565] group-hover/btn:text-white group-hover/btn:scale-105"
                           }`}>
-                          <ArrowRight className="w-3.5 h-3.5" />
+                          <ArrowRight className={`w-3.5 h-3.5 transition-transform duration-300 ${isSelected ? "rotate-90" : "group-hover/btn:translate-x-0.5"}`} />
                         </div>
-                      </div>
+                      </button>
                     </div>
                   </motion.div>
                 );
@@ -451,7 +435,7 @@ export default function ServicesPage() {
             </motion.div>
 
             {/* RIGHT SIDE: Dedicated Detail View Card
-                Appears when a service is selected / hovered, completely steady with no premature closing */}
+                Appears ONLY when user clicks "View Details", completely steady and won't close on mouse movements */}
             <AnimatePresence mode="wait">
               {activeService && (
                 <motion.div
@@ -463,7 +447,6 @@ export default function ServicesPage() {
                     duration: 0.35,
                     ease: [0.16, 1, 0.3, 1]
                   }}
-                  onMouseEnter={handleSidePanelEnter}
                   className="lg:col-span-5 xl:col-span-4 sticky top-28 z-20"
                 >
                   <div className="bg-white border-2 border-[#b89565]/50 rounded-3xl p-6 sm:p-7 shadow-[0_25px_60px_rgba(184,149,101,0.22)] relative overflow-hidden backdrop-blur-xl">
