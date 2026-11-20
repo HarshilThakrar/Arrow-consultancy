@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
@@ -228,10 +228,23 @@ const servicesList: ServiceItem[] = [
 ];
 
 export default function ServicesPage() {
-  // hoveredServiceId is null by default so the page looks EXACTLY like the user's reference image
-  // (clean 3-column full-width grid of 9 cards, with NO side view open by default).
-  // When mouse enters any service card, hoveredServiceId is set and the side detail card animates into view!
   const [hoveredServiceId, setHoveredServiceId] = useState<string | null>(null);
+  const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleMouseEnter = (id: string) => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+    setHoveredServiceId(id);
+  };
+
+  const handleMouseLeave = () => {
+    // 180ms gentle debounce prevents jitter when cursor crosses gap between cards
+    leaveTimeoutRef.current = setTimeout(() => {
+      setHoveredServiceId(null);
+    }, 180);
+  };
 
   const activeService = hoveredServiceId
     ? servicesList.find((s) => s.id === hoveredServiceId) || null
@@ -311,8 +324,10 @@ export default function ServicesPage() {
             {/* SERVICES GRID CONTAINER */}
             <motion.div 
               layout
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-300 ${
+              transition={{
+                layout: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
+              }}
+              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-500 ease-out ${
                 activeService ? "lg:col-span-7 xl:col-span-8" : "lg:col-span-12"
               }`}
             >
@@ -324,10 +339,13 @@ export default function ServicesPage() {
                   <motion.div
                     layout
                     key={service.id}
-                    onMouseEnter={() => setHoveredServiceId(service.id)}
-                    onMouseLeave={() => setHoveredServiceId(null)}
+                    onMouseEnter={() => handleMouseEnter(service.id)}
+                    onMouseLeave={handleMouseLeave}
                     whileHover={{ y: -6, scale: 1.01 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{
+                      layout: { duration: 0.5, ease: [0.25, 1, 0.5, 1] },
+                      y: { duration: 0.25, ease: "easeOut" }
+                    }}
                     className={`group relative rounded-3xl bg-white transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${
                       isHovered
                         ? "border-2 border-[#b89565] shadow-[0_15px_35px_rgba(184,149,101,0.25)] ring-2 ring-[#b89565]/30"
@@ -410,13 +428,24 @@ export default function ServicesPage() {
 
             {/* RIGHT SIDE: Dedicated Detail View Card
                 Appears ONLY when activeService is present (when mouse enters any service card) */}
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
               {activeService && (
                 <motion.div
-                  initial={{ opacity: 0, x: 30, scale: 0.95 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 30, scale: 0.95 }}
-                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  key={activeService.id}
+                  initial={{ opacity: 0, x: 25, filter: "blur(4px)" }}
+                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+                  exit={{ opacity: 0, x: 25, filter: "blur(4px)" }}
+                  transition={{
+                    duration: 0.4,
+                    ease: [0.22, 1, 0.36, 1]
+                  }}
+                  onMouseEnter={() => {
+                    if (leaveTimeoutRef.current) {
+                      clearTimeout(leaveTimeoutRef.current);
+                      leaveTimeoutRef.current = null;
+                    }
+                  }}
+                  onMouseLeave={handleMouseLeave}
                   className="lg:col-span-5 xl:col-span-4 sticky top-28 z-20"
                 >
                   <div className="bg-white border-2 border-[#b89565]/40 rounded-3xl p-6 sm:p-7 shadow-2xl shadow-[#b89565]/20 relative overflow-hidden">
