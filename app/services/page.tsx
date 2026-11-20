@@ -228,10 +228,14 @@ const servicesList: ServiceItem[] = [
 ];
 
 export default function ServicesPage() {
-  // activeServiceId: controls which service is currently open in the right-side detail card.
-  // Defaults to the first service ("rcc") as shown in the reference image.
-  const [activeServiceId, setActiveServiceId] = useState<string>("rcc");
-  const activeService = servicesList.find((s) => s.id === activeServiceId) || servicesList[0];
+  // hoveredServiceId is null by default so the page looks EXACTLY like the user's reference image
+  // (clean 3-column full-width grid of 9 cards, with NO side view open by default).
+  // When mouse enters any service card, hoveredServiceId is set and the side detail card animates into view!
+  const [hoveredServiceId, setHoveredServiceId] = useState<string | null>(null);
+
+  const activeService = hoveredServiceId
+    ? servicesList.find((s) => s.id === hoveredServiceId) || null
+    : null;
 
   return (
     <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white overflow-hidden">
@@ -258,8 +262,11 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 2. MAIN SECTION: "WHAT WE OFFER" EXACT TEMPLATE LAYOUT MATCHING USER REFERENCE */}
-      <section className="py-20 md:py-28 relative bg-[#faf8f5]">
+      {/* 2. MAIN SECTION: "WHAT WE OFFER" EXACT TEMPLATE MATCHING REFERENCE IMAGE */}
+      <section 
+        className="py-20 md:py-28 relative bg-[#faf8f5]"
+        onMouseLeave={() => setHoveredServiceId(null)}
+      >
         {/* Subtle Architectural Blueprint Grid Lines */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-20"
@@ -292,55 +299,62 @@ export default function ServicesPage() {
             </h2>
 
             <p className="text-zinc-600 text-xs sm:text-sm md:text-base max-w-2xl mx-auto font-light">
-              End-to-end structural engineering and consultancy solutions for landmark architecture and construction.
+              End-to-end consultancy solutions for architecture, design and construction &mdash; from concept to completion.
             </p>
           </div>
 
-          {/* TWO-COLUMN LAYOUT MATCHING EXACT REFERENCE IMAGE */}
+          {/* DYNAMIC GRID: 
+              - When NOT hovered: 9 cards span the full width in a beautiful 3-column grid (exact look of user's image).
+              - When mouse hovers any card: Left side becomes 8 cols, and Right side smoothly slides in with the detail view! */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* LEFT CONTAINER: 9 Services in a 3-Column Responsive Grid (8 Columns on desktop) */}
-            <div className="lg:col-span-7 xl:col-span-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            {/* SERVICES GRID CONTAINER */}
+            <motion.div 
+              layout
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-300 ${
+                activeService ? "lg:col-span-7 xl:col-span-8" : "lg:col-span-12"
+              }`}
+            >
               {servicesList.map((service) => {
-                const isSelected = activeServiceId === service.id;
+                const isHovered = hoveredServiceId === service.id;
                 const IconComponent = service.icon;
 
                 return (
                   <motion.div
+                    layout
                     key={service.id}
-                    onMouseEnter={() => setActiveServiceId(service.id)}
-                    onClick={() => setActiveServiceId(service.id)}
-                    whileHover={{ y: -4 }}
+                    onMouseEnter={() => setHoveredServiceId(service.id)}
+                    whileHover={{ y: -6, scale: 1.01 }}
                     transition={{ duration: 0.2 }}
-                    className={`group relative rounded-2xl bg-white transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${
-                      isSelected
-                        ? "border-2 border-[#b89565] shadow-[0_12px_30px_rgba(184,149,101,0.22)] ring-1 ring-[#b89565]/40"
-                        : "border border-zinc-200/90 hover:border-[#b89565]/60 hover:shadow-md"
+                    className={`group relative rounded-3xl bg-white transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${
+                      isHovered
+                        ? "border-2 border-[#b89565] shadow-[0_15px_35px_rgba(184,149,101,0.25)] ring-2 ring-[#b89565]/30"
+                        : "border border-zinc-200/90 hover:border-[#b89565]/60 hover:shadow-lg"
                     }`}
                   >
-                    {/* Top Image Preview Banner */}
-                    <div className="relative w-full h-32 sm:h-36 overflow-hidden bg-zinc-100">
+                    {/* Top Image Preview Banner (matching reference rounded aspect) */}
+                    <div className="relative w-full h-40 sm:h-44 overflow-hidden bg-zinc-100">
                       <img
                         src={service.image}
                         alt={service.title}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
                       />
-                      {/* Subtle Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                       
                       {/* Number Tag */}
-                      <span className="absolute top-2.5 left-2.5 px-2 py-0.5 rounded-md bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-zinc-900 border border-[#b89565]/30">
+                      <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-zinc-900 border border-[#b89565]/30 shadow-2xs">
                         {service.number}
                       </span>
                     </div>
 
-                    {/* Bottom Service Content */}
-                    <div className="p-4 flex-1 flex flex-col justify-between">
+                    {/* Bottom Service Content (matching reference layout) */}
+                    <div className="p-5 flex-1 flex flex-col justify-between">
                       <div>
-                        <div className="flex items-start gap-2.5 mb-2">
+                        <div className="flex items-start gap-3 mb-2.5">
                           {/* Service Icon */}
-                          <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 p-1.5 transition-colors ${
-                            isSelected
+                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 p-1.5 transition-colors ${
+                            isHovered
                               ? "bg-[#b89565] text-white"
                               : "bg-[#faf6ee] text-[#b89565] border border-[#b89565]/30 group-hover:bg-[#b89565] group-hover:text-white"
                           }`}>
@@ -348,7 +362,7 @@ export default function ServicesPage() {
                               <img 
                                 src={service.imageIcon} 
                                 alt={service.title} 
-                                className={`w-full h-full object-contain ${isSelected ? "brightness-0 invert" : "group-hover:brightness-0 group-hover:invert"}`}
+                                className={`w-full h-full object-contain ${isHovered ? "brightness-0 invert" : "group-hover:brightness-0 group-hover:invert"}`}
                               />
                             ) : (
                               <IconComponent className="w-4 h-4 stroke-[1.8]" />
@@ -358,8 +372,8 @@ export default function ServicesPage() {
                           {/* Title */}
                           <div className="min-w-0 flex-1">
                             <h3 
-                              className={`text-xs sm:text-[13px] font-bold tracking-tight leading-snug uppercase transition-colors ${
-                                isSelected ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
+                              className={`text-sm sm:text-[15px] font-bold tracking-tight leading-snug transition-colors ${
+                                isHovered ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
                               }`}
                               style={{ fontFamily: "'Montserrat', sans-serif" }}
                             >
@@ -369,105 +383,117 @@ export default function ServicesPage() {
                         </div>
 
                         {/* Short Description */}
-                        <p className="text-[11px] text-zinc-500 font-normal leading-relaxed line-clamp-2 mt-1">
+                        <p className="text-xs text-zinc-500 font-normal leading-relaxed line-clamp-2 mt-1">
                           {service.shortDesc}
                         </p>
                       </div>
 
-                      {/* Bottom Circular Arrow Icon (matching reference) */}
-                      <div className="mt-3 pt-2.5 border-t border-zinc-100 flex items-center justify-between">
-                        <span className="text-[10px] font-mono text-[#a07c48] font-semibold">
-                          Explore
+                      {/* Bottom Circular Arrow Icon (matching reference exactly) */}
+                      <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between">
+                        <span className="text-[11px] font-mono text-[#a07c48] font-semibold">
+                          View Details
                         </span>
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center transition-all ${
-                          isSelected
-                            ? "bg-[#b89565] text-white"
+                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
+                          isHovered
+                            ? "bg-[#b89565] text-white scale-110"
                             : "border border-[#b89565]/40 text-[#b89565] group-hover:bg-[#b89565] group-hover:text-white"
                         }`}>
-                          <ArrowRight className="w-3 h-3" />
+                          <ArrowRight className="w-3.5 h-3.5" />
                         </div>
                       </div>
                     </div>
                   </motion.div>
                 );
               })}
-            </div>
+            </motion.div>
 
-            {/* RIGHT SIDE: Dedicated Expanded Detail Card matching User's Reference Card (4-5 Columns) */}
-            <div className="lg:col-span-5 xl:col-span-4 sticky top-28">
-              <AnimatePresence mode="wait">
+            {/* RIGHT SIDE: Dedicated Detail View Card
+                Appears ONLY when activeService is present (when mouse enters any service card) */}
+            <AnimatePresence>
+              {activeService && (
                 <motion.div
-                  key={activeService.id}
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.3 }}
-                  className="bg-white border-2 border-[#b89565]/40 rounded-3xl p-6 sm:p-7 shadow-2xl shadow-[#b89565]/15 relative overflow-hidden"
+                  initial={{ opacity: 0, x: 30, scale: 0.95 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 30, scale: 0.95 }}
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="lg:col-span-5 xl:col-span-4 sticky top-28 z-20"
                 >
-                  {/* Image Header with Close Accent */}
-                  <div className="relative w-full h-48 sm:h-56 rounded-2xl overflow-hidden mb-5 border border-[#b89565]/20 shadow-sm bg-zinc-100">
-                    <img
-                      src={activeService.image}
-                      alt={activeService.title}
-                      className="w-full h-full object-cover filter contrast-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                  <div className="bg-white border-2 border-[#b89565]/40 rounded-3xl p-6 sm:p-7 shadow-2xl shadow-[#b89565]/20 relative overflow-hidden">
+                    
+                    {/* Close button in top-right corner of card (matching reference image X icon) */}
+                    <button
+                      onClick={() => setHoveredServiceId(null)}
+                      className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md border border-zinc-200 hover:border-[#b89565] text-zinc-600 hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-105"
+                      aria-label="Close detail view"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
 
-                    {/* Badge */}
-                    <div className="absolute top-3 left-3 flex items-center gap-2">
-                      <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#a07c48] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#b89565]/40 shadow-xs">
-                        {activeService.number} &bull; {activeService.codeStandard}
-                      </span>
-                    </div>
-                  </div>
+                    {/* Image Header */}
+                    <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-[#b89565]/20 shadow-sm bg-zinc-100">
+                      <img
+                        src={activeService.image}
+                        alt={activeService.title}
+                        className="w-full h-full object-cover filter contrast-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-                  {/* Title matching reference */}
-                  <h3 
-                    className="text-2xl sm:text-3xl font-bold text-zinc-950 mb-2 leading-tight uppercase"
-                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                  >
-                    {activeService.title}
-                  </h3>
-
-                  {/* Description Paragraph */}
-                  <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed mb-6">
-                    {activeService.fullDesc}
-                  </p>
-
-                  {/* 2-Column Deliverables Pill Grid matching exact layout in reference image */}
-                  <div className="grid grid-cols-2 gap-2.5 mb-8">
-                    {activeService.deliverables.map((item, idx) => (
-                      <div 
-                        key={idx} 
-                        className="flex items-center gap-2 p-2 rounded-xl bg-[#faf7f2] border border-[#b89565]/20 text-[11px] font-semibold text-zinc-800"
-                      >
-                        <CheckCircle2 className="w-3.5 h-3.5 text-[#b89565] shrink-0" />
-                        <span className="truncate">{item}</span>
+                      {/* Number Tag */}
+                      <div className="absolute top-3 left-3 flex items-center gap-2">
+                        <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#a07c48] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#b89565]/40 shadow-xs">
+                          {activeService.number} &bull; {activeService.codeStandard}
+                        </span>
                       </div>
-                    ))}
-                  </div>
+                    </div>
 
-                  {/* Two Buttons matching Reference: [Know More →] [Get a Quote] */}
-                  <div className="grid grid-cols-2 gap-3 pt-2">
-                    <Link
-                      href={`/services/${activeService.slug}`}
-                      className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#b89565] to-[#a07c48] hover:from-[#a07c48] hover:to-[#8d6935] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#b89565]/25 hover:scale-105 text-center cursor-pointer"
+                    {/* Title */}
+                    <h3 
+                      className="text-2xl sm:text-3xl font-bold text-zinc-950 mb-2 leading-tight uppercase"
+                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                     >
-                      <span>Know More</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </Link>
+                      {activeService.title}
+                    </h3>
 
-                    <Link
-                      href="/contact"
-                      className="inline-flex items-center justify-center py-3 px-4 rounded-full border border-[#b89565] bg-white hover:bg-[#b89565]/10 text-zinc-900 font-bold text-xs uppercase tracking-wider transition-all shadow-xs hover:scale-105 text-center cursor-pointer"
-                    >
-                      <span>Get a Quote</span>
-                    </Link>
+                    {/* Description Paragraph */}
+                    <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed mb-6">
+                      {activeService.fullDesc}
+                    </p>
+
+                    {/* 2-Column Deliverables Pill Grid (matching reference image) */}
+                    <div className="grid grid-cols-2 gap-2.5 mb-7">
+                      {activeService.deliverables.map((item, idx) => (
+                        <div 
+                          key={idx} 
+                          className="flex items-center gap-2 p-2 rounded-xl bg-[#faf7f2] border border-[#b89565]/20 text-[11px] font-semibold text-zinc-800"
+                        >
+                          <CheckCircle2 className="w-3.5 h-3.5 text-[#b89565] shrink-0" />
+                          <span className="truncate">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    {/* Two Buttons matching Reference: [Know More →] [Get a Quote] */}
+                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-zinc-100">
+                      <Link
+                        href={`/services/${activeService.slug}`}
+                        className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#b89565] to-[#a07c48] hover:from-[#a07c48] hover:to-[#8d6935] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#b89565]/25 hover:scale-105 text-center cursor-pointer"
+                      >
+                        <span>Know More</span>
+                        <ArrowRight className="w-3.5 h-3.5" />
+                      </Link>
+
+                      <Link
+                        href="/contact"
+                        className="inline-flex items-center justify-center py-3 px-4 rounded-full border border-[#b89565] bg-white hover:bg-[#b89565]/10 text-zinc-900 font-bold text-xs uppercase tracking-wider transition-all shadow-xs hover:scale-105 text-center cursor-pointer"
+                      >
+                        <span>Get a Quote</span>
+                      </Link>
+                    </div>
+
                   </div>
-
                 </motion.div>
-              </AnimatePresence>
-            </div>
+              )}
+            </AnimatePresence>
 
           </div>
 
