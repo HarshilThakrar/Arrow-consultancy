@@ -24,6 +24,7 @@ import {
 
 interface ServiceItem {
   id: string;
+  slug: string;
   number: string;
   title: string;
   badge?: string;
@@ -40,6 +41,7 @@ interface ServiceItem {
 const servicesList: ServiceItem[] = [
   {
     id: "rcc",
+    slug: "rcc-design",
     number: "01",
     title: "RCC Design",
     shortDesc: "Safe, efficient and cost-effective reinforced concrete structural solutions.",
@@ -60,6 +62,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "steel",
+    slug: "steel-design",
     number: "02",
     title: "Steel Design",
     shortDesc: "High-performance structural steel frameworks with optimal strength-to-weight ratios.",
@@ -80,6 +83,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "structural-auditing",
+    slug: "structural-auditing",
     number: "03",
     title: "Structural Auditing",
     shortDesc: "Diagnostic health evaluations, NDT testing, and condition assessment.",
@@ -100,6 +104,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "post-tensioning",
+    slug: "post-tensioning-structures",
     number: "04",
     title: "Post Tensioning Structures",
     badge: "Long-Span Slabs",
@@ -121,6 +126,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "high-rise",
+    slug: "high-rise-buildings",
     number: "05",
     title: "High Rise Buildings",
     shortDesc: "Wind and seismic design solutions for landmark towers and skyscrapers.",
@@ -141,6 +147,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "earthquake-resisting",
+    slug: "earthquake-resisting-structures",
     number: "06",
     title: "Earthquake Resisting Structures",
     shortDesc: "Ductile detailing and dynamic analysis ensuring maximum seismic resilience.",
@@ -160,6 +167,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "industrial-project",
+    slug: "industrial-project-design",
     number: "07",
     title: "Industrial Project Design",
     shortDesc: "Heavy industrial sheds, PEB framing, crane gantries, and plant foundations.",
@@ -179,6 +187,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "earth-retaining",
+    slug: "structural-detail-of-earth-retaining-structures",
     number: "08",
     title: "Structural Detail of Earth Retaining Structures",
     shortDesc: "Basement diaphragm walls, cantilever retaining walls, and shoring systems.",
@@ -198,6 +207,7 @@ const servicesList: ServiceItem[] = [
   },
   {
     id: "proof-checking",
+    slug: "proof-checking",
     number: "09",
     title: "Proof Checking",
     shortDesc: "Rigorous third-party design validation, peer reviews, and code compliance checks.",
@@ -440,8 +450,8 @@ export default function ServicesPage() {
                   {/* Two Buttons matching Reference: [Know More →] [Get a Quote] */}
                   <div className="grid grid-cols-2 gap-3 pt-2">
                     <Link
-                      href="/contact"
-                      className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#b89565] to-[#a07c48] hover:from-[#a07c48] hover:to-[#8d6935] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#b89565]/25 hover:scale-105 text-center"
+                      href={`/services/${activeService.slug}`}
+                      className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#b89565] to-[#a07c48] hover:from-[#a07c48] hover:to-[#8d6935] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#b89565]/25 hover:scale-105 text-center cursor-pointer"
                     >
                       <span>Know More</span>
                       <ArrowRight className="w-3.5 h-3.5" />
@@ -449,7 +459,7 @@ export default function ServicesPage() {
 
                     <Link
                       href="/contact"
-                      className="inline-flex items-center justify-center py-3 px-4 rounded-full border border-[#b89565] bg-white hover:bg-[#b89565]/10 text-zinc-900 font-bold text-xs uppercase tracking-wider transition-all shadow-xs hover:scale-105 text-center"
+                      className="inline-flex items-center justify-center py-3 px-4 rounded-full border border-[#b89565] bg-white hover:bg-[#b89565]/10 text-zinc-900 font-bold text-xs uppercase tracking-wider transition-all shadow-xs hover:scale-105 text-center cursor-pointer"
                     >
                       <span>Get a Quote</span>
                     </Link>
