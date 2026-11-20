@@ -325,6 +325,7 @@ export default function ServicesPage() {
                     layout
                     key={service.id}
                     onMouseEnter={() => setHoveredServiceId(service.id)}
+                    onMouseLeave={() => setHoveredServiceId(null)}
                     whileHover={{ y: -6, scale: 1.01 }}
                     transition={{ duration: 0.2 }}
                     className={`group relative rounded-3xl bg-white transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${
