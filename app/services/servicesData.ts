@@ -79,7 +79,7 @@ export const servicesData: Record<string, ServiceDetail> = {
       outcome: "Saved 14% rebar tonnage through non-linear shear core layout while satisfying stringent wind drift criteria.",
       image: "/assets/hero/bg-image.png"
     },
-    mainImage: "/assets/our_expertise/RCC.png",
+    mainImage: "/assets/our_expertise/rcc_concrete.jpg",
     detailImage: "/assets/hero/bg-image.png"
   },
   "steel-design": {

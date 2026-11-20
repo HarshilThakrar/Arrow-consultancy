@@ -56,7 +56,7 @@ const servicesList: ServiceItem[] = [
     ],
     software: "ETABS, SAFE, STAAD.Pro",
     codeStandard: "IS 456, IS 1893, IS 13920",
-    image: "/assets/our_expertise/RCC.png",
+    image: "/assets/our_expertise/rcc_concrete.jpg",
     imageIcon: "/assets/icons/rcc.png",
     icon: Building2,
   },
