@@ -10,72 +10,49 @@ import WhyChooseUs from "./components/WhyChooseUs";
 import Testimonials from "./components/Testimonials";
 import CTASection from "./components/CTASection";
 import Footer from "./components/Footer";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  const container = useRef<HTMLDivElement>(null);
-
-  useGSAP(() => {
-    // Premium Parallax / Curtain effect for Hero
-    gsap.to('.hero-wrapper', {
-      yPercent: 20,
-      scale: 0.9,
-      opacity: 0.2,
-      ease: "none",
-      scrollTrigger: {
-        trigger: '.about-wrapper',
-        start: 'top bottom',
-        end: 'top top',
-        scrub: 1,
-      }
-    });
-
-  }, { scope: container });
-
   return (
-    <div ref={container} className="relative min-h-screen bg-black font-sans">
+    <div className="relative min-h-screen bg-[#faf7f2] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white">
       <Navbar />
-      <main>
-        {/* Fixed Hero Section in the background */}
-        <div className="hero-wrapper fixed inset-0 z-0 h-screen w-full">
+      <main className="relative">
+        {/* Full-bleed Luxury Hero Section */}
+        <section className="relative w-full h-screen">
           <Hero />
-        </div>
-        
-        {/* Spacer to push AboutUs down below the Hero */}
-        <div className="h-screen w-full pointer-events-none"></div>
+        </section>
 
-        {/* About Us section that slides over the Hero */}
-        <div className="about-wrapper relative z-10 bg-white shadow-[0_-20px_50px_rgba(0,0,0,0.8)]">
+        {/* About Us (Canva / Pinterest Editorial Section) */}
+        <div className="relative z-10">
           <AboutUs />
         </div>
         
-        {/* Why Choose Us */}
-        <div className="relative z-10 bg-white overflow-hidden">
+        {/* Why Choose Us (Stats & Values Cards) */}
+        <div className="relative z-10">
           <WhyChooseUs />
         </div>
 
-        {/* Projects & Clients Section */}
-        <div className="projects-wrapper relative z-10 bg-[#f4f2ee] overflow-hidden">
+        {/* Featured Projects Slider */}
+        <div className="relative z-10">
           <Projects />
+        </div>
+
+        {/* Clients & Trusted Collaborators Marquee */}
+        <div className="relative z-10">
           <Clients />
         </div>
 
-        {/* Testimonials */}
-        <div className="relative z-10 bg-white overflow-hidden">
+        {/* Endorsements & Testimonials */}
+        <div className="relative z-10">
           <Testimonials />
         </div>
 
-        {/* CTA Section */}
-        <div className="relative z-10 bg-zinc-950 overflow-hidden">
+        {/* Conversion CTA Section */}
+        <div className="relative z-10">
           <CTASection />
         </div>
 
-        {/* Footer */}
-        <div className="relative z-10 bg-black overflow-hidden">
+        {/* Luxury Gold/Charcoal Footer */}
+        <div className="relative z-10">
           <Footer />
         </div>
       </main>
