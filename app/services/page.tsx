@@ -228,7 +228,7 @@ const servicesList: ServiceItem[] = [
 ];
 
 export default function ServicesPage() {
-  const [hoveredServiceId, setHoveredServiceId] = useState<string | null>(null);
+  const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
   const leaveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const handleMouseEnter = (id: string) => {
@@ -236,18 +236,28 @@ export default function ServicesPage() {
       clearTimeout(leaveTimeoutRef.current);
       leaveTimeoutRef.current = null;
     }
-    setHoveredServiceId(id);
+    setSelectedServiceId(id);
   };
 
   const handleMouseLeave = () => {
-    // 180ms gentle debounce prevents jitter when cursor crosses gap between cards
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+    }
+    // 450ms steady buffer allows user to comfortably glide mouse across gap to the side card and "Know More" button
     leaveTimeoutRef.current = setTimeout(() => {
-      setHoveredServiceId(null);
-    }, 180);
+      setSelectedServiceId(null);
+    }, 450);
   };
 
-  const activeService = hoveredServiceId
-    ? servicesList.find((s) => s.id === hoveredServiceId) || null
+  const handleSidePanelEnter = () => {
+    if (leaveTimeoutRef.current) {
+      clearTimeout(leaveTimeoutRef.current);
+      leaveTimeoutRef.current = null;
+    }
+  };
+
+  const activeService = selectedServiceId
+    ? servicesList.find((s) => s.id === selectedServiceId) || null
     : null;
 
   return (
@@ -276,12 +286,11 @@ export default function ServicesPage() {
       </section>
 
       {/* 2. MAIN SECTION: "WHAT WE OFFER" EXACT TEMPLATE MATCHING REFERENCE IMAGE */}
-      <section 
+      <section
         className="py-20 md:py-28 relative bg-[#faf8f5]"
-        onMouseLeave={() => setHoveredServiceId(null)}
       >
         {/* Subtle Architectural Blueprint Grid Lines */}
-        <div 
+        <div
           className="absolute inset-0 pointer-events-none opacity-20"
           style={{
             backgroundImage: `
@@ -293,7 +302,7 @@ export default function ServicesPage() {
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
-          
+
           {/* Header matching reference image: "— OUR SERVICES — What We Offer" */}
           <div className="text-center mb-14 md:mb-16">
             <div className="flex items-center justify-center gap-3 mb-3">
@@ -304,7 +313,7 @@ export default function ServicesPage() {
               <div className="w-10 h-[1.5px] bg-[#b89565]" />
             </div>
 
-            <h2 
+            <h2
               className="text-3xl sm:text-5xl md:text-6xl font-serif text-zinc-950 tracking-tight mb-3"
               style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
             >
@@ -320,51 +329,69 @@ export default function ServicesPage() {
               - When NOT hovered: 9 cards span the full width in a beautiful 3-column grid (exact look of user's image).
               - When mouse hovers any card: Left side becomes 8 cols, and Right side smoothly slides in with the detail view! */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            
+
             {/* SERVICES GRID CONTAINER */}
-            <motion.div 
+            <motion.div
               layout
               transition={{
                 layout: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
               }}
-              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-500 ease-out ${
-                activeService ? "lg:col-span-7 xl:col-span-8" : "lg:col-span-12"
-              }`}
+              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-500 ease-out ${activeService ? "lg:col-span-7 xl:col-span-8" : "lg:col-span-12"
+                }`}
             >
-              {servicesList.map((service) => {
-                const isHovered = hoveredServiceId === service.id;
+              {servicesList.map((service, index) => {
+                const isHovered = selectedServiceId === service.id;
                 const IconComponent = service.icon;
 
                 return (
                   <motion.div
                     layout
                     key={service.id}
-                    onMouseEnter={() => handleMouseEnter(service.id)}
-                    onMouseLeave={handleMouseLeave}
-                    whileHover={{ y: -6, scale: 1.01 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-50px" }}
                     transition={{
-                      layout: { duration: 0.5, ease: [0.25, 1, 0.5, 1] },
-                      y: { duration: 0.25, ease: "easeOut" }
+                      layout: { duration: 0.45, ease: [0.25, 1, 0.5, 1] },
+                      opacity: { duration: 0.5, delay: index * 0.05 },
+                      y: { duration: 0.5, delay: index * 0.05, ease: "easeOut" }
                     }}
-                    className={`group relative rounded-3xl bg-white transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${
-                      isHovered
-                        ? "border-2 border-[#b89565] shadow-[0_15px_35px_rgba(184,149,101,0.25)] ring-2 ring-[#b89565]/30"
-                        : "border border-zinc-200/90 hover:border-[#b89565]/60 hover:shadow-lg"
-                    }`}
+                    onMouseEnter={() => handleMouseEnter(service.id)}
+                    onClick={() => handleMouseEnter(service.id)}
+                    whileHover={{ y: -8, scale: 1.015 }}
+                    className={`group relative rounded-3xl bg-white transition-all duration-300 cursor-pointer overflow-hidden flex flex-col justify-between ${isHovered
+                        ? "border-2 border-[#b89565] shadow-[0_20px_45px_rgba(184,149,101,0.28)] ring-4 ring-[#b89565]/20"
+                        : "border border-zinc-200/90 hover:border-[#b89565]/60 hover:shadow-xl hover:shadow-[#b89565]/10"
+                      }`}
                   >
+                    {/* Golden accent bar on hover */}
+                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] transition-opacity duration-300 z-10 ${isHovered ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+
                     {/* Top Image Preview Banner (matching reference rounded aspect) */}
                     <div className="relative w-full h-40 sm:h-44 overflow-hidden bg-zinc-100">
                       <img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+                        className={`w-full h-full object-cover transition-all duration-700 ${isHovered ? "scale-110 contrast-105" : "group-hover:scale-108"}`}
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                      
-                      {/* Number Tag */}
-                      <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-zinc-900 border border-[#b89565]/30 shadow-2xs">
+                      <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? "bg-gradient-to-t from-black/60 via-black/20 to-transparent" : "bg-gradient-to-t from-black/40 via-transparent to-transparent"}`} />
+
+                      {/* Number Tag with golden border */}
+                      <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-zinc-900 border border-[#b89565]/40 shadow-xs flex items-center gap-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#b89565]" />
                         {service.number}
                       </span>
+
+                      {/* Active indicator badge */}
+                      {isHovered && (
+                        <motion.span
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-[#b89565] text-white text-[9px] font-bold uppercase tracking-wider shadow-sm flex items-center gap-1"
+                        >
+                          <Sparkles className="w-2.5 h-2.5" />
+                          Viewing
+                        </motion.span>
+                      )}
                     </div>
 
                     {/* Bottom Service Content (matching reference layout) */}
@@ -372,15 +399,14 @@ export default function ServicesPage() {
                       <div>
                         <div className="flex items-start gap-3 mb-2.5">
                           {/* Service Icon */}
-                          <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 p-1.5 transition-colors ${
-                            isHovered
-                              ? "bg-[#b89565] text-white"
+                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 p-2 transition-all duration-300 ${isHovered
+                              ? "bg-gradient-to-br from-[#b89565] to-[#8d6935] text-white shadow-md shadow-[#b89565]/30 scale-105"
                               : "bg-[#faf6ee] text-[#b89565] border border-[#b89565]/30 group-hover:bg-[#b89565] group-hover:text-white"
-                          }`}>
+                            }`}>
                             {service.imageIcon ? (
-                              <img 
-                                src={service.imageIcon} 
-                                alt={service.title} 
+                              <img
+                                src={service.imageIcon}
+                                alt={service.title}
                                 className={`w-full h-full object-contain ${isHovered ? "brightness-0 invert" : "group-hover:brightness-0 group-hover:invert"}`}
                               />
                             ) : (
@@ -390,10 +416,9 @@ export default function ServicesPage() {
 
                           {/* Title */}
                           <div className="min-w-0 flex-1">
-                            <h3 
-                              className={`text-sm sm:text-[15px] font-bold tracking-tight leading-snug transition-colors ${
-                                isHovered ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
-                              }`}
+                            <h3
+                              className={`text-sm sm:text-[15px] font-bold tracking-tight leading-snug transition-colors duration-200 ${isHovered ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
+                                }`}
                               style={{ fontFamily: "'Montserrat', sans-serif" }}
                             >
                               {service.title}
@@ -409,14 +434,13 @@ export default function ServicesPage() {
 
                       {/* Bottom Circular Arrow Icon (matching reference exactly) */}
                       <div className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between">
-                        <span className="text-[11px] font-mono text-[#a07c48] font-semibold">
-                          View Details
+                        <span className={`text-[11px] font-mono font-semibold transition-colors ${isHovered ? "text-[#8d6935]" : "text-[#a07c48]"}`}>
+                          {isHovered ? "Active Selection" : "View Details"}
                         </span>
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all ${
-                          isHovered
-                            ? "bg-[#b89565] text-white scale-110"
+                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${isHovered
+                            ? "bg-gradient-to-r from-[#b89565] to-[#8d6935] text-white scale-110 shadow-sm"
                             : "border border-[#b89565]/40 text-[#b89565] group-hover:bg-[#b89565] group-hover:text-white"
-                        }`}>
+                          }`}>
                           <ArrowRight className="w-3.5 h-3.5" />
                         </div>
                       </div>
@@ -427,94 +451,117 @@ export default function ServicesPage() {
             </motion.div>
 
             {/* RIGHT SIDE: Dedicated Detail View Card
-                Appears ONLY when activeService is present (when mouse enters any service card) */}
+                Appears when a service is selected / hovered, completely steady with no premature closing */}
             <AnimatePresence mode="wait">
               {activeService && (
                 <motion.div
                   key={activeService.id}
-                  initial={{ opacity: 0, x: 25, filter: "blur(4px)" }}
-                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, x: 25, filter: "blur(4px)" }}
+                  initial={{ opacity: 0, x: 30, scale: 0.97 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 20, scale: 0.97 }}
                   transition={{
-                    duration: 0.4,
-                    ease: [0.22, 1, 0.36, 1]
+                    duration: 0.35,
+                    ease: [0.16, 1, 0.3, 1]
                   }}
-                  onMouseEnter={() => {
-                    if (leaveTimeoutRef.current) {
-                      clearTimeout(leaveTimeoutRef.current);
-                      leaveTimeoutRef.current = null;
-                    }
-                  }}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={handleSidePanelEnter}
                   className="lg:col-span-5 xl:col-span-4 sticky top-28 z-20"
                 >
-                  <div className="bg-white border-2 border-[#b89565]/40 rounded-3xl p-6 sm:p-7 shadow-2xl shadow-[#b89565]/20 relative overflow-hidden">
-                    
+                  <div className="bg-white border-2 border-[#b89565]/50 rounded-3xl p-6 sm:p-7 shadow-[0_25px_60px_rgba(184,149,101,0.22)] relative overflow-hidden backdrop-blur-xl">
+
+                    {/* Ambient Golden Glow Accent in Top Corner */}
+                    <div className="absolute -top-16 -right-16 w-36 h-36 bg-[#ffe5b4]/40 rounded-full blur-2xl pointer-events-none" />
+
                     {/* Close button in top-right corner of card (matching reference image X icon) */}
                     <button
-                      onClick={() => setHoveredServiceId(null)}
-                      className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/90 backdrop-blur-md border border-zinc-200 hover:border-[#b89565] text-zinc-600 hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-105"
+                      onClick={() => setSelectedServiceId(null)}
+                      className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/95 backdrop-blur-md border border-zinc-200 hover:border-[#b89565] text-zinc-600 hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95"
                       aria-label="Close detail view"
                     >
                       <X className="w-4 h-4" />
                     </button>
 
                     {/* Image Header */}
-                    <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-[#b89565]/20 shadow-sm bg-zinc-100">
-                      <img
+                    <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-[#b89565]/25 shadow-sm bg-zinc-100 group">
+                      <motion.img
+                        key={activeService.image}
+                        initial={{ scale: 1.08, opacity: 0.85 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.6, ease: "easeOut" }}
                         src={activeService.image}
                         alt={activeService.title}
                         className="w-full h-full object-cover filter contrast-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
 
                       {/* Number Tag */}
                       <div className="absolute top-3 left-3 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#a07c48] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#b89565]/40 shadow-xs">
+                        <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#a07c48] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#b89565]/40 shadow-xs flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#b89565] animate-pulse" />
                           {activeService.number} &bull; {activeService.codeStandard}
                         </span>
                       </div>
                     </div>
 
-                    {/* Title */}
-                    <h3 
-                      className="text-2xl sm:text-3xl font-bold text-zinc-950 mb-2 leading-tight uppercase"
-                      style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                    {/* Title with decorative underline */}
+                    <motion.div
+                      key={`title-${activeService.id}`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.3 }}
                     >
-                      {activeService.title}
-                    </h3>
+                      <h3
+                        className="text-2xl sm:text-3xl font-bold text-zinc-950 mb-1 leading-tight uppercase"
+                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                      >
+                        {activeService.title}
+                      </h3>
+                      <div className="w-12 h-0.5 bg-gradient-to-r from-[#b89565] to-transparent mb-3" />
+                    </motion.div>
 
                     {/* Description Paragraph */}
-                    <p className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed mb-6">
+                    <motion.p
+                      key={`desc-${activeService.id}`}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.35, delay: 0.05 }}
+                      className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed mb-6"
+                    >
                       {activeService.fullDesc}
-                    </p>
+                    </motion.p>
 
                     {/* 2-Column Deliverables Pill Grid (matching reference image) */}
-                    <div className="grid grid-cols-2 gap-2.5 mb-7">
+                    <motion.div
+                      key={`deliverables-${activeService.id}`}
+                      initial={{ opacity: 0, y: 8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.35, delay: 0.1 }}
+                      className="grid grid-cols-2 gap-2.5 mb-7"
+                    >
                       {activeService.deliverables.map((item, idx) => (
-                        <div 
-                          key={idx} 
-                          className="flex items-center gap-2 p-2 rounded-xl bg-[#faf7f2] border border-[#b89565]/20 text-[11px] font-semibold text-zinc-800"
+                        <div
+                          key={idx}
+                          className="flex items-center gap-2 p-2.5 rounded-xl bg-[#faf7f2] border border-[#b89565]/25 text-[11px] font-semibold text-zinc-800 shadow-2xs hover:border-[#b89565]/60 hover:bg-[#f6f0e4] transition-colors"
                         >
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#b89565] shrink-0" />
                           <span className="truncate">{item}</span>
                         </div>
                       ))}
-                    </div>
+                    </motion.div>
 
                     {/* Two Buttons matching Reference: [Know More →] [Get a Quote] */}
-                    <div className="grid grid-cols-2 gap-3 pt-2 border-t border-zinc-100">
+                    <div className="grid grid-cols-2 gap-3 pt-3 border-t border-zinc-100">
                       <Link
                         href={`/services/${activeService.slug}`}
-                        className="inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#b89565] to-[#a07c48] hover:from-[#a07c48] hover:to-[#8d6935] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-md shadow-[#b89565]/25 hover:scale-105 text-center cursor-pointer"
+                        className="relative group/btn inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#b89565] via-[#a8824f] to-[#8d6935] hover:from-[#a07c48] hover:to-[#78572a] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#b89565]/35 hover:scale-105 active:scale-95 text-center cursor-pointer overflow-hidden"
                       >
-                        <span>Know More</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
+                        <span className="relative z-10">Know More</span>
+                        <ArrowRight className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/btn:translate-x-1" />
+                        <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                       </Link>
 
                       <Link
                         href="/contact"
-                        className="inline-flex items-center justify-center py-3 px-4 rounded-full border border-[#b89565] bg-white hover:bg-[#b89565]/10 text-zinc-900 font-bold text-xs uppercase tracking-wider transition-all shadow-xs hover:scale-105 text-center cursor-pointer"
+                        className="inline-flex items-center justify-center py-3 px-4 rounded-full border-2 border-[#b89565] bg-white hover:bg-[#faf6ee] text-zinc-900 hover:text-[#8d6935] font-bold text-xs uppercase tracking-wider transition-all shadow-xs hover:scale-105 active:scale-95 text-center cursor-pointer"
                       >
                         <span>Get a Quote</span>
                       </Link>
