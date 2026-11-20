@@ -1,64 +1,33 @@
 "use client";
 
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Sparkles, Trophy, Building2, Ruler, Calendar, Compass, ShieldCheck } from 'lucide-react';
 
 const stats = [
   {
     value: "200+",
     label: "Projects Delivered",
-    // Building Icon SVG
-    icon: (
-      <svg className="w-10 h-10 text-[#b89565] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z" />
-        <path d="M6 12H4a2 2 0 0 0-2 2v8h4" />
-        <path d="M18 9h2a2 2 0 0 1 2 2v11h-4" />
-        <path d="M10 6h4" />
-        <path d="M10 10h4" />
-        <path d="M10 14h4" />
-        <path d="M10 18h4" />
-      </svg>
-    ),
+    sub: "Pan-India Landmark Footprint",
+    icon: Building2,
   },
   {
     value: "10M+",
     label: "Sq. Ft. Designed",
-    // Architect Triangle Ruler Icon SVG
-    icon: (
-      <svg className="w-10 h-10 text-[#b89565] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M21.5 21.5 3 3v18.5Z" />
-        <path d="M7 17.5v-3.5" />
-        <path d="M10.5 17.5v-2" />
-        <path d="M14 17.5v-3.5" />
-        <path d="M17.5 17.5v-2" />
-      </svg>
-    ),
+    sub: "High-Rise, Commercial & PEB",
+    icon: Ruler,
   },
   {
     value: "9+ Years",
-    label: "of Experience",
-    // Calendar with Checkmark Icon SVG
-    icon: (
-      <svg className="w-10 h-10 text-[#b89565] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M8 2v4" />
-        <path d="M16 2v4" />
-        <rect width="18" height="18" x="3" y="4" rx="3" />
-        <path d="M3 10h18" />
-        <path d="m9 16 2 2 4-4" />
-      </svg>
-    ),
+    label: "Engineering Practice",
+    sub: "Relentless Technical Rigor",
+    icon: Calendar,
   },
   {
     value: "End-to-End",
     label: "Design Solutions",
-    // Draftsman Compass Divider Icon SVG
-    icon: (
-      <svg className="w-10 h-10 text-[#b89565] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-        <circle cx="12" cy="5" r="2" />
-        <path d="m3 21 8.02-14.26" />
-        <path d="m21 21-8.02-14.26" />
-        <path d="M6 14h12" />
-      </svg>
-    ),
+    sub: "Concept to GFC Validation",
+    icon: Compass,
   },
 ];
 
@@ -66,11 +35,10 @@ const WhyChooseUs = () => {
   return (
     <section 
       id="why-choose-us" 
-      className="relative w-full bg-[#fbf9f6] text-zinc-900 py-20 md:py-28 overflow-hidden font-sans border-t border-b border-zinc-200/70"
+      className="relative w-full bg-[#fcfaf6] text-zinc-900 py-24 md:py-32 overflow-hidden font-sans border-t border-b border-[#b89565]/20 selection:bg-[#b89565] selection:text-white"
     >
-      {/* 1. Architectural Blueprint Wireframe Sketches (Top-Right & Bottom-Left matching Reference Image) */}
-      {/* Top-Right Architectural Roof Truss / Structural Framework */}
-      <div className="absolute top-0 right-[-100px] w-[280px] sm:w-[380px] md:w-[440px] h-auto pointer-events-none select-none z-0 opacity-40">
+      {/* 1. Subtle Architectural Blueprint Sketch Layers */}
+      <div className="absolute top-0 right-[-60px] w-[340px] sm:w-[440px] md:w-[500px] h-auto pointer-events-none select-none z-0 opacity-25 mix-blend-multiply">
         <img 
           src="/assets/why-choose-rt-bg.png" 
           alt="Architectural Framework Blueprint" 
@@ -78,8 +46,7 @@ const WhyChooseUs = () => {
         />
       </div>
 
-      {/* Bottom-Left Architectural Building Elevation / Wireframe Structure (thoda niche shifted & right side tilted) */}
-      <div className="absolute -bottom-10 sm:-bottom-16 -left-4 sm:-left-6 w-[280px] sm:w-[380px] md:w-[440px] h-auto pointer-events-none select-none z-0 opacity-40 rotate-6 origin-bottom-left">
+      <div className="absolute -bottom-10 -left-6 w-[340px] sm:w-[440px] md:w-[500px] h-auto pointer-events-none select-none z-0 opacity-25 mix-blend-multiply rotate-3 origin-bottom-left">
         <img 
           src="/assets/why-choose-lb-bg.png" 
           alt="Architectural Wireframe Blueprint" 
@@ -87,71 +54,105 @@ const WhyChooseUs = () => {
         />
       </div>
 
-      {/* 2. Elegant Golden Wave Curvature Accent Overlays */}
-      <div className="absolute top-0 left-0 w-80 h-80 bg-gradient-to-br from-[#b89565]/15 via-[#b89565]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-0 w-80 h-80 bg-gradient-to-tl from-[#b89565]/15 via-[#b89565]/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* Warm Ambient Golden Lighting */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-gradient-to-r from-[#b89565]/10 via-[#e5c58a]/15 to-[#b89565]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 text-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 text-center">
         
-        {/* Top Tag: —— WHY CHOOSE US —— */}
-        <div className="flex items-center justify-center gap-3.5 mb-4">
-          <div className="w-12 sm:w-16 h-[1.5px] bg-[#b89565]" />
-          <span className="text-xs sm:text-[13px] font-bold tracking-[0.3em] text-[#b89565] uppercase">
-            WHY CHOOSE US
-          </span>
-          <div className="w-12 sm:w-16 h-[1.5px] bg-[#b89565]" />
-        </div>
-
-        {/* Main Title: "Industry Excellence in Numbers" with elegant serif font */}
-        <h2 
-          className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#0f172a] mb-5"
-          style={{ fontFamily: "'Playfair Display', serif" }}
+        {/* Top Tag & Decorative Divider */}
+        <motion.div 
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="flex items-center justify-center gap-3 mb-4"
         >
-          Industry Excellence <span className="text-[#b89565] italic font-normal">in Numbers</span>
-        </h2>
+          <div className="w-12 h-[1px] bg-gradient-to-r from-transparent to-[#b89565]" />
+          <span className="text-[11px] font-bold tracking-[0.3em] text-[#a07c48] uppercase">
+            WHY ARROW CONSULTANCY
+          </span>
+          <div className="w-12 h-[1px] bg-gradient-to-l from-transparent to-[#b89565]" />
+        </motion.div>
 
-        {/* Gold Mini Divider */}
-        <div className="w-14 h-[2px] bg-[#b89565] mx-auto mb-7" />
+        {/* Main Title: Canva Style High-Contrast Serif */}
+        <motion.h2 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.1 }}
+          className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-zinc-950 mb-6"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+        >
+          Industry Excellence <span className="font-normal italic text-[#b89565]">in Numbers</span>
+        </motion.h2>
 
-        {/* Core Statement matching Reference */}
-        <p className="text-xs sm:text-sm md:text-[15px] text-zinc-600 max-w-4xl mx-auto leading-relaxed sm:leading-[1.9] font-normal mb-14 md:mb-16">
-          At Arrow Structural Consultants,{' '}
-          <strong className="font-bold text-[#b89565]">our mission</strong> is to deliver exceptional structural engineering solutions,{' '}
-          <strong className="font-bold text-[#b89565]">our vision</strong> is to become a globally recognized leader through innovation and excellence, and{' '}
-          <strong className="font-bold text-[#b89565]">our values</strong> are built on integrity, precision, adaptability, and a strong commitment to client satisfaction.
-        </p>
+        {/* Core Statement Card in White & Gold */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="max-w-4xl mx-auto p-6 sm:p-8 rounded-3xl bg-white/80 border border-[#b89565]/25 shadow-sm backdrop-blur-md mb-16 relative"
+        >
+          <div className="w-8 h-8 rounded-full bg-[#fdfaf3] border border-[#b89565]/40 text-[#b89565] flex items-center justify-center mx-auto -mt-10 mb-4 shadow-sm">
+            <Sparkles className="w-4 h-4 animate-spin-slow" />
+          </div>
 
-        {/* Subtle Horizontal Divider */}
-        <div className="w-16 h-[2px] bg-[#b89565]/80 mx-auto mb-12 sm:mb-16" />
+          <p className="text-sm sm:text-base md:text-[17px] text-zinc-700 leading-relaxed font-light">
+            At Arrow Structural Consultants, <strong className="font-semibold text-zinc-950 underline decoration-[#b89565] decoration-2 underline-offset-4">our mission</strong> is to deliver exceptional structural engineering solutions, <strong className="font-semibold text-zinc-950 underline decoration-[#b89565] decoration-2 underline-offset-4">our vision</strong> is to lead through sustainable innovation, and <strong className="font-semibold text-zinc-950 underline decoration-[#b89565] decoration-2 underline-offset-4">our values</strong> center around ethical transparency, structural longevity, and complete client confidence.
+          </p>
+        </motion.div>
 
-        {/* 3. Four Stats Columns with Vertical Dividers */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 items-center w-full max-w-6xl mx-auto">
-          {stats.map((stat, idx) => (
-            <div 
-              key={idx}
-              className={`flex items-center justify-center sm:justify-start lg:justify-center gap-3 sm:gap-4 px-3 md:px-5 lg:px-6 ${
-                idx !== stats.length - 1 ? 'lg:border-r border-zinc-300/70' : ''
-              }`}
-            >
-              {/* Icon */}
-              <div className="shrink-0 p-1">
-                {stat.icon}
-              </div>
+        {/* 4 Pinterest / Canva Style Interactive Golden Stat Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch w-full">
+          {stats.map((stat, idx) => {
+            const IconComponent = stat.icon;
+            return (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="group relative p-7 rounded-3xl bg-white border border-[#b89565]/25 hover:border-[#b89565] shadow-xs hover:shadow-[0_15px_35px_rgba(184,149,101,0.18)] transition-all duration-300 flex flex-col justify-between text-left overflow-hidden cursor-default"
+              >
+                {/* Gold Top Indicator Accent */}
+                <div className="absolute top-0 inset-x-6 h-[2px] bg-gradient-to-r from-transparent via-[#b89565] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-              {/* Text Info */}
-              <div className="text-left min-w-0">
-                <div 
-                  className="text-2xl sm:text-3xl md:text-[34px] font-bold text-[#b89565] tracking-tight leading-none mb-1.5 whitespace-nowrap"
-                  style={{ fontFamily: "'Montserrat', sans-serif" }}
-                >
-                  {stat.value}
+                {/* Top Icon Badge */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#faf6ee] to-[#f2e6d6] border border-[#b89565]/30 text-[#b89565] flex items-center justify-center group-hover:bg-[#b89565] group-hover:text-white transition-all duration-300 shadow-xs">
+                    <IconComponent className="w-6 h-6 stroke-[1.7]" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold text-[#a07c48] opacity-70">
+                    0{idx + 1}
+                  </span>
                 </div>
-                <div className="text-xs sm:text-[13px] font-semibold text-zinc-800 tracking-wide leading-tight whitespace-nowrap">
-                  {stat.label}
+
+                {/* Value & Label */}
+                <div>
+                  <div 
+                    className="text-4xl sm:text-5xl font-extrabold text-zinc-950 tracking-tight leading-none mb-2 group-hover:text-[#b89565] transition-colors"
+                    style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div className="text-sm font-bold text-zinc-900 tracking-wide uppercase mt-1 mb-1" style={{ fontFamily: "'Montserrat', sans-serif" }}>
+                    {stat.label}
+                  </div>
+                  <div className="text-xs text-zinc-500 font-light leading-snug">
+                    {stat.sub}
+                  </div>
                 </div>
-              </div>
-            </div>
-          ))}
+
+                {/* Bottom Gold Progress Glow Line */}
+                <div className="w-full h-1 bg-[#b89565]/10 rounded-full mt-6 overflow-hidden">
+                  <div className="h-full bg-gradient-to-r from-[#b89565] to-[#e5c58a] w-0 group-hover:w-full transition-all duration-700 ease-out" />
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
       </div>

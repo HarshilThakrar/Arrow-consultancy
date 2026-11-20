@@ -12,7 +12,8 @@ import {
   Wrench, 
   Compass, 
   ShieldCheck, 
-  Cpu 
+  Cpu,
+  Sparkles
 } from 'lucide-react';
 
 const clientsRow1 = [
@@ -37,10 +38,10 @@ const clientsRow2 = [
 
 const Clients = () => {
   return (
-    <section className="relative w-full bg-[#fbf9f6] border-t border-zinc-200/80 py-16 md:py-20 overflow-hidden">
+    <section className="relative w-full bg-[#fdfbf7] border-t border-[#b89565]/20 py-20 md:py-24 overflow-hidden selection:bg-[#b89565] selection:text-white">
       {/* Background Architectural Blueprint Grid Lines */}
       <div 
-        className="absolute inset-0 pointer-events-none opacity-40"
+        className="absolute inset-0 pointer-events-none opacity-20"
         style={{
           backgroundImage: `
             linear-gradient(to right, rgba(184, 149, 101, 0.12) 1px, transparent 1px),
@@ -51,24 +52,27 @@ const Clients = () => {
       />
 
       {/* Header */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center mb-10 md:mb-12">
-        <span className="text-[11px] font-bold tracking-[0.25em] text-[#b89565] uppercase block mb-2">
-          TRUSTED COLLABORATIONS
-        </span>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 text-center mb-12">
+        <div className="inline-flex items-center gap-2 mb-3">
+          <span className="w-8 h-[2px] bg-[#b89565]" />
+          <span className="text-[11px] font-bold tracking-[0.25em] text-[#a07c48] uppercase">
+            TRUSTED PARTNERSHIPS
+          </span>
+          <span className="w-8 h-[2px] bg-[#b89565]" />
+        </div>
         <h3 
-          className="text-2xl sm:text-3xl font-bold text-zinc-900 tracking-tight"
-          style={{ fontFamily: "'Montserrat', sans-serif" }}
+          className="text-2xl sm:text-3xl md:text-4xl font-light text-zinc-950 tracking-tight"
+          style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
         >
-          Our Esteemed Clients & Partners
+          Collaborating With Leading <span className="italic font-normal text-[#b89565]">Architects & Developers</span>
         </h3>
-        <div className="w-12 h-[2px] bg-[#b89565] mx-auto mt-3" />
       </div>
 
       {/* Tickers Container with Gradient Vignettes on sides */}
       <div className="relative z-10 w-full overflow-hidden flex flex-col gap-5">
-        {/* Left and Right blur fade masks */}
-        <div className="absolute top-0 bottom-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-[#fbf9f6] to-transparent z-20 pointer-events-none" />
-        <div className="absolute top-0 bottom-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-[#fbf9f6] to-transparent z-20 pointer-events-none" />
+        {/* Left and Right blur fade masks matching gold/white background */}
+        <div className="absolute top-0 bottom-0 left-0 w-24 sm:w-40 bg-gradient-to-r from-[#fdfbf7] via-[#fdfbf7]/90 to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 right-0 w-24 sm:w-40 bg-gradient-to-l from-[#fdfbf7] via-[#fdfbf7]/90 to-transparent z-20 pointer-events-none" />
 
         {/* Row 1: Left to Right Marquee */}
         <div className="flex w-max animate-marquee-left hover:[animation-play-state:paused]">
@@ -77,9 +81,9 @@ const Clients = () => {
             return (
               <div 
                 key={`r1-${idx}`}
-                className="group mx-3 px-6 py-4 rounded-xl bg-white/90 border border-zinc-200/80 hover:border-[#b89565]/50 flex items-center gap-3.5 shadow-2xs hover:shadow-md transition-all duration-300 cursor-pointer"
+                className="group mx-3 px-6 py-4 rounded-2xl bg-white border border-[#b89565]/25 hover:border-[#b89565] flex items-center gap-3.5 shadow-xs hover:shadow-[0_8px_20px_rgba(184,149,101,0.15)] transition-all duration-300 cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-lg bg-[#fbf9f6] border border-zinc-200 text-[#b89565] flex items-center justify-center shrink-0 group-hover:bg-[#b89565] group-hover:text-white transition-colors duration-300">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#faf6ee] to-[#f4ebe0] border border-[#b89565]/30 text-[#b89565] flex items-center justify-center shrink-0 group-hover:bg-[#b89565] group-hover:text-white transition-all duration-300 shadow-xs">
                   <Icon className="w-4 h-4 stroke-[1.8]" />
                 </div>
                 <div className="whitespace-nowrap">
@@ -105,9 +109,9 @@ const Clients = () => {
             return (
               <div 
                 key={`r2-${idx}`}
-                className="group mx-3 px-6 py-4 rounded-xl bg-white/90 border border-zinc-200/80 hover:border-[#b89565]/50 flex items-center gap-3.5 shadow-2xs hover:shadow-md transition-all duration-300 cursor-pointer"
+                className="group mx-3 px-6 py-4 rounded-2xl bg-white border border-[#b89565]/25 hover:border-[#b89565] flex items-center gap-3.5 shadow-xs hover:shadow-[0_8px_20px_rgba(184,149,101,0.15)] transition-all duration-300 cursor-pointer"
               >
-                <div className="w-9 h-9 rounded-lg bg-[#fbf9f6] border border-zinc-200 text-[#b89565] flex items-center justify-center shrink-0 group-hover:bg-[#b89565] group-hover:text-white transition-colors duration-300">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#faf6ee] to-[#f4ebe0] border border-[#b89565]/30 text-[#b89565] flex items-center justify-center shrink-0 group-hover:bg-[#b89565] group-hover:text-white transition-all duration-300 shadow-xs">
                   <Icon className="w-4 h-4 stroke-[1.8]" />
                 </div>
                 <div className="whitespace-nowrap">

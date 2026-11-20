@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Star, Sparkles, Quote, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface TestimonialItem {
   id: number;
@@ -10,6 +11,7 @@ interface TestimonialItem {
   role: string;
   company: string;
   avatar: string;
+  project: string;
 }
 
 const testimonialsData: TestimonialItem[] = [
@@ -20,6 +22,7 @@ const testimonialsData: TestimonialItem[] = [
     name: "Lester Walsh",
     role: "Project Director",
     company: "Shilp Infrastructure",
+    project: "Shilp Twin Towers, GIFT City",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
   },
   {
@@ -29,6 +32,7 @@ const testimonialsData: TestimonialItem[] = [
     name: "Elena Rostova",
     role: "Principal Architect",
     company: "Studio Linear Arch",
+    project: "Civic Cultural Hub",
     avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200&auto=format&fit=crop",
   },
   {
@@ -38,6 +42,7 @@ const testimonialsData: TestimonialItem[] = [
     name: "Marcus Vance",
     role: "VP of Engineering",
     company: "Zenith Industrial Parks",
+    project: "Sanand Mega Logistics Park",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
   },
   {
@@ -47,6 +52,7 @@ const testimonialsData: TestimonialItem[] = [
     name: "Sarah Jenkins",
     role: "Chief Development Officer",
     company: "Pacifica Developments",
+    project: "Imperial High-Rise",
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop",
   },
 ];
@@ -56,122 +62,136 @@ const Testimonials = () => {
   const activeReview = testimonialsData[activeIndex];
 
   return (
-    <section id="testimonials" className="relative w-full bg-white text-zinc-900 py-24 md:py-32 overflow-hidden border-t border-zinc-200/80 font-sans">
-      
-      {/* Background Architectural Blueprint Grid */}
-      <div 
-        className="absolute inset-0 pointer-events-none opacity-25"
+    <section
+      id="testimonials"
+      className="relative w-full bg-[#fdfbf7] text-zinc-900 py-24 md:py-32 overflow-hidden border-t border-[#b89565]/20 font-sans selection:bg-[#b89565] selection:text-white"
+    >
+      {/* Background Architectural Blueprint Fine Grid */}
+      <div
+        className="absolute inset-0 pointer-events-none opacity-20"
         style={{
           backgroundImage: `
-            linear-gradient(to right, rgba(184, 149, 101, 0.12) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(184, 149, 101, 0.12) 1px, transparent 1px)
+            linear-gradient(to right, rgba(184, 149, 101, 0.15) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(184, 149, 101, 0.15) 1px, transparent 1px)
           `,
-          backgroundSize: '48px 48px',
+          backgroundSize: '54px 54px',
         }}
       />
 
-      <div className="relative z-10 max-w-4xl mx-auto px-6 sm:px-10 flex flex-col items-center">
-        
-        {/* 1. Header: "Our customers speak" */}
-        <div className="w-full text-center mb-14 md:mb-16">
-          <h2 
-            className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-zinc-950 inline-block"
-            style={{ fontFamily: "'Montserrat', sans-serif" }}
+      {/* Golden Ambient Blur Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-gradient-to-r from-[#b89565]/10 via-[#e5c58a]/15 to-transparent rounded-full blur-3xl pointer-events-none" />
+
+      <div className="relative z-10 max-w-5xl mx-auto px-6 sm:px-10 flex flex-col items-center">
+
+        {/* Header: Pinterest Style Minimal Serif */}
+        <div className="w-full text-center mb-16">
+          <div className="inline-flex items-center gap-2 mb-3">
+            <Sparkles className="w-4 h-4 text-[#b89565]" />
+            <span className="text-[11px] font-bold tracking-[0.25em] text-[#a07c48] uppercase">
+              CLIENT TESTIMONIALS
+            </span>
+            <Sparkles className="w-4 h-4 text-[#b89565]" />
+          </div>
+          <h2
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-zinc-950"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
           >
-            Our customers speak
+            Endorsed by Industry <span className="font-normal italic text-[#b89565]">Leaders</span>
           </h2>
         </div>
 
-        {/* 2. Review Content Block matching exact reference: Quote Icon on Left, Text on Right */}
-        <div className="w-full max-w-2xl flex items-start gap-5 sm:gap-7 mb-12 sm:mb-14 min-h-[160px] sm:min-h-[130px]">
-          {/* Double Quotes Icon in Brand Golden Color */}
-          <div className="text-[#b89565] shrink-0 pt-1">
-            <svg width="34" height="26" viewBox="0 0 34 26" fill="currentColor">
-              <path d="M14.5 13.8C14.5 19.8 11.2 24.5 5 26L3.5 23.2C6.8 21.6 8.5 18.8 8.8 15.6H0V0H14.5V13.8ZM34 13.8C34 19.8 30.7 24.5 24.5 26L23 23.2C26.3 21.6 28 18.8 28.3 15.6H19.5V0H34V13.8Z" />
-            </svg>
+        {/* Canva Luxury Card: Gold Border + Glassmorphic Shadow */}
+        <div className="w-full relative rounded-3xl bg-white border border-[#b89565]/35 p-8 sm:p-12 md:p-16 shadow-[0_20px_60px_rgba(184,149,101,0.12)] mb-12">
+
+          {/* Top Decorative Elements */}
+          <div className="flex items-center justify-between mb-8 pb-6 border-b border-[#b89565]/15">
+            <div className="flex items-center gap-1.5 text-[#b89565]">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 fill-current" />
+              ))}
+              <span className="text-xs font-mono font-bold text-zinc-700 ml-2">5.0 / 5.0 Rating</span>
+            </div>
+
+            <span className="text-xs font-mono font-semibold px-3 py-1 rounded-full bg-[#faf6ee] border border-[#b89565]/30 text-[#a07c48]">
+              {activeReview.project}
+            </span>
           </div>
 
-          {/* Testimonial Quote Text with smooth animated transitions */}
-          <div className="flex-1 overflow-hidden">
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={activeReview.id}
-                initial={{ opacity: 0, y: 12, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -12, filter: "blur(4px)" }}
-                transition={{ 
-                  duration: 0.5, 
-                  ease: [0.22, 1, 0.36, 1] 
-                }}
-                className="text-base sm:text-lg text-zinc-800 leading-relaxed sm:leading-[1.75] font-normal text-left"
-              >
-                {activeReview.quote}
-              </motion.p>
-            </AnimatePresence>
+          {/* Testimonial Quote with Animation */}
+          <div className="relative mb-10 min-h-[140px] sm:min-h-[110px] flex items-start gap-5">
+            <Quote className="w-10 h-10 text-[#b89565]/40 shrink-0 rotate-180 hidden sm:block" />
+            <div className="flex-1">
+              <AnimatePresence mode="wait">
+                <motion.p
+                  key={activeReview.id}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.4 }}
+                  className="text-lg sm:text-xl md:text-2xl text-zinc-800 font-light leading-relaxed italic"
+                  style={{ fontFamily: "'Playfair Display', serif" }}
+                >
+                  &ldquo;{activeReview.quote}&rdquo;
+                </motion.p>
+              </AnimatePresence>
+            </div>
           </div>
+
+          {/* Author Details with Gold Badge */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-[#b89565]/15">
+            <div className="flex items-center gap-4">
+              <img
+                src={activeReview.avatar}
+                alt={activeReview.name}
+                className="w-14 h-14 rounded-full object-cover border-2 border-[#b89565] shadow-sm"
+              />
+              <div>
+                <h4
+                  className="text-base sm:text-lg font-bold text-zinc-950 uppercase tracking-wide"
+                  style={{ fontFamily: "'Montserrat', sans-serif" }}
+                >
+                  {activeReview.name}
+                </h4>
+                <p className="text-xs text-[#a07c48] font-semibold mt-0.5">
+                  {activeReview.role} &bull; <span className="text-zinc-600 font-normal">{activeReview.company}</span>
+                </p>
+              </div>
+            </div>
+
+            {/* Slider Switchers */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setActiveIndex((prev) => (prev > 0 ? prev - 1 : testimonialsData.length - 1))}
+                aria-label="Previous testimonial"
+                className="w-10 h-10 rounded-full border border-[#b89565]/40 bg-white hover:bg-[#b89565] hover:text-white text-zinc-800 flex items-center justify-center transition-all duration-300 shadow-xs cursor-pointer hover:scale-105"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => setActiveIndex((prev) => (prev + 1 < testimonialsData.length ? prev + 1 : 0))}
+                aria-label="Next testimonial"
+                className="w-10 h-10 rounded-full border border-[#b89565]/40 bg-white hover:bg-[#b89565] hover:text-white text-zinc-800 flex items-center justify-center transition-all duration-300 shadow-xs cursor-pointer hover:scale-105"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
         </div>
 
-        {/* 3. Interactive Avatar Switcher Dock (Aligned right below the text block) */}
-        <div className="w-full max-w-2xl pl-12 sm:pl-16 flex items-center gap-3.5 sm:gap-4 flex-wrap">
+        {/* Interactive Avatar Navigation Dots */}
+        <div className="flex items-center gap-3">
           {testimonialsData.map((person, idx) => {
             const isActive = activeIndex === idx;
-
-            if (isActive) {
-              return (
-                /* Active Pill Capsule (Golden BG Pill with Round Photo + Name + Role) */
-                <motion.div
-                  layoutId="activePill"
-                  key={person.id}
-                  transition={{
-                    type: "spring",
-                    stiffness: 350,
-                    damping: 30,
-                    mass: 0.8
-                  }}
-                  className="flex items-center gap-3.5 bg-[#b89565] text-zinc-950 pl-1.5 pr-6 py-1.5 rounded-full shadow-lg shadow-[#b89565]/20 cursor-pointer"
-                >
-                  <img
-                    src={person.avatar}
-                    alt={person.name}
-                    className="w-10 h-10 rounded-full object-cover border-2 border-white/60"
-                  />
-                  <motion.div 
-                    initial={{ opacity: 0, x: -6 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: 0.1 }}
-                    className="text-left leading-tight"
-                  >
-                    <h4 
-                      className="text-xs sm:text-[13px] font-bold tracking-tight text-zinc-950"
-                      style={{ fontFamily: "'Montserrat', sans-serif" }}
-                    >
-                      {person.name}
-                    </h4>
-                    <p className="text-[10px] text-zinc-900/80 font-semibold mt-0.5">
-                      {person.role}
-                    </p>
-                  </motion.div>
-                </motion.div>
-              );
-            }
-
             return (
-              /* Inactive Circular Avatars (Clickable to switch review) */
-              <motion.button
+              <button
                 key={person.id}
                 onClick={() => setActiveIndex(idx)}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 400, damping: 25 }}
-                aria-label={`View review from ${person.name}`}
-                className="w-10 h-10 rounded-full overflow-hidden opacity-60 hover:opacity-100 ring-2 ring-transparent hover:ring-[#b89565] cursor-pointer shrink-0"
-              >
-                <img
-                  src={person.avatar}
-                  alt={person.name}
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-300"
-                />
-              </motion.button>
+                className={`transition-all duration-300 cursor-pointer rounded-full ${isActive
+                    ? "w-8 h-2.5 bg-gradient-to-r from-[#b89565] to-[#a07c48]"
+                    : "w-2.5 h-2.5 bg-[#b89565]/30 hover:bg-[#b89565]/60"
+                  }`}
+              />
             );
           })}
         </div>
