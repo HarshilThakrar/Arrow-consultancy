@@ -184,7 +184,7 @@ const servicesList: ServiceItem[] = [
     ],
     software: "PLAXIS, GEO5, STAAD.Pro",
     codeStandard: "IS 14458, IS 456, IRC 78",
-    image: "/assets/hero/slider_4.jpg",
+    image: "/assets/our_expertise/right_image.png",
     icon: ShieldCheck,
   },
   {
@@ -202,15 +202,12 @@ const servicesList: ServiceItem[] = [
     ],
     software: "Cross-platform ETABS/STAAD verification",
     codeStandard: "All BIS Codes & International Standards",
-    image: "/assets/our_expertise/RCC.png",
+    image: "/assets/CTA-section.jpg",
     icon: FileCheck2,
   },
 ];
 
 export default function ServicesPage() {
-  // hoveredService: null means no service is currently hovered (all 9 show normal cards in 3x3)
-  // When a service is hovered (e.g. index 0), in its row the hovered service opens on the right side
-  // pushing the remaining 2 services vertically down into a left-side column.
   const [hoveredService, setHoveredService] = useState<number | null>(0);
 
   // Split the 9 services into 3 rows of 3 services each
@@ -276,23 +273,19 @@ export default function ServicesPage() {
               9 Core Structural <span className="font-normal italic text-[#b89565]">Disciplines</span>
             </h2>
             <p className="text-zinc-600 text-xs sm:text-sm mt-3 font-mono">
-              Hover over any service below to open its comprehensive technical specifications and deliverables.
+              Hover over any service below to open its visual architectural model and technical specifications.
             </p>
           </div>
 
           {/* 3 Rows of 3 Services Each */}
           <div className="space-y-12">
             {rows.map(({ rowIdx, services, startIdx }) => {
-              // Check if any service in this row is currently hovered
               const hoveredInThisRow = hoveredService !== null && hoveredService >= startIdx && hoveredService < startIdx + 3;
               const activeItemIndex = hoveredInThisRow ? hoveredService! : null;
               const activeServiceData = activeItemIndex !== null ? servicesList[activeItemIndex] : null;
 
               return (
                 <div key={rowIdx} className="w-full">
-                  {/* If one service in this row is hovered, layout transforms:
-                      Left side: The other 2 services stacked vertically.
-                      Right side: The hovered service opens up with full details! */}
                   {hoveredInThisRow && activeServiceData ? (
                     <motion.div 
                       layout
@@ -306,6 +299,7 @@ export default function ServicesPage() {
                         {services.map((service, sOffset) => {
                           const globalIdx = startIdx + sOffset;
                           const isCurrentActive = globalIdx === activeItemIndex;
+                          const IconComp = service.icon;
 
                           return (
                             <motion.div
@@ -319,9 +313,19 @@ export default function ServicesPage() {
                               }`}
                             >
                               <div className="flex items-center gap-4">
-                                <span className={`font-mono text-sm font-bold ${isCurrentActive ? "text-white/80" : "text-[#b89565]"}`}>
-                                  {service.number}
-                                </span>
+                                <div className={`w-10 h-10 rounded-xl flex items-center justify-center p-2 shrink-0 ${
+                                  isCurrentActive ? "bg-white/20 text-white" : "bg-[#faf6ee] text-[#b89565] border border-[#b89565]/30"
+                                }`}>
+                                  {service.imageIcon ? (
+                                    <img 
+                                      src={service.imageIcon} 
+                                      alt={service.title} 
+                                      className="w-full h-full object-contain filter group-hover:brightness-0 group-hover:invert" 
+                                    />
+                                  ) : (
+                                    <IconComp className="w-5 h-5 stroke-[1.8]" />
+                                  )}
+                                </div>
                                 <div>
                                   <h3 
                                     className={`text-sm sm:text-base font-bold uppercase tracking-wide ${isCurrentActive ? "text-white" : "text-zinc-900"}`}
@@ -345,7 +349,7 @@ export default function ServicesPage() {
                         })}
                       </div>
 
-                      {/* Right: The Hovered Service opened with rich details, technical deliverables, and software */}
+                      {/* Right: The Hovered Service opened with image, rich details, deliverables, and software */}
                       <motion.div
                         layout
                         initial={{ opacity: 0, x: 20 }}
@@ -373,16 +377,24 @@ export default function ServicesPage() {
                             </span>
                           </div>
 
-                          {/* Title & Tagline */}
-                          <h2
-                            className="text-2xl sm:text-3xl md:text-4xl font-bold text-zinc-950 mb-2 uppercase"
-                            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                          >
-                            {activeServiceData.title}
-                          </h2>
-                          <p className="text-xs sm:text-sm font-semibold text-[#a07c48] tracking-wider uppercase mb-4">
-                            {activeServiceData.tagline}
-                          </p>
+                          {/* Image Accordion Banner According to Service */}
+                          <div className="relative w-full h-56 sm:h-64 rounded-2xl overflow-hidden mb-6 border border-[#b89565]/25 shadow-md">
+                            <img
+                              src={activeServiceData.image}
+                              alt={activeServiceData.title}
+                              className="w-full h-full object-cover filter contrast-105"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent flex items-end p-5">
+                              <div>
+                                <span className="text-[10px] font-mono tracking-widest text-[#e5c58a] uppercase block">
+                                  {activeServiceData.tagline}
+                                </span>
+                                <h3 className="text-lg sm:text-xl font-bold text-white tracking-wide uppercase">
+                                  {activeServiceData.title}
+                                </h3>
+                              </div>
+                            </div>
+                          </div>
 
                           {/* Summary */}
                           <p className="text-zinc-700 text-sm sm:text-base leading-relaxed mb-6 font-light">
@@ -426,7 +438,7 @@ export default function ServicesPage() {
                       </motion.div>
                     </motion.div>
                   ) : (
-                    /* Default state for this row: 3 services in one line */
+                    /* Default state for this row: 3 services in one line with Image Cards */
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       {services.map((service, sOffset) => {
                         const globalIdx = startIdx + sOffset;
@@ -438,45 +450,57 @@ export default function ServicesPage() {
                             onMouseEnter={() => setHoveredService(globalIdx)}
                             whileHover={{ y: -6, scale: 1.02 }}
                             transition={{ duration: 0.3 }}
-                            className="group p-8 rounded-3xl bg-white border border-[#b89565]/25 hover:border-[#b89565] shadow-xs hover:shadow-[0_15px_35px_rgba(184,149,101,0.18)] transition-all duration-300 cursor-pointer flex flex-col justify-between"
+                            className="group rounded-3xl bg-white border border-[#b89565]/25 hover:border-[#b89565] shadow-xs hover:shadow-[0_15px_35px_rgba(184,149,101,0.18)] transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden"
                           >
-                            <div>
-                              <div className="flex items-center justify-between mb-6">
-                                <span className="font-mono text-xs font-bold text-[#b89565] px-3 py-1 rounded-full bg-[#faf7f2] border border-[#b89565]/30">
+                            {/* Service Image Header */}
+                            <div className="relative w-full h-44 overflow-hidden bg-zinc-900">
+                              <img
+                                src={service.image}
+                                alt={service.title}
+                                className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 filter contrast-105"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+
+                              <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+                                <span className="font-mono text-xs font-bold text-zinc-900 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md border border-[#b89565]/40 shadow-xs">
                                   {service.number}
                                 </span>
-                                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-[#faf6ee] to-[#f4ebe0] border border-[#b89565]/30 text-[#b89565] flex items-center justify-center p-2 group-hover:bg-[#b89565] group-hover:text-white transition-colors duration-300">
+                                <div className="w-9 h-9 rounded-xl bg-white/90 backdrop-blur-md border border-[#b89565]/40 text-[#a07c48] flex items-center justify-center p-1.5 shadow-xs">
                                   {service.imageIcon ? (
                                     <img 
                                       src={service.imageIcon} 
                                       alt={service.title} 
-                                      className="w-full h-full object-contain filter group-hover:brightness-0 group-hover:invert transition-all" 
+                                      className="w-full h-full object-contain" 
                                     />
                                   ) : (
-                                    <IconComponent className="w-5 h-5 stroke-[1.8]" />
+                                    <IconComponent className="w-4 h-4 stroke-[1.8]" />
                                   )}
                                 </div>
                               </div>
 
-                              <h3 
-                                className="text-lg font-bold text-zinc-950 uppercase tracking-wide group-hover:text-[#b89565] transition-colors duration-300 mb-2"
-                                style={{ fontFamily: "'Montserrat', sans-serif" }}
-                              >
-                                {service.title}
-                              </h3>
-
-                              <span className="text-[10px] font-mono tracking-wider uppercase text-[#a07c48] font-semibold block mb-3">
-                                {service.badge}
-                              </span>
-
-                              <p className="text-xs text-zinc-600 font-light leading-relaxed line-clamp-3">
-                                {service.summary}
-                              </p>
+                              <div className="absolute bottom-3 left-3 right-3">
+                                <span className="text-[10px] font-mono tracking-wider uppercase text-[#e5c58a] font-semibold block">
+                                  {service.badge}
+                                </span>
+                                <h3 
+                                  className="text-base font-bold text-white uppercase tracking-wide drop-shadow-sm group-hover:text-[#e5c58a] transition-colors"
+                                  style={{ fontFamily: "'Montserrat', sans-serif" }}
+                                >
+                                  {service.title}
+                                </h3>
+                              </div>
                             </div>
 
-                            <div className="mt-6 pt-4 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-[#b89565]">
-                              <span>Hover For Full Details</span>
-                              <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                            {/* Service Content Body */}
+                            <div className="p-6 flex-1 flex flex-col justify-between">
+                              <p className="text-xs text-zinc-600 font-light leading-relaxed line-clamp-3 mb-4">
+                                {service.summary}
+                              </p>
+
+                              <div className="pt-3 border-t border-zinc-100 flex items-center justify-between text-xs font-bold text-[#b89565]">
+                                <span>Hover For Full Details</span>
+                                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                              </div>
                             </div>
                           </motion.div>
                         );
