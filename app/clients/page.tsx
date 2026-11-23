@@ -21,7 +21,8 @@ import {
   ArrowUpRight,
   TrendingUp,
   Handshake,
-  MapPin
+  MapPin,
+  Sparkles
 } from "lucide-react";
 
 // Arrow's Authentic Client Roster
@@ -62,35 +63,45 @@ const clientCategories = [
 
 export default function ClientsPage() {
   return (
-    <div className="relative min-h-screen bg-[#f5f7fb] font-sans text-slate-900 selection:bg-[#b89565] selection:text-white">
+    <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white overflow-hidden">
       <Navbar />
 
       {/* Top spacing for fixed navbar */}
       <div className="h-[90px] sm:h-[105px] w-full" />
 
-      {/* Main Split Layout matching user's reference layout */}
+      {/* Main Split Layout in Golden and White Theme */}
       <main className="w-full min-h-[calc(100vh-90px)]">
         <div className="grid grid-cols-1 xl:grid-cols-12 min-h-screen">
           
-          {/* LEFT COLUMN: Sticky Hero & Stats Card (matching layout from reference) */}
-          <div className="xl:col-span-4 text-white xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] flex flex-col justify-between py-10 sm:py-14 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#1b6cb8] via-[#0d5096] to-[#083e75] relative overflow-hidden shadow-2xl z-10">
+          {/* LEFT COLUMN: Sticky Luxury Golden Panel */}
+          <div className="xl:col-span-4 text-white xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] flex flex-col justify-between py-10 sm:py-14 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#2a2012] via-[#1c150c] to-[#120d07] relative overflow-hidden shadow-2xl border-r border-[#b89565]/30 z-10">
             
-            {/* Subtle background glow and grid */}
-            <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
-            <div className="absolute -top-24 -left-24 w-80 h-80 bg-[#38bdf8]/20 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-[#0284c7]/30 rounded-full blur-3xl pointer-events-none" />
+            {/* Subtle background golden glow and architectural blueprint grid */}
+            <div 
+              className="absolute inset-0 opacity-15 pointer-events-none"
+              style={{
+                backgroundImage: `
+                  linear-gradient(to right, rgba(229, 197, 138, 0.25) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(229, 197, 138, 0.25) 1px, transparent 1px)
+                `,
+                backgroundSize: '36px 36px',
+              }}
+            />
+            <div className="absolute -top-24 -left-24 w-80 h-80 bg-[#e5c58a]/15 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-[#b89565]/20 rounded-full blur-3xl pointer-events-none" />
 
             {/* Left Content Header */}
             <div className="relative z-10 w-full flex flex-col items-center text-center my-auto">
               
-              <motion.p
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-white/90 uppercase mb-5"
+                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#b89565]/40 bg-[#b89565]/15 text-[#e5c58a] text-xs font-bold tracking-[0.25em] uppercase mb-5"
               >
+                <Sparkles className="w-3 h-3 text-[#e5c58a]" />
                 PARTNERS & CLIENTS
-              </motion.p>
+              </motion.div>
 
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -98,10 +109,13 @@ export default function ClientsPage() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="flex items-start justify-center mb-3"
               >
-                <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white">
+                <h1 
+                  className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white"
+                  style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                >
                   200
                 </h1>
-                <span className="text-3xl sm:text-4xl font-extrabold text-[#7dd3fc] ml-1">
+                <span className="text-3xl sm:text-4xl font-extrabold text-[#e5c58a] ml-1">
                   +
                 </span>
               </motion.div>
@@ -111,38 +125,39 @@ export default function ClientsPage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="text-xl sm:text-2xl font-bold text-white mb-6"
+                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
-                Enterprises trust Arrow
+                Enterprises trust <span className="bg-gradient-to-r from-[#ffe4ab] via-[#e5c58a] to-[#b89565] bg-clip-text text-transparent italic">Arrow</span>
               </motion.h2>
 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-md mx-auto font-normal mb-8"
+                className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-md mx-auto font-normal mb-8"
               >
-                Arrow Structural Consultants collaborates with India&apos;s most trusted and forward-thinking enterprises to deliver engineered certainty and long-term structural performance across some of the country&apos;s most iconic and demanding projects. By combining advanced finite-element structural technology, expert engineering solutions, and rigorous quality standards, we ensure durability, efficiency, and excellence at every stage of construction.
+                Arrow Structural Consultants collaborates with India&apos;s most trusted and forward-thinking enterprises to deliver engineered certainty and long-term structural performance across iconic commercial, high-rise, and industrial landmarks. By combining advanced finite-element structural technology, expert engineering solutions, and rigorous quality standards, we ensure durability, efficiency, and excellence at every stage of construction.
               </motion.p>
 
-              {/* Stats Card Floating in bottom of left panel (exact match to screenshot) */}
+              {/* Stats Card Floating in bottom of left panel (Golden & White Glassmorphism) */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
-                className="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.25)] border border-white/60 text-[#0d5096]"
+                className="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-[#b89565]/40 text-zinc-900"
               >
-                <div className="grid grid-cols-3 divide-x divide-slate-200 text-center">
+                <div className="grid grid-cols-3 divide-x divide-zinc-200 text-center">
                   
                   {/* Experience */}
                   <div className="px-2">
-                    <p className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-slate-500 mb-1">
+                    <p className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-[#a07c48] mb-1">
                       EXPERIENCE
                     </p>
                     <div className="flex items-center justify-center">
-                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-[#0d5096]">
+                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900 font-mono">
                         15
                       </span>
-                      <span className="text-lg font-bold text-[#0d5096] -mt-2">
+                      <span className="text-lg font-bold text-[#b89565] -mt-2">
                         +
                       </span>
                     </div>
@@ -150,14 +165,14 @@ export default function ClientsPage() {
 
                   {/* Projects */}
                   <div className="px-2">
-                    <p className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-slate-500 mb-1">
+                    <p className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-[#a07c48] mb-1">
                       PROJECTS
                     </p>
                     <div className="flex items-center justify-center">
-                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-[#0d5096]">
+                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900 font-mono">
                         600
                       </span>
-                      <span className="text-lg font-bold text-[#0d5096] -mt-2">
+                      <span className="text-lg font-bold text-[#b89565] -mt-2">
                         +
                       </span>
                     </div>
@@ -165,14 +180,14 @@ export default function ClientsPage() {
 
                   {/* Cities */}
                   <div className="px-2">
-                    <p className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-slate-500 mb-1">
+                    <p className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-[#a07c48] mb-1">
                       CITIES
                     </p>
                     <div className="flex items-center justify-center">
-                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-[#0d5096]">
+                      <span className="text-3xl sm:text-4xl font-black tracking-tight text-zinc-900 font-mono">
                         84
                       </span>
-                      <span className="text-lg font-bold text-[#0d5096] -mt-2">
+                      <span className="text-lg font-bold text-[#b89565] -mt-2">
                         +
                       </span>
                     </div>
@@ -185,65 +200,93 @@ export default function ClientsPage() {
 
           </div>
 
-          {/* RIGHT COLUMN: Clean Grid Cards with Arrow's Authentic Clients */}
-          <div className="xl:col-span-8 bg-[#f5f7fb] px-6 sm:px-10 lg:px-12 py-10 lg:py-14">
-            <div className="max-w-[1200px] mx-auto space-y-12">
+          {/* RIGHT COLUMN: Clean White Cards with Golden Accents & Arrow's Authentic Clients */}
+          <div className="xl:col-span-8 bg-[#faf8f5] px-6 sm:px-10 lg:px-12 py-10 lg:py-14">
+            
+            {/* Subtle background blueprint grid */}
+            <div 
+              className="absolute inset-0 pointer-events-none opacity-20"
+              style={{
+                backgroundImage: `
+                  linear-gradient(to right, rgba(184, 149, 101, 0.12) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(184, 149, 101, 0.12) 1px, transparent 1px)
+                `,
+                backgroundSize: '48px 48px',
+              }}
+            />
+
+            <div className="max-w-[1200px] mx-auto space-y-12 relative z-10">
               
               {clientCategories.map((cat, cIdx) => (
                 <div key={cIdx} className="space-y-6">
                   
                   {/* Category Header */}
-                  <div className="border-b border-slate-200 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                  <div className="border-b border-[#b89565]/25 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                     <div>
-                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="w-6 h-[1.5px] bg-[#b89565]" />
+                        <span className="text-[10px] font-bold tracking-widest text-[#a07c48] uppercase">
+                          SECTOR 0{cIdx + 1}
+                        </span>
+                      </div>
+                      <h3 
+                        className="text-xl sm:text-2xl font-bold text-zinc-950 tracking-tight"
+                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+                      >
                         {cat.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                      <p className="text-xs sm:text-sm text-zinc-600 mt-1">
                         {cat.desc}
                       </p>
                     </div>
-                    <span className="text-[11px] font-mono font-bold tracking-widest text-[#0d5096] uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100 shrink-0">
+                    <span className="text-[11px] font-mono font-bold tracking-widest text-[#a07c48] uppercase bg-[#faf6ee] px-3.5 py-1.5 rounded-full border border-[#b89565]/35 shrink-0 shadow-2xs">
                       {cat.clients.length} PARTNERS
                     </span>
                   </div>
 
-                  {/* 4-Column Grid of Clean White Cards matching reference layout style */}
+                  {/* 4-Column Grid of Clean White Cards with Golden Highlights */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
                     {cat.clients.map((c, i) => {
                       const Icon = c.icon;
                       return (
                         <motion.div
                           key={i}
-                          whileHover={{ y: -4, scale: 1.02 }}
+                          whileHover={{ y: -6, scale: 1.02 }}
                           transition={{ duration: 0.2 }}
-                          className="group relative bg-white border border-slate-200/90 rounded-2xl p-5 flex flex-col justify-between h-44 shadow-xs hover:shadow-xl hover:border-slate-300 transition-all cursor-pointer overflow-hidden"
+                          className="group relative bg-white border border-[#b89565]/25 hover:border-[#b89565] rounded-2xl p-5 flex flex-col justify-between h-44 shadow-xs hover:shadow-xl hover:shadow-[#b89565]/15 transition-all cursor-pointer overflow-hidden"
                         >
+                          {/* Top Golden Accent Edge */}
+                          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
                           <div>
                             <div className="flex items-center justify-between mb-3">
-                              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0d5096] flex items-center justify-center shrink-0 group-hover:bg-[#0d5096] group-hover:text-white transition-all shadow-2xs">
+                              <div className="w-10 h-10 rounded-xl bg-[#faf6ee] border border-[#b89565]/30 text-[#b89565] flex items-center justify-center shrink-0 group-hover:bg-[#b89565] group-hover:text-white transition-all shadow-2xs">
                                 <Icon className="w-5 h-5 stroke-[1.8]" />
                               </div>
-                              <span className="text-[10px] text-slate-400 font-mono tracking-wider">
+                              <span className="text-[9px] text-[#a07c48] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded-md bg-[#faf6ee] border border-[#b89565]/20">
                                 VERIFIED
                               </span>
                             </div>
 
-                            <h4 className="text-base font-bold text-slate-900 group-hover:text-[#0d5096] transition-colors leading-snug line-clamp-1">
+                            <h4 
+                              className="text-base font-bold text-zinc-950 group-hover:text-[#b89565] transition-colors leading-snug line-clamp-1"
+                              style={{ fontFamily: "'Montserrat', sans-serif" }}
+                            >
                               {c.name}
                             </h4>
-                            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
-                              <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                            <p className="text-xs text-zinc-500 mt-1 flex items-center gap-1">
+                              <MapPin className="w-3 h-3 text-[#b89565] shrink-0" />
                               <span className="truncate">{c.location}</span>
                             </p>
                           </div>
 
-                          <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-[11px] font-medium text-[#0d5096]">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#0d5096] shrink-0" />
+                          <div className="pt-3 border-t border-zinc-100 flex items-center gap-1.5 text-[11px] font-medium text-[#a07c48]">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#b89565] shrink-0" />
                             <span className="truncate">{c.tag}</span>
                           </div>
 
-                          {/* Hover highlight line */}
-                          <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#0d5096]/20 transition-colors pointer-events-none" />
+                          {/* Hover subtle golden highlight outline */}
+                          <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#b89565]/20 transition-colors pointer-events-none" />
                         </motion.div>
                       );
                     })}
@@ -253,28 +296,28 @@ export default function ClientsPage() {
               ))}
 
               {/* Bottom Value Pillars matching Arrow's engineering principles */}
-              <div className="pt-8 border-t border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="pt-8 border-t border-[#b89565]/20 grid grid-cols-1 md:grid-cols-3 gap-6">
                 
-                <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                  <ShieldCheck className="w-7 h-7 text-[#0d5096] mb-3" />
-                  <h4 className="text-base font-bold text-slate-900 mb-1.5">Code Compliance & Safety</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                <div className="p-6 rounded-2xl bg-white border border-[#b89565]/25 shadow-xs hover:border-[#b89565] transition-all">
+                  <ShieldCheck className="w-7 h-7 text-[#b89565] mb-3" />
+                  <h4 className="text-base font-bold text-zinc-950 mb-1.5">Code Compliance & Safety</h4>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
                     Zero structural compromises. Strict adherence to Indian Standards (IS Codes) and International Seismic codes.
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                  <TrendingUp className="w-7 h-7 text-[#0d5096] mb-3" />
-                  <h4 className="text-base font-bold text-slate-900 mb-1.5">Value Engineering</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                <div className="p-6 rounded-2xl bg-white border border-[#b89565]/25 shadow-xs hover:border-[#b89565] transition-all">
+                  <TrendingUp className="w-7 h-7 text-[#b89565] mb-3" />
+                  <h4 className="text-base font-bold text-zinc-950 mb-1.5">Value Engineering</h4>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
                     Saving clients 8% - 14% on steel reinforcement and concrete volumes without sacrificing margins of safety.
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
-                  <Handshake className="w-7 h-7 text-[#0d5096] mb-3" />
-                  <h4 className="text-base font-bold text-slate-900 mb-1.5">Long-Term Partnerships</h4>
-                  <p className="text-xs text-slate-600 leading-relaxed">
+                <div className="p-6 rounded-2xl bg-white border border-[#b89565]/25 shadow-xs hover:border-[#b89565] transition-all">
+                  <Handshake className="w-7 h-7 text-[#b89565] mb-3" />
+                  <h4 className="text-base font-bold text-zinc-950 mb-1.5">Long-Term Partnerships</h4>
+                  <p className="text-xs text-zinc-600 leading-relaxed">
                     Over 98% of our developers continue engaging Arrow Structural Consultants on subsequent phases and landmark towers.
                   </p>
                 </div>
