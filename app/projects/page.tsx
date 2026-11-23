@@ -185,46 +185,50 @@ export default function ProjectsPage() {
             layout 
             className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6"
           >
-            <AnimatePresence>
+            <AnimatePresence mode="popLayout">
               {filteredProjects.map((project, idx) => (
                 <motion.div
                   layout
                   key={project.id}
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  transition={{ duration: 0.45, delay: idx * 0.05 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    ease: [0.25, 0.1, 0.25, 1],
+                    delay: idx * 0.04 
+                  }}
                   onClick={() => setActiveProject(project)}
-                  className="group break-inside-avoid relative rounded-2xl overflow-hidden bg-white border border-[#b89565]/25 hover:border-[#b89565] shadow-sm hover:shadow-2xl hover:shadow-[#b89565]/20 transition-all duration-500 cursor-pointer"
+                  className="group break-inside-avoid relative rounded-2xl overflow-hidden bg-white border border-[#b89565]/25 hover:border-[#b89565] shadow-sm hover:shadow-2xl hover:shadow-[#b89565]/20 transition-all duration-300 ease-out cursor-pointer transform-gpu hover:-translate-y-1.5"
                 >
                   {/* Image with seamless full-bleed presentation */}
                   <div className="relative w-full overflow-hidden bg-zinc-100">
                     <img
                       src={project.image}
                       alt={project.name}
-                      className="w-full h-auto object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                      className="w-full h-auto object-cover transition-transform duration-500 ease-out group-hover:scale-105 transform-gpu"
                       loading="lazy"
                     />
 
                     {/* Gradient Overlay for subtle text contrast on hover */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-between p-6" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out flex flex-col justify-between p-6 pointer-events-none" />
 
                     {/* Top Golden Accent Edge */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                     {/* Location Badge (Always Visible on Top Left) */}
-                    <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-zinc-900 border border-[#b89565]/30 text-[11px] font-semibold tracking-wide shadow-sm group-hover:bg-[#b89565] group-hover:text-white group-hover:border-transparent transition-colors">
-                      <MapPin className="w-3 h-3 text-[#b89565] group-hover:text-white transition-colors" />
+                    <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/90 backdrop-blur-md text-zinc-900 border border-[#b89565]/30 text-[11px] font-semibold tracking-wide shadow-sm group-hover:bg-[#b89565] group-hover:text-white group-hover:border-transparent transition-colors duration-300">
+                      <MapPin className="w-3 h-3 text-[#b89565] group-hover:text-white transition-colors duration-300" />
                       <span>{project.city_name}, {project.state_name}</span>
                     </div>
 
                     {/* Maximize Icon on Top Right (Appears on hover) */}
-                    <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-zinc-900 border border-[#b89565]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 shadow-md">
+                    <div className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/95 backdrop-blur-md text-zinc-900 border border-[#b89565]/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300 ease-out shadow-md">
                       <Maximize2 className="w-4 h-4 text-[#b89565]" />
                     </div>
 
                     {/* Hover Info (Appears from bottom) */}
-                    <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 text-white">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-3 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300 ease-out text-white pointer-events-none">
                       <span className="text-[10px] font-mono tracking-widest uppercase text-[#ffe4ab] block mb-1">
                         {project.category}
                       </span>

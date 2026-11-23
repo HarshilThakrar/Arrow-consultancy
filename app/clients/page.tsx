@@ -219,22 +219,22 @@ export default function ClientsPage() {
                 ].map((imgSrc, index) => (
                   <motion.div
                     key={index}
-                    whileHover={{ y: -4, scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                    className="group aspect-[4/3] bg-white rounded-2xl border border-[#b89565]/20 hover:border-[#b89565] shadow-xs hover:shadow-xl hover:shadow-[#b89565]/10 p-6 flex items-center justify-center transition-all cursor-pointer relative overflow-hidden"
+                    whileHover={{ y: -5, scale: 1.02 }}
+                    transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+                    className="group aspect-[4/3] bg-white rounded-2xl border border-[#b89565]/20 hover:border-[#b89565] shadow-xs hover:shadow-xl hover:shadow-[#b89565]/15 p-6 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer relative overflow-hidden transform-gpu"
                   >
                     {/* Top Golden Accent Edge */}
-                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out" />
 
                     <img
                       src={imgSrc}
                       alt={`Client Partner ${index + 1}`}
-                      className="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300"
+                      className="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300 ease-out transform-gpu"
                       loading="lazy"
                     />
 
                     {/* Subtle Golden Hover Border Ring */}
-                    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#b89565]/20 pointer-events-none transition-colors" />
+                    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#b89565]/25 pointer-events-none transition-colors duration-300 ease-out" />
                   </motion.div>
                 ))}
               </div>
