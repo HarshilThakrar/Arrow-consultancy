@@ -92,22 +92,22 @@ export default function ClientsPage() {
       <main className="w-full relative">
         <div className="grid grid-cols-1 xl:grid-cols-12 items-start">
           
-          {/* LEFT COLUMN: Sticky Luxury Golden Panel (Locks to viewport after dragging/scrolling past hero banner) */}
-          <div className="xl:col-span-4 text-white xl:sticky xl:top-[90px] xl:max-h-[calc(100vh-90px)] xl:overflow-y-auto flex flex-col justify-between py-10 sm:py-14 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#2a2012] via-[#1c150c] to-[#120d07] relative shadow-2xl border-r border-[#b89565]/30 z-10 scrollbar-none">
+          {/* LEFT COLUMN: Luxury Pure Golden Gradient Panel (Matching Golden Reference) */}
+          <div className="xl:col-span-4 text-zinc-950 xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] xl:overflow-y-auto flex flex-col justify-between py-10 sm:py-14 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#c9a674] via-[#b89565] to-[#8d6935] relative shadow-2xl border-r border-[#8d6935]/40 z-10 scrollbar-none">
             
-            {/* Subtle background golden glow and architectural blueprint grid */}
+            {/* Subtle background architectural blueprint grid with warm white highlights */}
             <div 
-              className="absolute inset-0 opacity-15 pointer-events-none"
+              className="absolute inset-0 opacity-20 pointer-events-none"
               style={{
                 backgroundImage: `
-                  linear-gradient(to right, rgba(229, 197, 138, 0.25) 1px, transparent 1px),
-                  linear-gradient(to bottom, rgba(229, 197, 138, 0.25) 1px, transparent 1px)
+                  linear-gradient(to right, rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+                  linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 1px, transparent 1px)
                 `,
                 backgroundSize: '36px 36px',
               }}
             />
-            <div className="absolute -top-24 -left-24 w-80 h-80 bg-[#e5c58a]/15 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-[#b89565]/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -top-24 -left-24 w-80 h-80 bg-white/20 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-[#593f18]/30 rounded-full blur-3xl pointer-events-none" />
 
             {/* Left Content Header */}
             <div className="relative z-10 w-full flex flex-col items-center text-center my-auto">
@@ -116,9 +116,9 @@ export default function ClientsPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full border border-[#b89565]/40 bg-[#b89565]/15 text-[#e5c58a] text-xs font-bold tracking-[0.25em] uppercase mb-5"
+                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/60 bg-white/20 backdrop-blur-md text-white text-xs font-bold tracking-[0.25em] uppercase mb-5 shadow-sm"
               >
-                <Sparkles className="w-3 h-3 text-[#e5c58a]" />
+                <Sparkles className="w-3.5 h-3.5 text-white" />
                 PARTNERS & CLIENTS
               </motion.div>
 
@@ -129,12 +129,12 @@ export default function ClientsPage() {
                 className="flex items-start justify-center mb-3"
               >
                 <h2 
-                  className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white"
+                  className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white drop-shadow-sm"
                   style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                 >
                   200
                 </h2>
-                <span className="text-3xl sm:text-4xl font-extrabold text-[#e5c58a] ml-1">
+                <span className="text-3xl sm:text-4xl font-extrabold text-[#ffe4ab] ml-1">
                   +
                 </span>
               </motion.div>
@@ -143,27 +143,27 @@ export default function ClientsPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="text-xl sm:text-2xl font-bold text-white mb-6"
+                className="text-2xl sm:text-3xl font-bold text-white mb-6 drop-shadow-xs"
                 style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
-                Enterprises trust <span className="bg-gradient-to-r from-[#ffe4ab] via-[#e5c58a] to-[#b89565] bg-clip-text text-transparent italic">Arrow</span>
+                Enterprises trust <span className="italic font-normal text-[#fff4db]">Arrow</span>
               </motion.h3>
 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                className="text-xs sm:text-sm text-zinc-300 leading-relaxed max-w-md mx-auto font-normal mb-8"
+                className="text-xs sm:text-sm text-white/95 leading-relaxed max-w-md mx-auto font-normal mb-8 drop-shadow-2xs"
               >
                 Arrow Structural Consultants collaborates with India&apos;s most trusted and forward-thinking enterprises to deliver engineered certainty and long-term structural performance across iconic commercial, high-rise, and industrial landmarks. By combining advanced finite-element structural technology, expert engineering solutions, and rigorous quality standards, we ensure durability, efficiency, and excellence at every stage of construction.
               </motion.p>
 
-              {/* Stats Card Floating in bottom of left panel (Golden & White Glassmorphism) */}
+              {/* Stats Card Floating in bottom of left panel (Pure White with Rich Gold Highlights) */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.4 }}
-                className="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.35)] border border-[#b89565]/40 text-zinc-900"
+                className="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white text-zinc-900"
               >
                 <div className="grid grid-cols-3 divide-x divide-zinc-200 text-center">
                   
