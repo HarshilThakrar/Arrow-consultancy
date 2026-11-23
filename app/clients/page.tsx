@@ -92,8 +92,8 @@ export default function ClientsPage() {
       <main className="w-full relative">
         <div className="grid grid-cols-1 xl:grid-cols-12 min-h-screen">
           
-          {/* LEFT COLUMN: Luxury Golden Panel (scrolls naturally with page content) */}
-          <div className="xl:col-span-4 text-white flex flex-col justify-between py-12 sm:py-16 lg:py-20 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#2a2012] via-[#1c150c] to-[#120d07] relative overflow-hidden shadow-2xl border-r border-[#b89565]/30 z-10">
+          {/* LEFT COLUMN: Luxury Golden Panel (Sticky while Right Client Panel stays fixed in place to view) */}
+          <div className="xl:col-span-4 text-white xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] xl:overflow-y-auto flex flex-col justify-between py-10 sm:py-14 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#2a2012] via-[#1c150c] to-[#120d07] relative shadow-2xl border-r border-[#b89565]/30 z-10 scrollbar-thin scrollbar-thumb-[#b89565]/40">
             
             {/* Subtle background golden glow and architectural blueprint grid */}
             <div 
@@ -220,7 +220,7 @@ export default function ClientsPage() {
           </div>
 
           {/* RIGHT COLUMN: Clean White Cards with Golden Accents & Arrow's Authentic Clients */}
-          <div className="xl:col-span-8 bg-[#faf8f5] px-6 sm:px-10 lg:px-12 py-10 lg:py-14">
+          <div className="xl:col-span-8 bg-[#faf8f5] xl:h-[calc(100vh-90px)] xl:overflow-y-auto px-6 sm:px-10 lg:px-12 py-10 lg:py-14 scrollbar-thin scrollbar-thumb-[#b89565]/30">
             
             {/* Subtle background blueprint grid */}
             <div 
