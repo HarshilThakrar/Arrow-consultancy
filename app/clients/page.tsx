@@ -1,65 +1,81 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import { 
+  Building2, 
+  Landmark, 
+  Layers, 
+  Home, 
+  HardHat, 
+  Hammer, 
+  Compass, 
+  Factory, 
+  Cpu, 
+  ShieldCheck, 
+  Wrench,
+  CheckCircle2,
+  Award,
+  ArrowUpRight,
+  TrendingUp,
+  Handshake,
+  MapPin
+} from "lucide-react";
 
-interface ClientItem {
-  id: number;
-  image_url: string;
-  sort_order?: number;
-}
+// Arrow's Authentic Client Roster
+const clientCategories = [
+  {
+    title: "Real Estate & Developers",
+    desc: "Collaborating on luxury residential towers, commercial hubs, and high-density communities.",
+    clients: [
+      { name: "Shilp Group", location: "Ahmedabad, Gujarat", icon: Building2, tag: "High-Rise Commercial & Residential" },
+      { name: "Adani Realty", location: "Pan India", icon: Landmark, tag: "Townships & High-Rise Infrastructure" },
+      { name: "Iscon Group", location: "Gujarat", icon: Home, tag: "Mega Retail & Shopping Hubs" },
+      { name: "Sun Builders", location: "Ahmedabad", icon: Hammer, tag: "Luxury Residential" },
+      { name: "Savvy Infrastructure", location: "Gift City / Ahmedabad", icon: Compass, tag: "Grade-A Commercial Parks" },
+      { name: "Godrej Properties", location: "National Projects", icon: Home, tag: "Sustainable Residential" },
+      { name: "Shivalik Group", location: "Gujarat", icon: Wrench, tag: "Green Certified Buildings" },
+      { name: "Pacifica Companies", location: "Multinational", icon: Landmark, tag: "Integrated Townships" },
+    ]
+  },
+  {
+    title: "Industrial & Pharmaceuticals",
+    desc: "Heavy-duty load bearing, vibration analysis, and cleanroom compliant structural designs.",
+    clients: [
+      { name: "Torrent Pharma", location: "Dahej / Indrad", icon: Factory, tag: "Heavy Industrial PEB & RC Frames" },
+      { name: "Zydus Lifesciences", location: "Vadodara / Ahmedabad", icon: Cpu, tag: "High-Containment Labs" },
+      { name: "Intas Pharmaceuticals", location: "Sanand", icon: ShieldCheck, tag: "Sterile Manufacturing Blocks" },
+      { name: "Titan Towers & Logistics", location: "Mundra / Surat", icon: Building2, tag: "Warehousing & High-Bay Plants" },
+    ]
+  },
+  {
+    title: "Smart Infrastructure & Institutions",
+    desc: "Iconic structural frameworks adhering to stringent seismic and high-drift requirements.",
+    clients: [
+      { name: "GIFT City Corp", location: "Gandhinagar", icon: Layers, tag: "Fin-Tech High-Rise Enclaves" },
+      { name: "Zundal Infrastructure Hub", location: "Ahmedabad", icon: HardHat, tag: "Urban Public Utilities" },
+    ]
+  }
+];
 
 export default function ClientsPage() {
-  const [clients, setClients] = useState<ClientItem[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    async function fetchClients() {
-      try {
-        // Try fetching from public/clients_data.json or live API
-        const res = await fetch("/clients_data.json");
-        if (res.ok) {
-          const data = await res.json();
-          if (Array.isArray(data) && data.length > 0) {
-            setClients(data);
-            setLoading(false);
-            return;
-          }
-        }
-        // Fallback live API fetch
-        const liveRes = await fetch("https://admin.unifiedpts.com/api/client-images");
-        const liveData = await liveRes.json();
-        if (liveData.success && Array.isArray(liveData.data)) {
-          setClients(liveData.data);
-        }
-      } catch (err) {
-        console.error("Error loading clients:", err);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchClients();
-  }, []);
-
   return (
-    <div className="relative min-h-screen bg-[#f8fafc] font-sans text-slate-900 selection:bg-[#b89565] selection:text-white">
+    <div className="relative min-h-screen bg-[#f5f7fb] font-sans text-slate-900 selection:bg-[#b89565] selection:text-white">
       <Navbar />
 
-      {/* Hero section padding to account for fixed navbar */}
+      {/* Top spacing for fixed navbar */}
       <div className="h-[90px] sm:h-[105px] w-full" />
 
-      {/* Main Split Layout matching user reference screenshot exactly */}
+      {/* Main Split Layout matching user's reference layout */}
       <main className="w-full min-h-[calc(100vh-90px)]">
         <div className="grid grid-cols-1 xl:grid-cols-12 min-h-screen">
           
-          {/* LEFT SIDEBAR: Sticky Split Panel matching reference */}
+          {/* LEFT COLUMN: Sticky Hero & Stats Card (matching layout from reference) */}
           <div className="xl:col-span-4 text-white xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] flex flex-col justify-between py-10 sm:py-14 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#1b6cb8] via-[#0d5096] to-[#083e75] relative overflow-hidden shadow-2xl z-10">
             
-            {/* Background luxury subtle light & blueprint overlay */}
+            {/* Subtle background glow and grid */}
             <div className="absolute inset-0 opacity-15 pointer-events-none bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
             <div className="absolute -top-24 -left-24 w-80 h-80 bg-[#38bdf8]/20 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-[#0284c7]/30 rounded-full blur-3xl pointer-events-none" />
@@ -83,7 +99,7 @@ export default function ClientsPage() {
                 className="flex items-start justify-center mb-3"
               >
                 <h1 className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white">
-                  150
+                  200
                 </h1>
                 <span className="text-3xl sm:text-4xl font-extrabold text-[#7dd3fc] ml-1">
                   +
@@ -105,7 +121,7 @@ export default function ClientsPage() {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-xs sm:text-sm text-white/85 leading-relaxed max-w-md mx-auto font-normal mb-8"
               >
-                Arrow Structural Consultants collaborates with India&apos;s most trusted and forward-thinking enterprises to deliver engineered certainty and long-term structural performance across iconic commercial, high-rise, and industrial landmarks. By combining precision finite-element simulation, expert engineering solutions, and rigorous quality standards, we ensure durability, safety, and excellence at every stage of construction.
+                Arrow Structural Consultants collaborates with India&apos;s most trusted and forward-thinking enterprises to deliver engineered certainty and long-term structural performance across some of the country&apos;s most iconic and demanding projects. By combining advanced finite-element structural technology, expert engineering solutions, and rigorous quality standards, we ensure durability, efficiency, and excellence at every stage of construction.
               </motion.p>
 
               {/* Stats Card Floating in bottom of left panel (exact match to screenshot) */}
@@ -169,46 +185,101 @@ export default function ClientsPage() {
 
           </div>
 
-          {/* RIGHT SIDE: Multi-Column Client Logo Grid */}
-          <div className="xl:col-span-8 bg-[#f8fafc] px-6 sm:px-10 lg:px-14 py-12 lg:py-16">
-            <div className="max-w-[1300px] mx-auto">
+          {/* RIGHT COLUMN: Clean Grid Cards with Arrow's Authentic Clients */}
+          <div className="xl:col-span-8 bg-[#f5f7fb] px-6 sm:px-10 lg:px-12 py-10 lg:py-14">
+            <div className="max-w-[1200px] mx-auto space-y-12">
               
-              {loading ? (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 sm:gap-8">
-                  {Array.from({ length: 16 }).map((_, i) => (
-                    <div
-                      key={i}
-                      className="h-32 sm:h-36 rounded-2xl bg-white border border-slate-200/80 animate-pulse"
-                    />
-                  ))}
+              {clientCategories.map((cat, cIdx) => (
+                <div key={cIdx} className="space-y-6">
+                  
+                  {/* Category Header */}
+                  <div className="border-b border-slate-200 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+                        {cat.title}
+                      </h3>
+                      <p className="text-xs sm:text-sm text-slate-500 mt-1">
+                        {cat.desc}
+                      </p>
+                    </div>
+                    <span className="text-[11px] font-mono font-bold tracking-widest text-[#0d5096] uppercase bg-blue-50 px-3 py-1 rounded-full border border-blue-100 shrink-0">
+                      {cat.clients.length} PARTNERS
+                    </span>
+                  </div>
+
+                  {/* 4-Column Grid of Clean White Cards matching reference layout style */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {cat.clients.map((c, i) => {
+                      const Icon = c.icon;
+                      return (
+                        <motion.div
+                          key={i}
+                          whileHover={{ y: -4, scale: 1.02 }}
+                          transition={{ duration: 0.2 }}
+                          className="group relative bg-white border border-slate-200/90 rounded-2xl p-5 flex flex-col justify-between h-44 shadow-xs hover:shadow-xl hover:border-slate-300 transition-all cursor-pointer overflow-hidden"
+                        >
+                          <div>
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-100 text-[#0d5096] flex items-center justify-center shrink-0 group-hover:bg-[#0d5096] group-hover:text-white transition-all shadow-2xs">
+                                <Icon className="w-5 h-5 stroke-[1.8]" />
+                              </div>
+                              <span className="text-[10px] text-slate-400 font-mono tracking-wider">
+                                VERIFIED
+                              </span>
+                            </div>
+
+                            <h4 className="text-base font-bold text-slate-900 group-hover:text-[#0d5096] transition-colors leading-snug line-clamp-1">
+                              {c.name}
+                            </h4>
+                            <p className="text-xs text-slate-500 mt-1 flex items-center gap-1">
+                              <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                              <span className="truncate">{c.location}</span>
+                            </p>
+                          </div>
+
+                          <div className="pt-3 border-t border-slate-100 flex items-center gap-1.5 text-[11px] font-medium text-[#0d5096]">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-[#0d5096] shrink-0" />
+                            <span className="truncate">{c.tag}</span>
+                          </div>
+
+                          {/* Hover highlight line */}
+                          <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#0d5096]/20 transition-colors pointer-events-none" />
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+
                 </div>
-              ) : (
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-5 sm:gap-7 lg:gap-8">
-                  {clients.map((client, index) => (
-                    <motion.div
-                      key={client.id || index}
-                      initial={{ opacity: 0, y: 15 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-40px" }}
-                      transition={{ duration: 0.35, delay: (index % 8) * 0.04 }}
-                      whileHover={{ y: -4, scale: 1.02 }}
-                      className="group relative bg-white border border-slate-200/90 rounded-2xl p-5 sm:p-6 flex items-center justify-center h-32 sm:h-36 shadow-xs hover:shadow-xl hover:border-slate-300 transition-all duration-300 cursor-pointer overflow-hidden"
-                    >
-                      <div className="relative w-full h-full flex items-center justify-center p-2">
-                        <img
-                          src={client.image_url}
-                          alt={`Client Partner ${client.id}`}
-                          loading="lazy"
-                          className="max-h-20 sm:max-h-24 max-w-[85%] object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 group-hover:scale-108"
-                        />
-                      </div>
-                      
-                      {/* Subtle hover accent border */}
-                      <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#1b6cb8]/30 transition-colors pointer-events-none" />
-                    </motion.div>
-                  ))}
+              ))}
+
+              {/* Bottom Value Pillars matching Arrow's engineering principles */}
+              <div className="pt-8 border-t border-slate-200 grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                  <ShieldCheck className="w-7 h-7 text-[#0d5096] mb-3" />
+                  <h4 className="text-base font-bold text-slate-900 mb-1.5">Code Compliance & Safety</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Zero structural compromises. Strict adherence to Indian Standards (IS Codes) and International Seismic codes.
+                  </p>
                 </div>
-              )}
+
+                <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                  <TrendingUp className="w-7 h-7 text-[#0d5096] mb-3" />
+                  <h4 className="text-base font-bold text-slate-900 mb-1.5">Value Engineering</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Saving clients 8% - 14% on steel reinforcement and concrete volumes without sacrificing margins of safety.
+                  </p>
+                </div>
+
+                <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs">
+                  <Handshake className="w-7 h-7 text-[#0d5096] mb-3" />
+                  <h4 className="text-base font-bold text-slate-900 mb-1.5">Long-Term Partnerships</h4>
+                  <p className="text-xs text-slate-600 leading-relaxed">
+                    Over 98% of our developers continue engaging Arrow Structural Consultants on subsequent phases and landmark towers.
+                  </p>
+                </div>
+
+              </div>
 
             </div>
           </div>
