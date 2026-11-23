@@ -5,62 +5,7 @@ import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BackgroundVideo from "../components/BackgroundVideo";
-import { 
-  Building2, 
-  Landmark, 
-  Layers, 
-  Home, 
-  HardHat, 
-  Hammer, 
-  Compass, 
-  Factory, 
-  Cpu, 
-  ShieldCheck, 
-  Wrench,
-  CheckCircle2,
-  Award,
-  ArrowUpRight,
-  TrendingUp,
-  Handshake,
-  MapPin,
-  Sparkles
-} from "lucide-react";
-
-// Arrow's Authentic Client Roster
-const clientCategories = [
-  {
-    title: "Real Estate & Developers",
-    desc: "Collaborating on luxury residential towers, commercial hubs, and high-density communities.",
-    clients: [
-      { name: "Shilp Group", location: "Ahmedabad, Gujarat", icon: Building2, tag: "High-Rise Commercial & Residential" },
-      { name: "Adani Realty", location: "Pan India", icon: Landmark, tag: "Townships & High-Rise Infrastructure" },
-      { name: "Iscon Group", location: "Gujarat", icon: Home, tag: "Mega Retail & Shopping Hubs" },
-      { name: "Sun Builders", location: "Ahmedabad", icon: Hammer, tag: "Luxury Residential" },
-      { name: "Savvy Infrastructure", location: "Gift City / Ahmedabad", icon: Compass, tag: "Grade-A Commercial Parks" },
-      { name: "Godrej Properties", location: "National Projects", icon: Home, tag: "Sustainable Residential" },
-      { name: "Shivalik Group", location: "Gujarat", icon: Wrench, tag: "Green Certified Buildings" },
-      { name: "Pacifica Companies", location: "Multinational", icon: Landmark, tag: "Integrated Townships" },
-    ]
-  },
-  {
-    title: "Industrial & Pharmaceuticals",
-    desc: "Heavy-duty load bearing, vibration analysis, and cleanroom compliant structural designs.",
-    clients: [
-      { name: "Torrent Pharma", location: "Dahej / Indrad", icon: Factory, tag: "Heavy Industrial PEB & RC Frames" },
-      { name: "Zydus Lifesciences", location: "Vadodara / Ahmedabad", icon: Cpu, tag: "High-Containment Labs" },
-      { name: "Intas Pharmaceuticals", location: "Sanand", icon: ShieldCheck, tag: "Sterile Manufacturing Blocks" },
-      { name: "Titan Towers & Logistics", location: "Mundra / Surat", icon: Building2, tag: "Warehousing & High-Bay Plants" },
-    ]
-  },
-  {
-    title: "Smart Infrastructure & Institutions",
-    desc: "Iconic structural frameworks adhering to stringent seismic and high-drift requirements.",
-    clients: [
-      { name: "GIFT City Corp", location: "Gandhinagar", icon: Layers, tag: "Fin-Tech High-Rise Enclaves" },
-      { name: "Zundal Infrastructure Hub", location: "Ahmedabad", icon: HardHat, tag: "Urban Public Utilities" },
-    ]
-  }
-];
+import { Sparkles } from "lucide-react";
 
 export default function ClientsPage() {
   return (
@@ -219,8 +164,8 @@ export default function ClientsPage() {
 
           </div>
 
-          {/* RIGHT COLUMN: Natural Scrolling Client Cards & Pillars */}
-          <div className="xl:col-span-8 bg-[#faf8f5] px-6 sm:px-10 lg:px-12 py-10 lg:py-14">
+          {/* RIGHT COLUMN: Pure Image Logo Cards in a 4-Column Grid */}
+          <div className="xl:col-span-8 bg-[#faf8f5] px-6 sm:px-10 lg:px-12 py-10 lg:py-14 min-h-[calc(100vh-90px)]">
             
             {/* Subtle background blueprint grid */}
             <div 
@@ -234,113 +179,64 @@ export default function ClientsPage() {
               }}
             />
 
-            <div className="max-w-[1200px] mx-auto space-y-12 relative z-10">
+            <div className="max-w-[1200px] mx-auto relative z-10">
               
-              {clientCategories.map((cat, cIdx) => (
-                <div key={cIdx} className="space-y-6">
-                  
-                  {/* Category Header */}
-                  <div className="border-b border-[#b89565]/25 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-                    <div>
-                      <div className="flex items-center gap-2 mb-1">
-                        <span className="w-6 h-[1.5px] bg-[#b89565]" />
-                        <span className="text-[10px] font-bold tracking-widest text-[#a07c48] uppercase">
-                          SECTOR 0{cIdx + 1}
-                        </span>
-                      </div>
-                      <h3 
-                        className="text-xl sm:text-2xl font-bold text-zinc-950 tracking-tight"
-                        style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-                      >
-                        {cat.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-zinc-600 mt-1">
-                        {cat.desc}
-                      </p>
-                    </div>
-                    <span className="text-[11px] font-mono font-bold tracking-widest text-[#a07c48] uppercase bg-[#faf6ee] px-3.5 py-1.5 rounded-full border border-[#b89565]/35 shrink-0 shadow-2xs">
-                      {cat.clients.length} PARTNERS
-                    </span>
-                  </div>
+              {/* 4-column logo grid matching reference */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+                {[
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJHJ4T1FQWJK66PK60MQET.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJHJ4W4FC88KMSZVFWVKNE.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRJ89K821W6E1VF634N3.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRK1Q8TE4B01ZBKJ0X1K.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRK52AW6YM4PCKN0SAGF.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YMK1P10PZXGB3G6P39P.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YN198Q5WRV20H9ZZ7RX.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YNSCT4MNX5GTRSCENF0.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YPQQA2997P1042FJZQ0.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YQHCZHP61ZJKFQAD8DT.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YR8JWBZ93HW236B5N6M.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YS3YAHENJVCWRKFAQRV.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA4Z667JQJ2HZ3N3P877.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5A2VQ2AF6K2F4PY0PP.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5C5GXMNJW2ZGZ89B3H.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5EAMCTDVJRF7RZE1N4.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5FQ4FCWV1XT72PKCTR.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5JK3B1GGKWKZ04AKF6.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5MKHWG0Z1YX1WT222J.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5MKHWG0Z1YX1WT222K.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA6G8XM3G8GCGCSX3T93.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA78J9TEXCYVSK7KJXYA.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA8WJDDKZB73F8APH21D.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA9E5G7P591FSEVZBQ1X.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA9JC6ENCY054BC7JREJ.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNBA9DXTT6YWFWC2M3W.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNCNBVFK8BSN19SB7Y9.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNDJ0KZANF4H82PZET6.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNER40EFWA6BF1FSDVT.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNER40EFWA6BF1FSDVV.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNFM0G7W2BRTC0RHPPD.png",
+                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNFM0G7W2BRTC0RHPPE.png"
+                ].map((imgSrc, index) => (
+                  <motion.div
+                    key={index}
+                    whileHover={{ y: -4, scale: 1.02 }}
+                    transition={{ duration: 0.2 }}
+                    className="group aspect-[4/3] bg-white rounded-2xl border border-[#b89565]/20 hover:border-[#b89565] shadow-xs hover:shadow-xl hover:shadow-[#b89565]/10 p-6 flex items-center justify-center transition-all cursor-pointer relative overflow-hidden"
+                  >
+                    {/* Top Golden Accent Edge */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* 4-Column Grid of Clean White Cards with Golden Highlights */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                    {cat.clients.map((c, i) => {
-                      const Icon = c.icon;
-                      return (
-                        <motion.div
-                          key={i}
-                          whileHover={{ y: -6, scale: 1.02 }}
-                          transition={{ duration: 0.2 }}
-                          className="group relative bg-white border border-[#b89565]/25 hover:border-[#b89565] rounded-2xl p-5 flex flex-col justify-between h-44 shadow-xs hover:shadow-xl hover:shadow-[#b89565]/15 transition-all cursor-pointer overflow-hidden"
-                        >
-                          {/* Top Golden Accent Edge */}
-                          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <img 
+                      src={imgSrc} 
+                      alt={`Client Partner ${index + 1}`} 
+                      className="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
 
-                          <div>
-                            <div className="flex items-center justify-between mb-3">
-                              <div className="w-10 h-10 rounded-xl bg-[#faf6ee] border border-[#b89565]/30 text-[#b89565] flex items-center justify-center shrink-0 group-hover:bg-[#b89565] group-hover:text-white transition-all shadow-2xs">
-                                <Icon className="w-5 h-5 stroke-[1.8]" />
-                              </div>
-                              <span className="text-[9px] text-[#a07c48] font-mono font-bold tracking-wider uppercase px-2 py-0.5 rounded-md bg-[#faf6ee] border border-[#b89565]/20">
-                                VERIFIED
-                              </span>
-                            </div>
-
-                            <h4 
-                              className="text-base font-bold text-zinc-950 group-hover:text-[#b89565] transition-colors leading-snug line-clamp-1"
-                              style={{ fontFamily: "'Montserrat', sans-serif" }}
-                            >
-                              {c.name}
-                            </h4>
-                            <p className="text-xs text-zinc-500 mt-1 flex items-center gap-1">
-                              <MapPin className="w-3 h-3 text-[#b89565] shrink-0" />
-                              <span className="truncate">{c.location}</span>
-                            </p>
-                          </div>
-
-                          <div className="pt-3 border-t border-zinc-100 flex items-center gap-1.5 text-[11px] font-medium text-[#a07c48]">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-[#b89565] shrink-0" />
-                            <span className="truncate">{c.tag}</span>
-                          </div>
-
-                          {/* Hover subtle golden highlight outline */}
-                          <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#b89565]/20 transition-colors pointer-events-none" />
-                        </motion.div>
-                      );
-                    })}
-                  </div>
-
-                </div>
-              ))}
-
-              {/* Bottom Value Pillars matching Arrow's engineering principles */}
-              <div className="pt-8 border-t border-[#b89565]/20 grid grid-cols-1 md:grid-cols-3 gap-6">
-                
-                <div className="p-6 rounded-2xl bg-white border border-[#b89565]/25 shadow-xs hover:border-[#b89565] transition-all">
-                  <ShieldCheck className="w-7 h-7 text-[#b89565] mb-3" />
-                  <h4 className="text-base font-bold text-zinc-950 mb-1.5">Code Compliance & Safety</h4>
-                  <p className="text-xs text-zinc-600 leading-relaxed">
-                    Zero structural compromises. Strict adherence to Indian Standards (IS Codes) and International Seismic codes.
-                  </p>
-                </div>
-
-                <div className="p-6 rounded-2xl bg-white border border-[#b89565]/25 shadow-xs hover:border-[#b89565] transition-all">
-                  <TrendingUp className="w-7 h-7 text-[#b89565] mb-3" />
-                  <h4 className="text-base font-bold text-zinc-950 mb-1.5">Value Engineering</h4>
-                  <p className="text-xs text-zinc-600 leading-relaxed">
-                    Saving clients 8% - 14% on steel reinforcement and concrete volumes without sacrificing margins of safety.
-                  </p>
-                </div>
-
-                <div className="p-6 rounded-2xl bg-white border border-[#b89565]/25 shadow-xs hover:border-[#b89565] transition-all">
-                  <Handshake className="w-7 h-7 text-[#b89565] mb-3" />
-                  <h4 className="text-base font-bold text-zinc-950 mb-1.5">Long-Term Partnerships</h4>
-                  <p className="text-xs text-zinc-600 leading-relaxed">
-                    Over 98% of our developers continue engaging Arrow Structural Consultants on subsequent phases and landmark towers.
-                  </p>
-                </div>
-
+                    {/* Subtle Golden Hover Border Ring */}
+                    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-[#b89565]/20 pointer-events-none transition-colors" />
+                  </motion.div>
+                ))}
               </div>
 
             </div>
