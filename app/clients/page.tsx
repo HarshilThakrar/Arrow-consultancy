@@ -9,19 +9,19 @@ import { Sparkles } from "lucide-react";
 
 export default function ClientsPage() {
   return (
-    <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white overflow-hidden">
+    <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white">
       <Navbar />
 
       {/* 1. HERO BANNER - GOLDEN BACKGROUND VIDEO WITH TITLE ON TOP (EXACTLY AS IN ABOUT US / SERVICES) */}
       <section className="relative min-h-[45vh] md:min-h-[50vh] flex items-center justify-center pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden border-b border-[#b89565]/30">
-        <BackgroundVideo 
-          videoSrc="/logo_reveal.mp4" 
-          posterImage="/assets/about_us/about_us_bg.png" 
-          overlayOpacity="from-[#3a2d18]/90 via-[#221a0e]/85 to-[#161009]/90" 
+        <BackgroundVideo
+          videoSrc="/logo_reveal.mp4"
+          posterImage="/assets/about_us/about_us_bg.png"
+          overlayOpacity="from-[#3a2d18]/90 via-[#221a0e]/85 to-[#161009]/90"
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 w-full text-center">
-          <motion.h1 
+          <motion.h1
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -36,12 +36,12 @@ export default function ClientsPage() {
       {/* 2. SPLIT LAYOUT IN GOLDEN & WHITE THEME */}
       <main className="w-full relative">
         <div className="grid grid-cols-1 xl:grid-cols-12 items-start">
-          
-          {/* LEFT COLUMN: Luxury Pure Golden Gradient Panel (Matching Golden Reference) */}
-          <div className="xl:col-span-4 text-zinc-950 xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] xl:overflow-y-auto flex flex-col justify-between py-10 sm:py-14 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#c9a674] via-[#b89565] to-[#8d6935] relative shadow-2xl border-r border-[#8d6935]/40 z-10 scrollbar-none">
-            
+
+          {/* LEFT COLUMN: Fixed / Sticky Golden Panel (Never scrolls, stays fixed while right side logos scroll) */}
+          <div className="xl:col-span-4 text-zinc-950 xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] overflow-hidden flex flex-col justify-center py-8 sm:py-12 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#c9a674] via-[#b89565] to-[#8d6935] relative shadow-2xl border-r border-[#8d6935]/40 z-20">
+
             {/* Subtle background architectural blueprint grid with warm white highlights */}
-            <div 
+            <div
               className="absolute inset-0 opacity-20 pointer-events-none"
               style={{
                 backgroundImage: `
@@ -56,7 +56,7 @@ export default function ClientsPage() {
 
             {/* Left Content Header */}
             <div className="relative z-10 w-full flex flex-col items-center text-center my-auto">
-              
+
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -73,7 +73,7 @@ export default function ClientsPage() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="flex items-start justify-center mb-3"
               >
-                <h2 
+                <h2
                   className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white drop-shadow-sm"
                   style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                 >
@@ -111,7 +111,7 @@ export default function ClientsPage() {
                 className="w-full max-w-sm bg-white/95 backdrop-blur-md rounded-2xl p-4 sm:p-5 shadow-[0_20px_50px_rgba(0,0,0,0.22)] border border-white text-zinc-900"
               >
                 <div className="grid grid-cols-3 divide-x divide-zinc-200 text-center">
-                  
+
                   {/* Experience */}
                   <div className="px-2">
                     <p className="text-[10px] sm:text-[11px] font-bold tracking-wider uppercase text-[#a07c48] mb-1">
@@ -166,9 +166,9 @@ export default function ClientsPage() {
 
           {/* RIGHT COLUMN: Pure Image Logo Cards in a 4-Column Grid */}
           <div className="xl:col-span-8 bg-[#faf8f5] px-6 sm:px-10 lg:px-12 py-10 lg:py-14 min-h-[calc(100vh-90px)]">
-            
+
             {/* Subtle background blueprint grid */}
-            <div 
+            <div
               className="absolute inset-0 pointer-events-none opacity-20"
               style={{
                 backgroundImage: `
@@ -180,7 +180,7 @@ export default function ClientsPage() {
             />
 
             <div className="max-w-[1200px] mx-auto relative z-10">
-              
+
               {/* 4-column logo grid matching reference */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                 {[
@@ -226,9 +226,9 @@ export default function ClientsPage() {
                     {/* Top Golden Accent Edge */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    <img 
-                      src={imgSrc} 
-                      alt={`Client Partner ${index + 1}`} 
+                    <img
+                      src={imgSrc}
+                      alt={`Client Partner ${index + 1}`}
                       className="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
                     />
