@@ -37,8 +37,8 @@ export default function ClientsPage() {
       <main className="w-full relative">
         <div className="grid grid-cols-1 xl:grid-cols-12 items-start">
 
-          {/* LEFT COLUMN: Fixed / Sticky Golden Panel (Never scrolls, stays fixed while right side logos scroll) */}
-          <div className="xl:col-span-4 text-zinc-950 xl:sticky xl:top-[90px] xl:h-[calc(100vh-90px)] overflow-hidden flex flex-col justify-center py-8 sm:py-12 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#c9a674] via-[#b89565] to-[#8d6935] relative shadow-2xl border-r border-[#8d6935]/40 z-20">
+          {/* LEFT COLUMN: Fixed / Sticky Golden Panel (Covers completely up to top-0, locks full viewport height) */}
+          <div className="xl:col-span-4 text-zinc-950 xl:sticky xl:top-0 xl:h-screen overflow-hidden flex flex-col justify-center py-12 sm:py-16 px-6 sm:px-10 lg:px-12 bg-gradient-to-br from-[#c9a674] via-[#b89565] to-[#8d6935] relative shadow-2xl border-r border-[#8d6935]/40 z-30">
 
             {/* Subtle background architectural blueprint grid with warm white highlights */}
             <div
