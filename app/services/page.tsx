@@ -1,14 +1,14 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BackgroundVideo from "../components/BackgroundVideo";
+import CTASection from "../components/CTASection";
 import {
   ArrowRight,
-  X,
   Building2,
   Layers,
   Activity,
@@ -17,9 +17,7 @@ import {
   FileCheck2,
   Zap,
   Building,
-  CheckCircle2,
-  Sparkles,
-  PhoneCall
+  CheckCircle2
 } from "lucide-react";
 
 interface ServiceItem {
@@ -34,7 +32,7 @@ interface ServiceItem {
   software: string;
   codeStandard: string;
   image: string;
-  icon: any;
+  icon: React.ComponentType<{ className?: string }>;
   imageIcon?: string;
 }
 
@@ -98,28 +96,27 @@ const servicesList: ServiceItem[] = [
     ],
     software: "Field NDT Equipment, Analytical Stress Checks",
     codeStandard: "IS 15988, NBC Part 6",
-    image: "/assets/hero/slider_2.jpg",
+    image: "/assets/about_us/about_us_bg.png",
     imageIcon: "/assets/icons/structural audit.png",
-    icon: ShieldCheck,
+    icon: Building,
   },
   {
     id: "post-tensioning",
-    slug: "post-tensioning-structures",
+    slug: "post-tensioning",
     number: "04",
-    title: "Post Tensioning Structures",
-    badge: "Long-Span Slabs",
-    shortDesc: "Advanced prestressed concrete enabling column-free interior spans.",
-    fullDesc: "Specialized post-tensioned tendon profiling and flat-plate engineering that minimizes slab thickness, significantly slashes rebar requirements, and provides architects with vast open interior floor areas.",
+    title: "Post-Tensioning Structures",
+    shortDesc: "Advanced pre-stressing techniques for expansive, column-free floor layouts.",
+    fullDesc: "Specialized bonded and unbonded post-tensioning engineering that drastically reduces slab thickness, eliminates intermediate columns, saves total building weight, and maximizes ceiling clear heights.",
     deliverables: [
-      "Band Beam & Flat Plate Profiling",
-      "Tendon Jacking Schedules",
-      "Two-Way Punching Shear Checks",
-      "Transfer Girder Deflection Control",
-      "Long-Span Deflection Mitigation",
-      "Grouting & Anchorage Validation"
+      "Tendon Profile & Cable Layouts",
+      "Stressing Sequence Specifications",
+      "Loss of Prestress Calculations",
+      "Long-Span Deflection Checks",
+      "Anchor Zone Reinforcement Detailing",
+      "Friction & Wobble Coefficient Analysis"
     ],
-    software: "ADAPT-PT, SAFE, RAM Concept",
-    codeStandard: "IS 1343, ACI 318",
+    software: "ADAPT-Floor Pro, RAM Concept, SAFE",
+    codeStandard: "IS 1343, ACI 318, PTI Guidelines",
     image: "/assets/hero/slider_4.jpg",
     imageIcon: "/assets/icons/post tensioning.png",
     icon: Zap,
@@ -128,41 +125,41 @@ const servicesList: ServiceItem[] = [
     id: "high-rise",
     slug: "high-rise-buildings",
     number: "05",
-    title: "High Rise Buildings",
-    shortDesc: "Wind and seismic design solutions for landmark towers and skyscrapers.",
-    fullDesc: "Structural engineering for supertall commercial towers and residential skyscrapers. Features specialized central core-outrigger systems, aerodynamic wind-tunnel integration, and differential axial shortening modeling.",
+    title: "High-Rise Buildings",
+    shortDesc: "Dynamic lateral analysis and core systems for tall, iconic structures.",
+    fullDesc: "Skyward engineering solutions equipped with high-efficiency shear cores, outrigger truss configurations, wind-tunnel responsive massing, and advanced P-Delta stabilization for multi-storey towers.",
     deliverables: [
-      "Wind Tunnel Aerodynamic Modeling",
-      "Central Core + Outrigger Systems",
-      "P-Delta & Lateral Drift Control",
-      "Axial Shortening Compensation",
-      "High-Performance Concrete Mixes",
-      "Deep Piled Raft Foundations"
+      "Wind Tunnel Analysis Verification",
+      "Outrigger & Belt Truss Sizing",
+      "Nonlinear Dynamic Time-History Checks",
+      "Differential Axial Shortening Modeling",
+      "Story Drift & Acceleration Limitation",
+      "Foundation Mass Pour & Thermal Studies"
     ],
-    software: "ETABS Ultimate, PERFORM-3D",
-    codeStandard: "IS 16700, IS 1893 Part 1",
+    software: "ETABS Ultimate, PERFORM-3D, SAP2000",
+    codeStandard: "IS 16700, CTBUH Criteria",
     image: "/assets/hero/bg-image.png",
     imageIcon: "/assets/icons/High rise buildings.png",
     icon: Building2,
   },
   {
-    id: "earthquake-resisting",
-    slug: "earthquake-resisting-structures",
+    id: "earthquake-resilient",
+    slug: "earthquake-resilient-design",
     number: "06",
-    title: "Earthquake Resisting Structures",
-    shortDesc: "Ductile detailing and dynamic analysis ensuring maximum seismic resilience.",
-    fullDesc: "Dynamic response spectrum and nonlinear time-history seismic simulations that ensure energy dissipation through capacity-based ductile detailing, shielding human life and maintaining structural stability.",
+    title: "Earthquake Resilient Design",
+    shortDesc: "Seismic mitigation strategies conforming to the highest ductile standards.",
+    fullDesc: "Base isolation schemes, tuned mass dampers, and ductile moment-resisting frameworks specifically optimized to safely absorb and dissipate severe ground motion energy without structural collapse.",
     deliverables: [
-      "Response Spectrum & Time-History",
-      "Base Isolation & Tuned Dampers",
-      "Ductile Beam-Column Joints",
-      "Soil-Structure Interaction (SSI)",
-      "Pushover Capacity Curves",
-      "Seismic Retrofitting Detailing"
+      "Dynamic Response Spectrum Analysis",
+      "Pushover (Nonlinear Static) Checks",
+      "Base Isolation Feasibility",
+      "Ductile Beam-Column Joint Sizing",
+      "Energy Dissipation Device Design",
+      "Seismic Retrofit Assessments"
     ],
-    software: "SAP2000, ETABS, SeismoStruct",
-    codeStandard: "IS 1893 (2016), IS 13920",
-    image: "/assets/hero/slider_3.jpg",
+    software: "ETABS Nonlinear, SeismoStruct",
+    codeStandard: "IS 1893, IS 13920, FEMA 356",
+    image: "/assets/our_expertise/right_image.png",
     icon: Activity,
   },
   {
@@ -170,39 +167,39 @@ const servicesList: ServiceItem[] = [
     slug: "industrial-project-design",
     number: "07",
     title: "Industrial Project Design",
-    shortDesc: "Heavy industrial sheds, PEB framing, crane gantries, and plant foundations.",
-    fullDesc: "Heavy manufacturing plants, process equipment towers, raw material silos, and dynamic vibrating machine foundations engineered for extreme operational environments and continuous industrial workflows.",
+    shortDesc: "Heavy manufacturing plants, machine foundations, and dynamic load structures.",
+    fullDesc: "Robust heavy-duty industrial framing tailored for heavy overhead crane operations, continuous machinery vibration isolation, bulk material storage hoppers, and massive floor loading requirements.",
     deliverables: [
-      "Vibrating Machine Block Foundations",
-      "Heavy EOT Crane Runway Girders",
-      "Elevated Conveyor & Silo Frames",
-      "Heavy Duty Industrial Slabs",
-      "Substation & Pipe-Rack Framing",
-      "Corrosion-Resistant Detailing"
+      "Vibration Isolation for Machines",
+      "Overhead Crane Runways & Gantries",
+      "Silo, Bunker & Hopper Sizing",
+      "Heavy Forklift Dynamic Floor Plates",
+      "Chemical Resistant Foundation Pits",
+      "Thermal Expansion Relief Joints"
     ],
-    software: "STAAD.Pro, Foundation3D, Tekla",
-    codeStandard: "IS 800, IS 456, IS 2974",
-    image: "/assets/hero/slider_5.jpg",
+    software: "STAAD.Pro, ANSYS, Foundation3D",
+    codeStandard: "IS 2974, IS 875 Part 3, DIN 4024",
+    image: "/assets/hero/slider_2.jpg",
     icon: Factory,
   },
   {
     id: "earth-retaining",
-    slug: "structural-detail-of-earth-retaining-structures",
+    slug: "earth-retaining-structures",
     number: "08",
-    title: "Structural Detail of Earth Retaining Structures",
-    shortDesc: "Basement diaphragm walls, cantilever retaining walls, and shoring systems.",
-    fullDesc: "Substructure and geotechnical engineering for deep multi-level basement excavations, contiguous bored piles, cast-in-place diaphragm retention walls, and pre-stressed ground anchor stabilization systems.",
+    title: "Earth Retaining Structures",
+    shortDesc: "Deep basement retention, soldier piling, and diaphragm walls.",
+    fullDesc: "High-safety geotechnical retaining structures including anchored diaphragm walls, contiguous secant piles, and reinforced soil slopes designed to stabilize deep excavations near existing buildings.",
     deliverables: [
-      "RC Diaphragm Retention Walls",
-      "Prestressed Ground Anchor Systems",
-      "Basement Uplift & Buoyancy Analysis",
-      "Cantilever & Shoring Walls",
-      "Deep Excavation Monitoring Plans",
-      "Waterproofing Barrier Interface"
+      "Diaphragm Wall (D-Wall) Calculations",
+      "Multi-Tier Ground Anchor Details",
+      "Secant & Contiguous Pile Retention",
+      "Basement Hydrostatic Uplift Systems",
+      "Adjacent Structure Settlement Protection",
+      "Groundwater Cutoff Seepage Control"
     ],
-    software: "PLAXIS, GEO5, STAAD.Pro",
-    codeStandard: "IS 14458, IS 456, IRC 78",
-    image: "/assets/our_expertise/right_image.png",
+    software: "PLAXIS 2D, GEO5, DeepEX",
+    codeStandard: "IS 14458, IS 4651, CIRIA C760",
+    image: "/assets/hero/slider_3.jpg",
     icon: ShieldCheck,
   },
   {
@@ -228,23 +225,26 @@ const servicesList: ServiceItem[] = [
 ];
 
 export default function ServicesPage() {
-  const [selectedServiceId, setSelectedServiceId] = useState<string | null>(null);
+  // Default to 1st service ("rcc") so it immediately displays active details on the right
+  const [selectedServiceId, setSelectedServiceId] = useState<string>("rcc");
 
-  const handleToggleViewDetails = (id: string, e?: React.MouseEvent) => {
-    if (e) {
-      e.stopPropagation();
-    }
-    // If already open, clicking toggle can close it, or select a new one
-    setSelectedServiceId((prev) => (prev === id ? null : id));
-  };
-
-  const activeService = selectedServiceId
-    ? servicesList.find((s) => s.id === selectedServiceId) || null
-    : null;
+  const activeService = servicesList.find((s) => s.id === selectedServiceId) || servicesList[0];
 
   return (
-    <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white overflow-hidden">
+    <div className="relative min-h-screen bg-white font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white overflow-hidden">
       <Navbar />
+
+      {/* Global Architectural Blueprint Grid Lines covering entire page */}
+      <div 
+        className="fixed inset-0 pointer-events-none opacity-25 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(184, 149, 101, 0.16) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(184, 149, 101, 0.16) 1px, transparent 1px)
+          `,
+          backgroundSize: '56px 56px',
+        }}
+      />
 
       {/* 1. HERO BANNER - GOLDEN BACKGROUND VIDEO WITH TITLE ONLY */}
       <section className="relative min-h-[45vh] md:min-h-[50vh] flex items-center justify-center pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden border-b border-[#b89565]/30">
@@ -267,25 +267,23 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 2. MAIN SECTION: "WHAT WE OFFER" EXACT TEMPLATE MATCHING REFERENCE IMAGE */}
-      <section
-        className="py-20 md:py-28 relative bg-[#faf8f5]"
-      >
-        {/* Subtle Architectural Blueprint Grid Lines */}
+      {/* 2. MAIN SECTION: "WHAT WE OFFER" INTERACTIVE HOVER SPLIT VIEW */}
+      <section className="py-20 md:py-28 relative bg-white overflow-hidden">
+        {/* Soft Golden Architectural Blueprint Grid on Crisp White BG */}
         <div
-          className="absolute inset-0 pointer-events-none opacity-20"
+          className="absolute inset-0 pointer-events-none opacity-25 z-0"
           style={{
             backgroundImage: `
-              linear-gradient(to right, rgba(184, 149, 101, 0.15) 1px, transparent 1px),
-              linear-gradient(to bottom, rgba(184, 149, 101, 0.15) 1px, transparent 1px)
+              linear-gradient(to right, rgba(184, 149, 101, 0.16) 1px, transparent 3px),
+              linear-gradient(to bottom, rgba(184, 149, 101, 0.16) 1px, transparent 3px)
             `,
-            backgroundSize: '54px 54px',
+            backgroundSize: '56px 56px',
           }}
         />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-10 relative z-10">
 
-          {/* Header matching reference image: "— OUR SERVICES — What We Offer" */}
+          {/* Header */}
           <div className="text-center mb-14 md:mb-16">
             <div className="flex items-center justify-center gap-3 mb-3">
               <div className="w-10 h-[1.5px] bg-[#b89565]" />
@@ -303,257 +301,195 @@ export default function ServicesPage() {
             </h2>
 
             <p className="text-zinc-600 text-xs sm:text-sm md:text-base max-w-2xl mx-auto font-light">
-              End-to-end consultancy solutions for architecture, design and construction &mdash; from concept to completion.
+              Hover over any discipline on the left to inspect its structural framework and detailed engineering specifications on the right.
             </p>
           </div>
 
-          {/* DYNAMIC GRID: 
-              - When NOT hovered: 9 cards span the full width in a beautiful 3-column grid (exact look of user's image).
-              - When mouse hovers any card: Left side becomes 8 cols, and Right side smoothly slides in with the detail view! */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* SPLIT INTERACTIVE LAYOUT: 
+              - Left side (5 cols): All 9 services stacked in an elegant vertical line/list.
+              - Right side (7 cols): Active service's full details, photo banner, software, code standards & deliverables! */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
 
-            {/* SERVICES GRID CONTAINER */}
-            <motion.div
-              layout
-              transition={{
-                layout: { duration: 0.5, ease: [0.25, 1, 0.5, 1] }
-              }}
-              className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 transition-all duration-500 ease-out ${activeService ? "lg:col-span-7 xl:col-span-8" : "lg:col-span-12"
-                }`}
-            >
-              {servicesList.map((service, index) => {
-                const isSelected = selectedServiceId === service.id;
+            {/* LEFT SIDE: Vertical Services Stack */}
+            <div className="lg:col-span-5 flex flex-col gap-3">
+              {servicesList.map((service) => {
+                const isActive = selectedServiceId === service.id;
                 const IconComponent = service.icon;
 
                 return (
-                  <motion.div
-                    layout
+                  <div
                     key={service.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-50px" }}
-                    transition={{
-                      layout: { duration: 0.45, ease: [0.25, 1, 0.5, 1] },
-                      opacity: { duration: 0.5, delay: index * 0.05 },
-                      y: { duration: 0.5, delay: index * 0.05, ease: "easeOut" }
-                    }}
-                    whileHover={{ y: -6, scale: 1.01 }}
-                    className={`group relative rounded-3xl bg-white transition-all duration-300 overflow-hidden flex flex-col justify-between ${isSelected
-                        ? "border-2 border-[#b89565] shadow-[0_20px_45px_rgba(184,149,101,0.28)] ring-4 ring-[#b89565]/20"
-                        : "border border-zinc-200/90 hover:border-[#b89565]/60 hover:shadow-xl hover:shadow-[#b89565]/10"
-                      }`}
+                    onMouseEnter={() => setSelectedServiceId(service.id)}
+                    onClick={() => setSelectedServiceId(service.id)}
+                    className={`group relative p-4 rounded-2xl cursor-pointer transition-all duration-300 flex items-center justify-between border ${
+                      isActive
+                        ? "bg-white border-[#b89565] shadow-lg shadow-[#b89565]/15 scale-[1.02]"
+                        : "bg-white/70 hover:bg-white border-zinc-200/90 hover:border-[#b89565]/50 shadow-2xs"
+                    }`}
                   >
-                    {/* Golden accent bar on hover or when selected */}
-                    <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] transition-opacity duration-300 z-10 ${isSelected ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`} />
+                    {/* Active Golden Left Indicator Bar */}
+                    <div 
+                      className={`absolute left-0 top-3 bottom-3 w-1 rounded-r bg-[#b89565] transition-opacity duration-300 ${
+                        isActive ? "opacity-100" : "opacity-0 group-hover:opacity-60"
+                      }`}
+                    />
 
-                    {/* Top Image Preview Banner (matching reference rounded aspect) */}
-                    <div className="relative w-full h-40 sm:h-44 overflow-hidden bg-zinc-100">
-                      <img
-                        src={service.image}
-                        alt={service.title}
-                        className={`w-full h-full object-cover transition-all duration-700 ${isSelected ? "scale-110 contrast-105" : "group-hover:scale-108"}`}
-                      />
-                      <div className={`absolute inset-0 transition-opacity duration-500 ${isSelected ? "bg-gradient-to-t from-black/60 via-black/20 to-transparent" : "bg-gradient-to-t from-black/40 via-transparent to-transparent"}`} />
-
-                      {/* Number Tag with golden border */}
-                      <span className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-white/95 backdrop-blur-md text-[10px] font-mono font-bold text-zinc-900 border border-[#b89565]/40 shadow-xs flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-[#b89565]" />
-                        {service.number}
-                      </span>
-
-                      {/* Active indicator badge */}
-                      {isSelected && (
-                        <motion.span
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          className="absolute top-3 right-3 px-2 py-0.5 rounded-full bg-[#b89565] text-white text-[9px] font-bold uppercase tracking-wider shadow-sm flex items-center gap-1"
-                        >
-                          <Sparkles className="w-2.5 h-2.5" />
-                          Viewing
-                        </motion.span>
-                      )}
-                    </div>
-
-                    {/* Bottom Service Content (matching reference layout) */}
-                    <div className="p-5 flex-1 flex flex-col justify-between">
-                      <div>
-                        <div className="flex items-start gap-3 mb-2.5">
-                          {/* Service Icon */}
-                          <div className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 p-2 transition-all duration-300 ${isSelected
-                              ? "bg-gradient-to-br from-[#b89565] to-[#8d6935] text-white shadow-md shadow-[#b89565]/30 scale-105"
-                              : "bg-[#faf6ee] text-[#b89565] border border-[#b89565]/30 group-hover:bg-[#b89565] group-hover:text-white"
-                            }`}>
-                            {service.imageIcon ? (
-                              <img
-                                src={service.imageIcon}
-                                alt={service.title}
-                                className={`w-full h-full object-contain ${isSelected ? "brightness-0 invert" : "group-hover:brightness-0 group-hover:invert"}`}
-                              />
-                            ) : (
-                              <IconComponent className="w-4 h-4 stroke-[1.8]" />
-                            )}
-                          </div>
-
-                          {/* Title */}
-                          <div className="min-w-0 flex-1">
-                            <h3
-                              className={`text-sm sm:text-[15px] font-bold tracking-tight leading-snug transition-colors duration-200 ${isSelected ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
-                                }`}
-                              style={{ fontFamily: "'Montserrat', sans-serif" }}
-                            >
-                              {service.title}
-                            </h3>
-                          </div>
-                        </div>
-
-                        {/* Short Description */}
-                        <p className="text-xs text-zinc-500 font-normal leading-relaxed line-clamp-2 mt-1">
-                          {service.shortDesc}
-                        </p>
+                    <div className="flex items-center gap-3.5 pl-2 min-w-0">
+                      {/* Icon */}
+                      <div className={`w-11 h-11 rounded-xl flex items-center justify-center shrink-0 p-2.5 transition-all duration-300 ${
+                        isActive
+                          ? "bg-gradient-to-br from-[#b89565] to-[#8d6935] text-white shadow-md shadow-[#b89565]/25"
+                          : "bg-[#faf6ee] text-[#b89565] border border-[#b89565]/25 group-hover:bg-[#b89565] group-hover:text-white"
+                      }`}>
+                        {service.imageIcon ? (
+                          <img
+                            src={service.imageIcon}
+                            alt={service.title}
+                            className={`w-full h-full object-contain ${isActive ? "brightness-0 invert" : "group-hover:brightness-0 group-hover:invert"}`}
+                          />
+                        ) : (
+                          <IconComponent className="w-5 h-5 stroke-[1.8]" />
+                        )}
                       </div>
 
-                      {/* Bottom "View Details" Clickable Button (opens only on click) */}
-                      <button
-                        type="button"
-                        onClick={(e) => handleToggleViewDetails(service.id, e)}
-                        className="mt-4 pt-3 border-t border-zinc-100 flex items-center justify-between w-full group/btn cursor-pointer text-left focus:outline-none"
-                      >
-                        <span className={`text-[12px] font-mono font-bold transition-colors ${isSelected ? "text-[#8d6935]" : "text-[#b89565] group-hover/btn:text-[#8d6935]"}`}>
-                          {isSelected ? "Close Details" : "View Details"}
+                      {/* Title & Number */}
+                      <div className="min-w-0">
+                        <span className={`text-[10px] font-mono font-bold block mb-0.5 ${isActive ? "text-[#b89565]" : "text-zinc-400"}`}>
+                          DISCIPLINE {service.number}
                         </span>
-                        <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 ${isSelected
-                            ? "bg-gradient-to-r from-[#b89565] to-[#8d6935] text-white scale-110 shadow-sm"
-                            : "border border-[#b89565]/50 text-[#b89565] group-hover/btn:bg-[#b89565] group-hover/btn:text-white group-hover/btn:scale-105"
-                          }`}>
-                          <ArrowRight className={`w-3.5 h-3.5 transition-transform duration-300 ${isSelected ? "rotate-90" : "group-hover/btn:translate-x-0.5"}`} />
-                        </div>
-                      </button>
+                        <h4 
+                          className={`text-sm sm:text-base font-bold tracking-tight truncate transition-colors ${
+                            isActive ? "text-[#b89565]" : "text-zinc-900 group-hover:text-[#b89565]"
+                          }`}
+                          style={{ fontFamily: "'Montserrat', sans-serif" }}
+                        >
+                          {service.title}
+                        </h4>
+                      </div>
                     </div>
-                  </motion.div>
+
+                    {/* Right Arrow Indicator */}
+                    <div className={`w-7 h-7 rounded-full flex items-center justify-center transition-all duration-300 shrink-0 ${
+                      isActive 
+                        ? "bg-[#b89565] text-white translate-x-1" 
+                        : "text-zinc-400 border border-zinc-200 group-hover:border-[#b89565]/40 group-hover:text-[#b89565]"
+                    }`}>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
                 );
               })}
-            </motion.div>
+            </div>
 
-            {/* RIGHT SIDE: Dedicated Detail View Card
-                Appears ONLY when user clicks "View Details", completely steady and won't close on mouse movements */}
-            <AnimatePresence mode="wait">
-              {activeService && (
+            {/* RIGHT SIDE: Dedicated Detail View Card (Dynamic smooth update on hover) */}
+            <div className="lg:col-span-7 sticky top-28 z-20">
+              <AnimatePresence mode="wait">
                 <motion.div
                   key={activeService.id}
-                  initial={{ opacity: 0, x: 30, scale: 0.97 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 20, scale: 0.97 }}
-                  transition={{
-                    duration: 0.35,
-                    ease: [0.16, 1, 0.3, 1]
-                  }}
-                  className="lg:col-span-5 xl:col-span-4 sticky top-28 z-20"
+                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -15, scale: 0.98 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="bg-white border-2 border-[#b89565]/40 rounded-3xl p-6 sm:p-8 md:p-10 shadow-[0_20px_50px_rgba(184,149,101,0.18)] relative overflow-hidden backdrop-blur-xl"
                 >
-                  <div className="bg-white border-2 border-[#b89565]/50 rounded-3xl p-6 sm:p-7 shadow-[0_25px_60px_rgba(184,149,101,0.22)] relative overflow-hidden backdrop-blur-xl">
+                  {/* Subtle Ambient Golden Glow */}
+                  <div className="absolute -top-16 -right-16 w-48 h-48 bg-[#ffe5b4]/30 rounded-full blur-3xl pointer-events-none" />
 
-                    {/* Ambient Golden Glow Accent in Top Corner */}
-                    <div className="absolute -top-16 -right-16 w-36 h-36 bg-[#ffe5b4]/40 rounded-full blur-2xl pointer-events-none" />
+                  {/* Top Image Header Banner */}
+                  <div className="relative w-full h-56 sm:h-64 rounded-2xl overflow-hidden mb-6 border border-[#b89565]/25 shadow-sm bg-zinc-900">
+                    <img
+                      src={activeService.image}
+                      alt={activeService.title}
+                      className="w-full h-full object-cover filter contrast-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                    {/* Close button in top-right corner of card (matching reference image X icon) */}
-                    <button
-                      onClick={() => setSelectedServiceId(null)}
-                      className="absolute top-4 right-4 z-20 w-8 h-8 rounded-full bg-white/95 backdrop-blur-md border border-zinc-200 hover:border-[#b89565] text-zinc-600 hover:text-black flex items-center justify-center transition-all cursor-pointer shadow-xs hover:scale-110 active:scale-95"
-                      aria-label="Close detail view"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-
-                    {/* Image Header */}
-                    <div className="relative w-full h-48 sm:h-52 rounded-2xl overflow-hidden mb-5 border border-[#b89565]/25 shadow-sm bg-zinc-100 group">
-                      <motion.img
-                        key={activeService.image}
-                        initial={{ scale: 1.08, opacity: 0.85 }}
-                        animate={{ scale: 1, opacity: 1 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        src={activeService.image}
-                        alt={activeService.title}
-                        className="w-full h-full object-cover filter contrast-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
-
-                      {/* Number Tag */}
-                      <div className="absolute top-3 left-3 flex items-center gap-2">
-                        <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#a07c48] text-[10px] font-mono font-bold uppercase tracking-wider border border-[#b89565]/40 shadow-xs flex items-center gap-1.5">
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#b89565] animate-pulse" />
-                          {activeService.number} &bull; {activeService.codeStandard}
-                        </span>
-                      </div>
+                    {/* Number Badge Tag */}
+                    <div className="absolute top-4 left-4 flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md text-[#a07c48] text-xs font-mono font-bold uppercase tracking-wider border border-[#b89565]/40 shadow-xs flex items-center gap-1.5">
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#b89565] animate-pulse" />
+                        {activeService.number} &bull; {activeService.codeStandard}
+                      </span>
                     </div>
 
-                    {/* Title with decorative underline */}
-                    <motion.div
-                      key={`title-${activeService.id}`}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <h3
-                        className="text-2xl sm:text-3xl font-bold text-zinc-950 mb-1 leading-tight uppercase"
+                    {/* Bottom Title on Image */}
+                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                      <span className="text-[11px] font-mono tracking-widest text-[#e5c58a] uppercase block mb-1">
+                        ENGINEERING SPECIFICATION
+                      </span>
+                      <h3 
+                        className="text-2xl sm:text-3xl font-bold tracking-tight uppercase leading-tight"
                         style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                       >
                         {activeService.title}
                       </h3>
-                      <div className="w-12 h-0.5 bg-gradient-to-r from-[#b89565] to-transparent mb-3" />
-                    </motion.div>
+                    </div>
+                  </div>
 
-                    {/* Description Paragraph */}
-                    <motion.p
-                      key={`desc-${activeService.id}`}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 0.35, delay: 0.05 }}
-                      className="text-zinc-600 text-xs sm:text-sm font-normal leading-relaxed mb-6"
-                    >
-                      {activeService.fullDesc}
-                    </motion.p>
+                  {/* Description Paragraph */}
+                  <p className="text-zinc-600 text-sm sm:text-base leading-relaxed mb-6 font-normal">
+                    {activeService.fullDesc}
+                  </p>
 
-                    {/* 2-Column Deliverables Pill Grid (matching reference image) */}
-                    <motion.div
-                      key={`deliverables-${activeService.id}`}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.35, delay: 0.1 }}
-                      className="grid grid-cols-2 gap-2.5 mb-7"
+                  {/* Software & Code Specs */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-2xl bg-[#fcfaf6] border border-[#b89565]/20 mb-6">
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#a07c48] block mb-1 font-semibold">
+                        DESIGN SOFTWARE SUITE
+                      </span>
+                      <p className="text-xs sm:text-sm font-bold text-zinc-900">
+                        {activeService.software}
+                      </p>
+                    </div>
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-[#a07c48] block mb-1 font-semibold">
+                        STATUTORY CODE STANDARDS
+                      </span>
+                      <p className="text-xs sm:text-sm font-bold text-zinc-900">
+                        {activeService.codeStandard}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Key Deliverables Grid */}
+                  <div className="mb-8">
+                    <h4 
+                      className="text-xs font-bold uppercase tracking-[0.2em] text-[#a07c48] mb-3"
+                      style={{ fontFamily: "'Montserrat', sans-serif" }}
                     >
-                      {activeService.deliverables.map((item, idx) => (
-                        <div
-                          key={idx}
-                          className="flex items-center gap-2 p-2.5 rounded-xl bg-[#faf7f2] border border-[#b89565]/25 text-[11px] font-semibold text-zinc-800 shadow-2xs hover:border-[#b89565]/60 hover:bg-[#f6f0e4] transition-colors"
-                        >
+                      KEY TECHNICAL DELIVERABLES
+                    </h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {activeService.deliverables.map((item, dIdx) => (
+                        <div key={dIdx} className="flex items-center gap-2 p-2.5 rounded-xl bg-white border border-zinc-200/80 text-xs font-medium text-zinc-800">
                           <CheckCircle2 className="w-3.5 h-3.5 text-[#b89565] shrink-0" />
                           <span className="truncate">{item}</span>
                         </div>
                       ))}
-                    </motion.div>
-
-                    {/* Two Buttons matching Reference: [Know More →] [Get a Quote] */}
-                    <div className="grid grid-cols-2 gap-3 pt-3 border-t border-zinc-100">
-                      <Link
-                        href={`/services/${activeService.slug}`}
-                        className="relative group/btn inline-flex items-center justify-center gap-2 py-3 px-4 rounded-full bg-gradient-to-r from-[#b89565] via-[#a8824f] to-[#8d6935] hover:from-[#a07c48] hover:to-[#78572a] text-white font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-[#b89565]/35 hover:scale-105 active:scale-95 text-center cursor-pointer overflow-hidden"
-                      >
-                        <span className="relative z-10">Know More</span>
-                        <ArrowRight className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/btn:translate-x-1" />
-                        <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-                      </Link>
-
-                      <Link
-                        href="/contact"
-                        className="inline-flex items-center justify-center py-3 px-4 rounded-full border-2 border-[#b89565] bg-white hover:bg-[#faf6ee] text-zinc-900 hover:text-[#8d6935] font-bold text-xs uppercase tracking-wider transition-all shadow-xs hover:scale-105 active:scale-95 text-center cursor-pointer"
-                      >
-                        <span>Get a Quote</span>
-                      </Link>
                     </div>
+                  </div>
 
+                  {/* Bottom Action Button */}
+                  <div className="pt-4 border-t border-zinc-100 flex items-center justify-between">
+                    <Link
+                      href="/contact"
+                      className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-[#b89565] to-[#a07c48] text-white font-bold text-xs uppercase tracking-widest shadow-md hover:scale-105 transition-all"
+                    >
+                      <span>Inquire For This Discipline</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </Link>
+
+                    <Link
+                      href={`/services/${activeService.slug}`}
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#b89565] hover:text-[#8d6935] uppercase tracking-wider transition-colors"
+                    >
+                      <span>Full Case Studies</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                   </div>
                 </motion.div>
-              )}
-            </AnimatePresence>
+              </AnimatePresence>
+            </div>
 
           </div>
 
@@ -584,27 +520,8 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* 4. FOOTER CTA */}
-      <section className="py-20 bg-[#faf8f5] text-center border-t border-[#b89565]/20">
-        <div className="max-w-3xl mx-auto px-6">
-          <h2
-            className="text-3xl sm:text-4xl font-bold text-zinc-950 mb-3"
-            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-          >
-            Have a project requiring specialized structural engineering?
-          </h2>
-          <p className="text-zinc-600 text-sm mb-8 font-light">
-            Our senior consultants are available for site visits, preliminary sizing, code calculations, and value reviews.
-          </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#b89565] to-[#a07c48] hover:from-[#a07c48] hover:to-[#8d6935] text-white font-bold text-xs uppercase tracking-widest transition-all shadow-lg shadow-[#b89565]/20 hover:scale-105"
-          >
-            <span>Consult With Principal Engineer</span>
-            <ArrowRight className="w-4 h-4" />
-          </Link>
-        </div>
-      </section>
+      {/* 4. FOOTER CTA SECTION */}
+      <CTASection />
 
       <Footer />
     </div>
