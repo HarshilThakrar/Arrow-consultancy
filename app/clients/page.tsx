@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
+import BackgroundVideo from "../components/BackgroundVideo";
 import { 
   Building2, 
   Landmark, 
@@ -66,11 +67,29 @@ export default function ClientsPage() {
     <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white overflow-hidden">
       <Navbar />
 
-      {/* Top spacing for fixed navbar */}
-      <div className="h-[90px] sm:h-[105px] w-full" />
+      {/* 1. HERO BANNER - GOLDEN BACKGROUND VIDEO WITH TITLE ON TOP (EXACTLY AS IN ABOUT US / SERVICES) */}
+      <section className="relative min-h-[45vh] md:min-h-[50vh] flex items-center justify-center pt-32 pb-16 md:pt-36 md:pb-20 overflow-hidden border-b border-[#b89565]/30">
+        <BackgroundVideo 
+          videoSrc="/logo_reveal.mp4" 
+          posterImage="/assets/about_us/about_us_bg.png" 
+          overlayOpacity="from-[#3a2d18]/90 via-[#221a0e]/85 to-[#161009]/90" 
+        />
 
-      {/* Main Split Layout in Golden and White Theme */}
-      <main className="w-full min-h-[calc(100vh-90px)]">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-10 lg:px-14 w-full text-center">
+          <motion.h1 
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-white uppercase"
+            style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+          >
+            Our <span className="text-[#e5c58a] italic font-normal bg-gradient-to-r from-[#ffe4ab] via-[#e5c58a] to-[#b89565] bg-clip-text text-transparent">Clients</span>
+          </motion.h1>
+        </div>
+      </section>
+
+      {/* 2. SPLIT LAYOUT IN GOLDEN & WHITE THEME */}
+      <main className="w-full relative">
         <div className="grid grid-cols-1 xl:grid-cols-12 min-h-screen">
           
           {/* LEFT COLUMN: Sticky Luxury Golden Panel */}
@@ -109,18 +128,18 @@ export default function ClientsPage() {
                 transition={{ duration: 0.6, delay: 0.1 }}
                 className="flex items-start justify-center mb-3"
               >
-                <h1 
+                <h2 
                   className="text-6xl sm:text-7xl lg:text-8xl font-black tracking-tight leading-none text-white"
                   style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
                 >
                   200
-                </h1>
+                </h2>
                 <span className="text-3xl sm:text-4xl font-extrabold text-[#e5c58a] ml-1">
                   +
                 </span>
               </motion.div>
 
-              <motion.h2
+              <motion.h3
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
@@ -128,7 +147,7 @@ export default function ClientsPage() {
                 style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
               >
                 Enterprises trust <span className="bg-gradient-to-r from-[#ffe4ab] via-[#e5c58a] to-[#b89565] bg-clip-text text-transparent italic">Arrow</span>
-              </motion.h2>
+              </motion.h3>
 
               <motion.p
                 initial={{ opacity: 0, y: 10 }}
