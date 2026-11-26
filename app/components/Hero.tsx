@@ -4,19 +4,57 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { fetchApi, formatMediaUrl } from "../lib/api";
 
-const slides = [
-  { id: 1, title: 'Astra Global', location: 'Innovation District', image: '/assets/hero/slider_4.jpg' },
-  { id: 2, title: 'Shilp Twin Towers', location: 'SEZ, Gift City', image: '/assets/hero/bg-image.png' },
-  { id: 3, title: 'Lumina Exchange', location: 'Financial Hub', image: '/assets/hero/slider_3.jpg' },
-  { id: 4, title: 'Skyline Gateway', location: 'Downtown Business Center', image: '/assets/hero/slider_5.jpg' },
-  { id: 5, title: 'The Apex Tower', location: 'Corporate Sector', image: '/assets/hero/slider_2.jpg' },
+interface SlideItem {
+  id: number;
+  title: string;
+  location: string;
+  image: string;
+}
+
+const defaultSlides: SlideItem[] = [
+  { id: 1, title: 'Panache Aura', location: 'Commercial Landmark', image: '/assets/our_project/Panache_Aura.png' },
+  { id: 2, title: 'Pragati Ambitions', location: 'High-Rise Development', image: '/assets/our_project/Pragati_Ambitions.png' },
+  { id: 3, title: 'Preet Promotors', location: 'Premium Residential & Commercial', image: '/assets/our_project/Preet_Promotors.png' },
+  { id: 4, title: 'Prism City Greens', location: 'Integrated Township', image: '/assets/our_project/Prism_city_greens.png' },
+  { id: 5, title: 'Swastik Twin Tower', location: 'Twin Towers Hub', image: '/assets/our_project/Swastik_Tween_Tower.png' },
 ];
 
 const Hero = () => {
+  const [slides, setSlides] = useState<SlideItem[]>(defaultSlides);
   const [currentSlide, setCurrentSlide] = useState(0); // 0-indexed, so 0 is slide 01
   const [canPlay, setCanPlay] = useState(true);
   const heroContentRef = useRef<HTMLDivElement>(null);
+
+  // Fetch dynamic slides from Laravel Filament backend
+  useEffect(() => {
+    // 1. Instant cache load from localStorage if available
+    try {
+      const cached = localStorage.getItem('arrow_cache_hero_slides');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed && parsed.length > 0) {
+          setSlides(parsed);
+        }
+      }
+    } catch (_) {}
+
+    // 2. Fetch fresh from API
+    fetchApi<SlideItem[]>('/hero-slides').then((data) => {
+      if (data && data.length > 0) {
+        const mapped = data.map((d) => ({
+          ...d,
+          image: formatMediaUrl(d.image),
+        }));
+        setSlides(mapped);
+        setCurrentSlide(0);
+        try {
+          localStorage.setItem('arrow_cache_hero_slides', JSON.stringify(mapped));
+        } catch (_) {}
+      }
+    });
+  }, []);
 
   // Entrance Animation on mount
   useGSAP(() => {
@@ -32,58 +70,56 @@ const Hero = () => {
     }
   }, []);
 
-  // Auto-play timer
+  // Auto-play timer: Guaranteed continuous auto-slide every 4 seconds
   useEffect(() => {
-    if (!canPlay) return;
+    if (!slides || slides.length <= 1) return;
 
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 5000); // Changes every 5 seconds
+    }, 4000);
 
     return () => clearInterval(timer);
-  }, [canPlay]);
+  }, [slides.length]);
 
-  const slide = slides[currentSlide];
+  const activeIndex = slides.length > 0 ? (currentSlide % slides.length) : 0;
+  const slide = slides[activeIndex] || defaultSlides[0];
 
   return (
     <div className="relative w-full h-screen flex flex-col justify-center overflow-hidden transition-all duration-700 ease-in-out">
 
       {/* Full Screen Background Image Slider */}
       {slides.map((s, index) => {
-        const isActive = currentSlide === index;
+        const isActive = activeIndex === index;
 
         let animationClass = "";
-        if (!canPlay) {
-          // Hide all slides while preloader is running, so when it finishes, 
-          // slide 01 gets a smooth entrance animation.
-          animationClass = "opacity-0 scale-110";
-        } else if (!isActive) {
-          if (index === 0) animationClass = "opacity-0 scale-110"; // 1st: direct (fade & zoom)
-          else if (index === 1) animationClass = "translate-x-full opacity-0"; // 2nd: from right
-          else if (index === 2) animationClass = "translate-y-full opacity-0"; // 3rd: from bottom
-          else if (index === 3) animationClass = "-translate-x-full opacity-0"; // 4th: from left
-          else if (index === 4) animationClass = "-translate-y-full opacity-0"; // 5th: from top
+        if (!isActive) {
+          if (index === 0) animationClass = "opacity-0 scale-110 pointer-events-none"; // 1st: direct (fade & zoom)
+          else if (index === 1) animationClass = "translate-x-full opacity-0 pointer-events-none"; // 2nd: from right
+          else if (index === 2) animationClass = "translate-y-full opacity-0 pointer-events-none"; // 3rd: from bottom
+          else if (index === 3) animationClass = "-translate-x-full opacity-0 pointer-events-none"; // 4th: from left
+          else if (index === 4) animationClass = "-translate-y-full opacity-0 pointer-events-none"; // 5th: from top
+          else animationClass = "opacity-0 scale-110 pointer-events-none";
         } else {
-          animationClass = "translate-x-0 translate-y-0 opacity-100 scale-100";
+          animationClass = "translate-x-0 translate-y-0 opacity-100 scale-100 z-0";
         }
 
         return (
           <div
-            key={s.id}
-            className={`absolute inset-0 z-0 bg-cover bg-center bg-no-repeat transition-all duration-[1500ms] ease-in-out ${animationClass}`}
+            key={s.id || index}
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-[1500ms] ease-in-out ${animationClass}`}
             style={{ backgroundImage: `url("${s.image}")` }}
           />
         );
       })}
 
-      {/* Static Overlays to keep text readable during transitions */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/40 to-transparent"></div>
+      {/* Cinematic Dark Overlays (Behind Text z-10) */}
+      <div className="absolute inset-0 z-10 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-r from-zinc-950/90 via-zinc-950/50 to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-zinc-950/80 via-transparent to-transparent"></div>
       </div>
 
-      {/* Main Content */}
-      <div ref={heroContentRef} className="relative z-10 flex flex-col justify-center px-12 md:px-24 h-full mt-24">
+      {/* Main Content (Centered on mobile, Left-aligned on Desktop) */}
+      <div ref={heroContentRef} className="relative z-30 flex flex-col items-center md:items-start justify-center text-center md:text-left px-6 sm:px-12 md:px-24 h-full pt-16 md:pt-24 max-w-7xl mx-auto md:mx-0">
 
         {/* Top small text */}
         <p className="text-[#b89565] tracking-[0.3em] text-xs font-semibold uppercase mb-3">
@@ -92,7 +128,7 @@ const Hero = () => {
 
         {/* Headline */}
         <h1
-          className="text-5xl md:text-7xl font-bold leading-[1] tracking-tight max-w-3xl mb-5"
+          className="text-4xl sm:text-5xl md:text-7xl font-bold leading-[1.08] md:leading-[1.02] tracking-tight max-w-3xl mb-4 sm:mb-5"
           style={{ fontFamily: "'Outfit', sans-serif" }}
         >
           <span className="bg-clip-text text-transparent bg-[linear-gradient(225deg,#ffffff_30%,#a1a1aa_50%,#ffffff_70%)] animate-shine">
@@ -104,15 +140,15 @@ const Hero = () => {
         </h1>
 
         {/* Subtitle */}
-        <p className="text-zinc-400 text-sm md:text-base max-w-md leading-relaxed mb-8">
+        <p className="text-zinc-400 text-xs sm:text-sm md:text-base max-w-lg leading-relaxed mb-6 sm:mb-8 mx-auto md:mx-0">
           Expert structural consultancy delivering safe, efficient and future-ready solutions for landmark projects.
         </p>
 
         {/* Buttons */}
-        <div className="flex flex-wrap items-center gap-6 mb-12">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 sm:gap-6 mb-8 sm:mb-12">
           <Link 
             href="/projects"
-            className="relative overflow-hidden bg-[#8c6f4a] text-zinc-950 px-8 py-4 rounded-sm text-xs font-bold tracking-widest group shadow-[0_0_15px_rgba(184,149,101,0.2)] hover:shadow-[0_0_20px_rgba(184,149,101,0.4)] transition-all inline-block cursor-pointer"
+            className="relative overflow-hidden bg-[#8c6f4a] text-zinc-950 px-6 sm:px-8 py-3.5 sm:py-4 rounded-sm text-xs font-bold tracking-widest group shadow-[0_0_15px_rgba(184,149,101,0.2)] hover:shadow-[0_0_20px_rgba(184,149,101,0.4)] transition-all inline-block cursor-pointer"
           >
             {/* Spinning Shine Effect */}
             <span className="absolute inset-[-100%] animate-[spin_2.5s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,transparent_0%,transparent_60%,#ffffff_100%)]"></span>
@@ -122,7 +158,7 @@ const Hero = () => {
 
             {/* Text & Icon */}
             <div
-              className="relative z-10 flex items-center justify-center gap-3"
+              className="relative z-10 flex items-center justify-center gap-3 text-[11px] sm:text-xs"
               style={{ fontFamily: "'Montserrat', sans-serif" }}
             >
               EXPLORE OUR WORK
@@ -134,7 +170,7 @@ const Hero = () => {
         </div>
 
         {/* Core Pillars */}
-        <div className="flex flex-wrap items-center gap-8 md:gap-12 text-white border-t border-white/10 pt-8 max-w-3xl">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-6 sm:gap-8 md:gap-12 text-white border-t border-white/10 pt-6 sm:pt-8 w-full max-w-3xl mx-auto md:mx-0">
           {/* Pillar 1 */}
           <div className="flex items-center gap-4 group cursor-default">
             <div className="w-10 h-10 border border-white/20 rounded-full flex items-center justify-center group-hover:border-[#b89565] group-hover:text-[#b89565] transition-all">
@@ -198,12 +234,12 @@ const Hero = () => {
           {/* Center dot */}
           <div className="absolute top-1/2 left-1/4 w-1 h-1 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
           <span className="absolute top-1/4 left-1/3 text-[10px] tracking-widest text-white/70">
-            0{slide.id} /
+            0{activeIndex + 1} /
           </span>
         </div>
 
         <h3 className="text-sm font-semibold tracking-[0.2em] mb-1.5 uppercase pl-4 transition-all">{slide.title}</h3>
-        <p className="text-[10px] text-white/60 tracking-[0.2em] uppercase pl-4 transition-all">{slide.location}</p>
+        <p className="text-[10px] text-white/60 tracking-[0.2em] uppercase pl-4 transition-all">{slide.location || 'Structural Project'}</p>
       </div>
 
       {/* Vertical Pagination (Far Right Edge) */}
@@ -213,16 +249,16 @@ const Hero = () => {
           <div className="absolute top-0 bottom-0 right-[-20px] w-[1px] bg-white/10"></div>
 
           {slides.map((s, index) => (
-            <div key={s.id} className="relative group">
+            <div key={s.id || index} className="relative group">
               <span
                 onClick={() => setCurrentSlide(index)}
-                className={`cursor-pointer transition-colors ${currentSlide === index ? 'text-white' : 'hover:text-white/80'}`}
+                className={`cursor-pointer transition-colors ${activeIndex === index ? 'text-white' : 'hover:text-white/80'}`}
               >
-                0{s.id}
+                0{index + 1}
               </span>
 
               {/* Active gold line */}
-              {currentSlide === index && (
+              {activeIndex === index && (
                 <div className="absolute -right-[20px] top-1/2 -translate-y-1/2 w-[2px] h-6 bg-[#b89565] transition-all"></div>
               )}
             </div>

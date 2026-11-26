@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { ArrowUpRight, Calendar } from 'lucide-react';
 
 const CTASection = () => {
@@ -130,21 +131,21 @@ const CTASection = () => {
 
             {/* Action Buttons matching reference */}
             <div className="flex flex-wrap items-center gap-4">
-              <a
-                href="#contact"
+              <Link
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#b89565] to-[#a37e50] text-white font-semibold text-xs sm:text-sm tracking-wide shadow-md shadow-[#b89565]/25 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
               >
                 <span>Get in Touch</span>
                 <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </Link>
 
-              <a
-                href="mailto:contact@arrowasc.com"
+              <Link
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl border border-[#b89565] bg-white hover:bg-[#b89565]/5 text-zinc-900 font-medium text-xs sm:text-sm tracking-wide transition-all duration-300 shadow-xs cursor-pointer"
               >
                 <Calendar className="w-4 h-4 text-[#b89565]" />
                 <span>Schedule a Consultation</span>
-              </a>
+              </Link>
             </div>
 
           </div>

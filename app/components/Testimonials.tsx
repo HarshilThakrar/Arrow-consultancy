@@ -1,7 +1,8 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { fetchApi } from '../lib/api';
 
 interface TestimonialItem {
   id: number;
@@ -12,7 +13,7 @@ interface TestimonialItem {
   avatar: string;
 }
 
-const testimonialsData: TestimonialItem[] = [
+const defaultTestimonialsData: TestimonialItem[] = [
   {
     id: 0,
     quote:
@@ -52,8 +53,41 @@ const testimonialsData: TestimonialItem[] = [
 ];
 
 const Testimonials = () => {
+  const [testimonialsData, setTestimonialsData] = useState<TestimonialItem[]>(defaultTestimonialsData);
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeReview = testimonialsData[activeIndex];
+
+  useEffect(() => {
+    // 1. Instant cache load from localStorage
+    try {
+      const cached = localStorage.getItem('arrow_cache_testimonials');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed && parsed.length > 0) {
+          setTestimonialsData(parsed);
+        }
+      }
+    } catch (_) {}
+
+    // 2. Fetch fresh from API
+    fetchApi<any[]>('/testimonials').then((data) => {
+      if (data && data.length > 0) {
+        const mapped = data.map((t, idx) => ({
+          id: idx,
+          quote: t.quote || t.feedback || "",
+          name: t.name || t.client_name || "",
+          role: t.role || t.designation || "Director",
+          company: t.company || "",
+          avatar: t.avatar || defaultTestimonialsData[idx % defaultTestimonialsData.length].avatar,
+        }));
+        setTestimonialsData(mapped);
+        try {
+          localStorage.setItem('arrow_cache_testimonials', JSON.stringify(mapped));
+        } catch (_) {}
+      }
+    });
+  }, []);
+
+  const activeReview = testimonialsData[activeIndex] || testimonialsData[0];
 
   return (
     <section id="testimonials" className="relative w-full bg-white text-zinc-900 py-24 md:py-32 overflow-hidden border-t border-zinc-200/80 font-sans">

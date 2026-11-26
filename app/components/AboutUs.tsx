@@ -115,11 +115,11 @@ const AboutUs = () => {
               >
                 General History
               </h3>
-              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed mb-4 font-normal">
-                ARROW STRUCTURAL CONSULTANTS was established with a dedicated vision of bringing world-class structural engineering, seismic resilience, and value engineering to modern infrastructures.
+              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed mb-3 font-normal text-justify">
+                Established in the year 2017, Arrow Structural Consultants is one of India&apos;s leading structural consulting firms. Based in Pune, we efficiently manage all aspects of the structural engineering segment &mdash; from analysis and design to drafting, BIM modelling, and peer review.
               </p>
-              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed font-normal">
-                We have specialization in Structural and Earth retaining design of residential, commercial, industrial, high-rise towers, and public infrastructure projects.
+              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed mb-4 font-normal text-justify">
+                Having successfully completed more than 200 projects across India covering a total area of over 10 million sq. ft., we have set benchmarks of excellence across residential, commercial, industrial, high-rise towers, and PEB structures.
               </p>
             </div>
 
@@ -129,19 +129,15 @@ const AboutUs = () => {
                 className="text-xl sm:text-2xl font-bold text-zinc-950 mb-4"
                 style={{ fontFamily: "'Montserrat', sans-serif" }}
               >
-                Design Principle
+                Design Philosophy
               </h3>
-              
-              <p className="text-[#b89565] font-semibold text-sm sm:text-base mb-3 italic">
-                We are professionals not businessmen.
+
+              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed mb-3 font-normal text-justify">
+                At Arrow Structural Consultants, we believe that structural engineering requires creativity, rigorous analysis, and a touch of technical genius to create exciting and efficient structures that exceed expectations.
               </p>
 
-              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed mb-3 font-normal">
-                We believe that any building design by an Architect has its own importance, functionality and uniqueness.
-              </p>
-
-              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed font-normal">
-                We respect the effort by an Architect and client so we suggest the structural system in such a way that it will not disturb the soul of the building.
+              <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed font-normal text-justify">
+                We believe every architectural vision possesses its own soul and uniqueness. We design our structural framing to respect that vision completely without disturbing the architectural aesthetics.
               </p>
             </div>
 

@@ -9,48 +9,86 @@ import {
   Target, 
   Mountain, 
   ShieldCheck, 
-  Star, 
-  Users, 
+  Sparkles, 
   Lightbulb, 
-  Leaf, 
-  ArrowRight 
+  RefreshCw, 
+  HeartHandshake, 
+  ArrowRight,
+  Database,
+  Compass,
+  FileCheck2,
+  Layers,
+  Building2
 } from "lucide-react";
 
 export default function AboutPage() {
   const values = [
     {
       icon: ShieldCheck,
-      title: "Integrity",
-      desc: "We believe in transparency and ethical practices in every project.",
+      title: "BE HONEST",
+      desc: "Our organization is built on fair, transparent, and ethical business practices. We take pride in consistently doing the right thing.",
     },
     {
-      icon: Star,
-      title: "Excellence",
-      desc: "We strive for the highest standards in engineering and service.",
-    },
-    {
-      icon: Users,
-      title: "Collaboration",
-      desc: "We work closely with clients, architects and stakeholders for shared success.",
+      icon: Sparkles,
+      title: "BE EXCELLENT",
+      desc: "We push the boundaries of what is attainable and are willing to go above and beyond the expectations of our clients.",
     },
     {
       icon: Lightbulb,
-      title: "Innovation",
-      desc: "We embrace new ideas and technologies to create better solutions.",
+      title: "BE INNOVATIVE",
+      desc: "We are always learning and updating. By harnessing technology, we explore new ways to add precision and perfection to our projects.",
     },
     {
-      icon: Leaf,
-      title: "Sustainability",
-      desc: "We are committed to safer, efficient and environmentally responsible practices.",
+      icon: RefreshCw,
+      title: "BE ADAPTABLE",
+      desc: "We are flexible, and we adjust our strategies as per the shifting demands of our clients, market, or economy.",
+    },
+    {
+      icon: HeartHandshake,
+      title: "BE CUSTOMER FOCUSED",
+      desc: "Our actions prioritize the best interests of our customers. For us, customer delight is far more important than profit.",
     },
   ];
 
-  const approachSteps = [
-    { name: "Understand", step: "01" },
-    { name: "Analyze", step: "02" },
-    { name: "Design", step: "03" },
-    { name: "Validate", step: "04" },
-    { name: "Deliver", step: "05" },
+  const philosophySteps = [
+    {
+      step: "01",
+      title: "Design Data",
+      subtitle: "Understand Your Goals",
+      desc: "We begin by thoroughly understanding and analyzing the client's requirements to ensure a tailored approach that aligns with their vision and objectives.",
+      footerText: "Good Design Starts with Understanding",
+      isHighlighted: false,
+    },
+    {
+      step: "02",
+      title: "Architectural Drawing",
+      subtitle: "Spatial Layout & Strategy",
+      desc: "Based on the client's requirements, architectural drawings are developed with attention to detail to ensure seamless execution of the design.",
+      footerText: "Precision Drawings Build Confidence",
+      isHighlighted: false,
+    },
+    {
+      step: "03",
+      title: "Client Approval",
+      subtitle: "Review & Alignment",
+      desc: "Architectural drawings are thoroughly reviewed and discussed with the client to ensure alignment with their vision and to incorporate their feedback for optimal results.",
+      footerText: "Collaboration for Optimal Results",
+      isHighlighted: false,
+    },
+    {
+      step: "04",
+      title: "Structural Drawings",
+      subtitle: "Engineering & GFC Detailing",
+      desc: "Once the drawings are approved by both the client and the architect, detailed structural drawings are finalized as (GFC) documents, ready for implementation.",
+      footerText: "Engineered GFC Precision & Safety",
+    },
+    {
+      step: "05",
+      title: "Construction Stage",
+      subtitle: "Deliver & On-Site Support",
+      desc: "The approved structural GFC drawings are submitted to the client, ensuring all details are in place to start the construction seamlessly.",
+      footerText: "Seamless On-Site Execution",
+    },
   ];
 
   return (
@@ -106,12 +144,16 @@ export default function AboutPage() {
                 <span className="text-[#a07c48]">on Purpose.</span>
               </h2>
 
-              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed mb-5 font-normal">
-                Arrow Structural Consultants was founded with a clear vision &mdash; to bring precision, innovation and integrity to structural engineering. What started as a small team of passionate engineers has grown into a trusted partner for architects, developers and businesses, delivering engineering solutions that stand the test of time.
+              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed mb-4 font-normal text-justify">
+                Established in the year 2017 and based in Pune, Arrow Structural Consultants is one of India&apos;s leading structural consulting firms. We manage every facet of structural engineering &mdash; from concept analysis and finite-element modeling to high-precision drafting and peer review.
               </p>
 
-              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed font-normal">
-                Our journey has always been guided by a simple belief &mdash; structures are not just built for today, but for generations to come.
+              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed mb-4 font-normal text-justify">
+                We are committed to raising industry benchmarks across residential, commercial, industrial, high-rise towers, pre-engineered buildings (PEB), earth-retaining structures, and post-tensioning. Having successfully completed over <strong className="text-zinc-950 font-bold">200+ projects</strong> across India covering a total area of <strong className="text-zinc-950 font-bold">10 million sq. ft.</strong>, we continue to set new standards of excellence.
+              </p>
+
+              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed font-normal text-justify">
+                At Arrow, we believe that true structural engineering requires creativity, rigorous analysis, and a touch of technical genius to create exciting, durable, and cost-effective structures that exceed expectations.
               </p>
             </motion.div>
 
@@ -132,8 +174,8 @@ export default function AboutPage() {
                   <h3 className="text-xs font-bold tracking-[0.2em] text-[#a07c48] uppercase mb-2">
                     OUR VISION
                   </h3>
-                  <p className="text-zinc-700 text-xs sm:text-sm leading-relaxed">
-                    To be a leading structural engineering consultancy recognized for delivering innovative, sustainable and reliable solutions that shape a stronger built environment.
+                  <p className="text-zinc-700 text-xs sm:text-sm leading-relaxed text-justify">
+                    To become a globally recognized leader in structural consulting through excellence in design, innovation, and sustainability.
                   </p>
                 </div>
               </div>
@@ -147,7 +189,7 @@ export default function AboutPage() {
                   <h3 className="text-xs font-bold tracking-[0.2em] text-[#a07c48] uppercase mb-2">
                     OUR MISSION
                   </h3>
-                  <p className="text-zinc-700 text-xs sm:text-sm leading-relaxed">
+                  <p className="text-zinc-700 text-xs sm:text-sm leading-relaxed text-justify">
                     To provide client-centric, structural engineering services with technical excellence, safety and sustainable practices, contributing to a better tomorrow.
                   </p>
                 </div>
@@ -172,143 +214,204 @@ export default function AboutPage() {
       {/* 3. SECTION 2: OUR VALUES (WARM CREAM CONTRAST BAR) */}
       <section className="py-20 md:py-24 bg-[#f3efe8] border-y border-[#b89565]/25">
         <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
-            
-            {/* Left Header */}
-            <div className="lg:col-span-3">
-              <div className="flex items-center gap-2 mb-2">
-                <span className="text-xs font-bold tracking-[0.2em] text-[#a07c48] uppercase">
-                  OUR VALUES
-                </span>
-                <div className="w-8 h-[2px] bg-[#b89565]" />
-              </div>
-              <h2 
-                className="text-3xl sm:text-4xl font-extrabold text-zinc-950 tracking-tight leading-tight"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-              >
-                Principles That <br />
-                <span className="text-[#a07c48]">Guide Us</span>
-              </h2>
+          
+          {/* Section Header (Centered on top for full grid width) */}
+          <div className="text-center max-w-2xl mx-auto mb-14">
+            <div className="inline-flex items-center gap-2 mb-2">
+              <span className="w-8 h-[2px] bg-[#b89565]" />
+              <span className="text-xs font-bold tracking-[0.25em] text-[#a07c48] uppercase">
+                OUR VALUES
+              </span>
+              <span className="w-8 h-[2px] bg-[#b89565]" />
             </div>
+            <h2 
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-zinc-950 tracking-tight leading-tight"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
+            >
+              Principles That <span className="text-[#a07c48] italic font-normal">Guide Us</span>
+            </h2>
+          </div>
 
-            {/* Right: 5 Value Columns */}
-            <div className="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-6">
-              {values.map((val, idx) => {
-                const IconComponent = val.icon;
-                return (
-                  <motion.div 
-                    key={val.title}
-                    initial={{ opacity: 0, y: 15 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: idx * 0.1 }}
-                    className="p-5 rounded-2xl bg-white/70 border border-[#b89565]/20 hover:border-[#b89565] transition-all duration-300 hover:-translate-y-1"
-                  >
-                    <div className="w-10 h-10 rounded-full border border-[#b89565]/40 bg-white flex items-center justify-center text-[#a07c48] mb-4">
-                      <IconComponent className="w-5 h-5 text-[#a07c48]" />
+          {/* Wider 5 Value Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            {values.map((val, idx) => {
+              const IconComponent = val.icon;
+              return (
+                <motion.div 
+                  key={val.title}
+                  initial={{ opacity: 0, y: 15 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="p-6 rounded-2xl bg-white border border-[#b89565]/25 hover:border-[#b89565] transition-all duration-300 hover:-translate-y-1.5 shadow-sm hover:shadow-md flex flex-col justify-between"
+                >
+                  <div>
+                    <div className="w-12 h-12 rounded-xl border border-[#b89565]/30 bg-[#faf8f5] flex items-center justify-center text-[#a07c48] mb-5 shadow-2xs">
+                      <IconComponent className="w-6 h-6 text-[#a07c48]" />
                     </div>
-                    <h3 className="text-sm font-bold text-zinc-950 mb-1.5">
+                    <h3 className="text-sm sm:text-base font-bold text-zinc-950 mb-2.5 tracking-wide">
                       {val.title}
                     </h3>
-                    <p className="text-zinc-600 text-xs leading-relaxed">
+                    <p className="text-zinc-600 text-xs sm:text-[13px] leading-relaxed text-justify">
                       {val.desc}
                     </p>
-                  </motion.div>
-                );
-              })}
-            </div>
-
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
+
         </div>
       </section>
 
-      {/* 4. SECTION 3: OUR TEAM & OUR APPROACH (MATCHING EXACT SPLIT IN IMAGE) */}
-      <section className="py-20 md:py-28 bg-[#faf8f5]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-10 lg:px-14">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            
-            {/* Left Column: OUR TEAM */}
-            <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-6 pr-0 lg:pr-6"
+      {/* 4. SECTION 3: DESIGN PHILOSOPHY - NUMBERED CONNECTED STEPPER PIPELINE */}
+      <section className="py-20 md:py-28 bg-[#fdfbf7] border-b border-[#b89565]/20 relative overflow-hidden">
+        {/* Subtle Background Blueprint Grid */}
+        <div 
+          className="absolute inset-0 pointer-events-none opacity-30"
+          style={{
+            backgroundImage: `
+              linear-gradient(to right, rgba(184, 149, 101, 0.12) 1px, transparent 1px),
+              linear-gradient(to bottom, rgba(184, 149, 101, 0.12) 1px, transparent 1px)
+            `,
+            backgroundSize: '48px 48px',
+          }}
+        />
+
+        <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+          
+          {/* Section Heading */}
+          <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="w-8 h-[2px] bg-[#b89565]" />
+              <span className="text-xs font-bold tracking-[0.25em] text-[#a07c48] uppercase">
+                STEP-BY-STEP PROCESS
+              </span>
+              <span className="w-8 h-[2px] bg-[#b89565]" />
+            </div>
+
+            <h2 
+              className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-zinc-950 tracking-tight leading-tight uppercase"
+              style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
             >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs font-bold tracking-[0.2em] text-[#a07c48] uppercase">
-                  OUR TEAM
-                </span>
-                <div className="w-10 h-[2px] bg-[#b89565]" />
+              DESIGN <span className="text-[#a07c48] italic font-normal">PHILOSOPHY</span>
+            </h2>
+
+            <p className="text-zinc-600 text-sm sm:text-base leading-relaxed mt-4 font-light">
+              A systematic 5-stage collaborative workflow ensuring seamless execution from initial client intent to GFC structural delivery.
+            </p>
+          </div>
+
+          {/* Top Connected Stepper Track Perfectly Aligned with 5-Column Grid */}
+          <div className="hidden lg:block relative mb-8">
+            {/* 1. Underlying Grey Baseline through card centers (10% to 90%) */}
+            <div className="absolute top-1/2 left-[10%] right-[10%] -translate-y-1/2 h-[3px] bg-zinc-200/90 rounded-full z-0" />
+            
+            {/* 2. Progressive Golden Filling Line (Draws smoothly and slowly from center of Card 1 to Card 5) */}
+            <motion.div 
+              initial={{ width: "0%" }}
+              whileInView={{ width: "80%" }}
+              viewport={{ once: true }}
+              transition={{ duration: 7, ease: "easeInOut" }}
+              className="absolute top-1/2 left-[10%] -translate-y-1/2 h-[3px] bg-gradient-to-r from-[#b89565] via-[#e5c58a] to-[#b89565] rounded-full z-1" 
+            />
+
+            {/* 3. Traveling Golden Arrow gliding along the line from Card 1 center to Card 5 center, then disappearing so only circle 05 stays */}
+            <motion.div
+              initial={{ left: "10%", opacity: 0, scale: 0.8 }}
+              whileInView={{ 
+                left: ["10%", "10%", "88%", "90%"],
+                opacity: [0, 1, 1, 0],
+                scale: [0.8, 1, 1, 0.5]
+              }}
+              viewport={{ once: true }}
+              transition={{ 
+                duration: 7, 
+                ease: "easeInOut",
+                times: [0, 0.05, 0.94, 1] 
+              }}
+              className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-20 pointer-events-none"
+            >
+              <div className="w-8 h-8 rounded-full bg-[#b89565] text-white flex items-center justify-center shadow-md shadow-[#b89565]/40 ring-4 ring-[#b89565]/20">
+                <ArrowRight className="w-4 h-4 stroke-[2.5]" />
               </div>
-
-              <h2 
-                className="text-3xl sm:text-4xl font-extrabold text-zinc-950 tracking-tight mb-5"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-              >
-                Engineered by <br />
-                <span className="text-[#a07c48]">People Who Care.</span>
-              </h2>
-
-              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed mb-8">
-                Our team consists of experienced structural engineers, designers and consultants who are passionate about creating safe, efficient and innovative structures. With a strong focus on collaboration and continuous learning, we deliver solutions that add lasting value.
-              </p>
-
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg border-2 border-[#b89565] text-zinc-950 hover:bg-[#b89565] hover:text-white text-xs font-bold tracking-wider uppercase transition-all duration-300 group"
-              >
-                <span>Meet Our Team</span>
-                <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-              </Link>
             </motion.div>
 
-            {/* Right Column: OUR APPROACH */}
-            <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="lg:col-span-6 pl-0 lg:pl-6 border-t lg:border-t-0 lg:border-l border-[#b89565]/25 pt-8 lg:pt-0"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                <span className="text-xs font-bold tracking-[0.2em] text-[#a07c48] uppercase">
-                  OUR APPROACH
-                </span>
-                <div className="w-10 h-[2px] bg-[#b89565]" />
-              </div>
+            {/* 4. Numbered Circle Badges exactly positioned at each Card's Center */}
+            <div className="grid grid-cols-5 relative z-10">
+              {philosophySteps.map((step, idx) => {
+                return (
+                  <div key={step.step} className="flex justify-center items-center">
+                    <motion.div 
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      whileInView={{ scale: 1, opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5, delay: idx * 1.4 }}
+                      whileHover={{ scale: 1.15 }}
+                      className="w-12 h-12 rounded-full flex items-center justify-center font-bold text-sm tracking-wider cursor-pointer transition-all duration-500 bg-white border-2 border-[#b89565] text-[#a07c48] shadow-md hover:bg-[#b89565] hover:text-white ring-4 ring-[#b89565]/10"
+                    >
+                      {step.step}
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
 
-              <h2 
-                className="text-3xl sm:text-4xl font-extrabold text-zinc-950 tracking-tight mb-5"
-                style={{ fontFamily: "'Playfair Display', Georgia, serif" }}
-              >
-                From Concept <br />
-                <span className="text-[#a07c48]">to Confidence.</span>
-              </h2>
-
-              <p className="text-zinc-700 text-sm sm:text-base leading-relaxed mb-10">
-                We follow a structured and collaborative approach that ensures every project is well-planned, carefully analyzed and delivered with precision.
-              </p>
-
-              {/* Approach Timeline Line with 5 Dots */}
-              <div className="relative pt-4 pb-2">
-                {/* Horizontal line */}
-                <div className="absolute top-[22px] left-3 right-3 h-[2px] bg-[#b89565]/40 z-0" />
-
-                <div className="grid grid-cols-5 gap-2 relative z-10 text-center">
-                  {approachSteps.map((stepItem) => (
-                    <div key={stepItem.name} className="flex flex-col items-center">
-                      <div className="w-3 h-3 rounded-full bg-[#b89565] border-2 border-white shadow-xs mb-3 ring-2 ring-[#b89565]/30" />
-                      <span className="text-[11px] sm:text-xs font-semibold text-zinc-800 tracking-wide">
-                        {stepItem.name}
+          {/* 5 Process Cards Grid with Dynamic Interactive Hover States */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 items-stretch">
+            {philosophySteps.map((step, idx) => {
+              return (
+                <motion.div 
+                  key={step.step}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.12 }}
+                  whileHover={{ y: -8, transition: { duration: 0.2 } }}
+                  className="group rounded-2xl p-6 sm:p-7 flex flex-col justify-between transition-all duration-300 cursor-pointer bg-white border border-zinc-200/90 hover:border-[#b89565] hover:shadow-2xl hover:shadow-[#b89565]/20 shadow-sm"
+                >
+                  {/* Card Content Top */}
+                  <div className="space-y-3 text-center">
+                    {/* Mobile Only Step Pill */}
+                    <div className="lg:hidden text-center">
+                      <span className="inline-block px-3 py-1 rounded-full text-xs font-bold bg-[#faf8f5] text-[#a07c48] border border-[#b89565]/30">
+                        Step {step.step}
                       </span>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
 
+                    {/* Centered Title & Subtitle */}
+                    <div className="text-center">
+                      <h3 className="text-lg font-bold text-zinc-950 tracking-tight leading-snug group-hover:text-[#a07c48] transition-colors">
+                        {step.title}
+                      </h3>
+
+                      <p className="text-xs font-semibold text-[#a07c48] tracking-wide mt-1">
+                        {step.subtitle}
+                      </p>
+                    </div>
+
+                    <p className="text-xs text-zinc-600 leading-relaxed pt-2 text-center">
+                      {step.desc}
+                    </p>
+                  </div>
+
+                  {/* Card Bottom Pill Box (Turns dark with white text on hover like in reference design) */}
+                  <div className="mt-8 pt-4">
+                    <div className="p-3.5 sm:p-4 rounded-xl flex items-center justify-center gap-2.5 transition-all duration-300 bg-[#faf8f5] border border-[#b89565]/25 text-zinc-900 group-hover:bg-zinc-950 group-hover:border-zinc-950 group-hover:text-white">
+                      <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:translate-x-1 bg-white border border-[#b89565]/40 text-[#a07c48] group-hover:bg-white group-hover:text-zinc-950">
+                        <ArrowRight className="w-3 h-3" />
+                      </div>
+                      <span className="text-[11px] font-bold tracking-tight leading-snug text-center">
+                        {step.footerText}
+                      </span>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
+
         </div>
       </section>
 

@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { fetchApi, formatMediaUrl } from "../lib/api";
 
 interface ProjectItem {
   id: string;
@@ -14,61 +15,80 @@ interface ProjectItem {
   image: string;
 }
 
-const allProjects: ProjectItem[] = [
+const defaultProjects: ProjectItem[] = [
   {
     id: "01",
-    title: "RESIDENTIAL CARE",
-    subtitle: "PROJECT IN GIFT CITY",
-    location: "Gift City, Gandhinagar",
-    tag: "ARCHITECTURE",
-    image: "/assets/hero/bg-image.png",
+    title: "PANACHE AURA",
+    subtitle: "COMMERCIAL LANDMARK",
+    location: "Commercial Hub",
+    tag: "STRUCTURAL",
+    image: "/assets/our_project/Panache_Aura.png",
   },
   {
     id: "02",
-    title: "CONCERT HALL & HUB",
-    subtitle: "IN AHMEDABAD",
-    location: "Innovation District, Ahmedabad",
+    title: "PRAGATI AMBITIONS",
+    subtitle: "HIGH-RISE DEVELOPMENT",
+    location: "Prime City Zone",
     tag: "ARCHITECTURE",
-    image: "/assets/hero/slider_4.jpg",
+    image: "/assets/our_project/Pragati_Ambitions.png",
   },
   {
     id: "03",
-    title: "MODERN HOTEL & TOWER",
-    subtitle: "IN SURAT",
-    location: "Downtown, Surat",
-    tag: "ARCHITECTURE",
-    image: "/assets/hero/slider_5.jpg",
+    title: "PREET PROMOTORS",
+    subtitle: "PREMIUM RESIDENTIAL & COMMERCIAL",
+    location: "Modern Living Center",
+    tag: "STRUCTURAL",
+    image: "/assets/our_project/Preet_Promotors.png",
   },
   {
     id: "04",
-    title: "CIVIC AUDITORIUM",
-    subtitle: "IN VADODARA",
-    location: "Financial Hub, Vadodara",
+    title: "PRISM CITY GREENS",
+    subtitle: "INTEGRATED TOWNSHIP",
+    location: "Green Enclave",
     tag: "ARCHITECTURE",
-    image: "/assets/hero/slider_3.jpg",
+    image: "/assets/our_project/Prism_city_greens.png",
   },
   {
     id: "05",
-    title: "COMMERCIAL PARK",
-    subtitle: "IN SANAND",
-    location: "Industrial Corridor, Sanand",
-    tag: "ARCHITECTURE",
-    image: "/assets/hero/slider_2.jpg",
-  },
-  {
-    id: "06",
-    title: "TWIN TOWERS SEZ",
-    subtitle: "IN GANDHINAGAR",
-    location: "SEZ Zone, Gandhinagar",
-    tag: "ARCHITECTURE",
-    image: "/assets/our_expertise/right_image.png",
+    title: "SWASTIK TWIN TOWER",
+    subtitle: "TWIN TOWERS HUB",
+    location: "Skyline District",
+    tag: "HIGH-RISE",
+    image: "/assets/our_project/Swastik_Tween_Tower.png",
   },
 ];
 
 const Projects = () => {
-  // Start index for visible 4 architectural slices
+  const [allProjects, setAllProjects] = useState<ProjectItem[]>(defaultProjects);
   const [startIndex, setStartIndex] = useState(0);
   const visibleCount = 4;
+
+  useEffect(() => {
+    // 1. Instant cache load from localStorage
+    try {
+      const cached = localStorage.getItem('arrow_cache_featured_projects');
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        if (parsed && parsed.length > 0) {
+          setAllProjects(parsed);
+        }
+      }
+    } catch (_) {}
+
+    // 2. Fetch fresh from API
+    fetchApi<ProjectItem[]>('/featured-projects').then((data) => {
+      if (data && data.length > 0) {
+        const mapped = data.map((p) => ({
+          ...p,
+          image: formatMediaUrl(p.image),
+        }));
+        setAllProjects(mapped);
+        try {
+          localStorage.setItem('arrow_cache_featured_projects', JSON.stringify(mapped));
+        } catch (_) {}
+      }
+    });
+  }, []);
 
   const handlePrev = () => {
     setStartIndex((prev) => (prev > 0 ? prev - 1 : allProjects.length - visibleCount));
@@ -129,6 +149,7 @@ const Projects = () => {
                   src={project.image}
                   alt={project.title}
                   fill
+                  unoptimized
                   className="object-cover object-center grayscale-[15%] contrast-[105%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />

@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BackgroundVideo from "../components/BackgroundVideo";
+import { fetchApi } from "../lib/api";
 import { 
   ArrowUpRight, 
   MapPin, 
@@ -27,99 +28,90 @@ export interface ProjectItem {
   category: string;
 }
 
-const rawProjects: ProjectItem[] = [
+const defaultRawProjects: ProjectItem[] = [
   {
     id: 16,
-    name: "Dolphin Advante",
+    name: "Panache Aura",
     city_name: "Pune",
     state_name: "Maharashtra",
-    description: "Residential landmark structure featuring heavy post-tensioned transfer beams at the first-floor podium level to accommodate floating columns supporting seven upper storeys, engineered with advanced flat slab and integrated sunk slab systems.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHT0R7DN80F4W583WPH6WQE.jpg",
-    category: "Residential High-Rise"
-  },
-  {
-    id: 15,
-    name: "SRR Corporate Office",
-    city_name: "Hyderabad",
-    state_name: "Telangana",
-    description: "Iconic corporate headquarters designed across a 9m × 7.5m grid using a post-tensioned flat slab system with optimized column positions, achieving column-free collaborative office spaces and superior deflection control.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHSTSVN3VQAXT2DFAKZAZR3.jpg",
+    description: "Commercial landmark structure featuring high-precision structural framing, transfer beams and seamless execution.",
+    image: "/assets/our_project/Panache_Aura.png",
     category: "Commercial"
   },
   {
+    id: 15,
+    name: "Pragati Ambitions",
+    city_name: "Pune",
+    state_name: "Maharashtra",
+    description: "High-rise residential and commercial development engineered for seismic resilience and optimized structural efficiency.",
+    image: "/assets/our_project/Pragati_Ambitions.png",
+    category: "Residential High-Rise"
+  },
+  {
     id: 14,
-    name: "Abhinandan Infra Emerald Commercial",
-    city_name: "Hyderabad",
-    state_name: "Telangana",
-    description: "Expansive 286,000+ sq. ft. commercial complex featuring a 13-meter clear-span post-tensioned flat slab system with integrated drop caps, tailored for high live load tolerances and seamless retail circulation.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHSJJCCEKJRV5CY5TG3D5SK.jpg",
+    name: "Preet Promotors",
+    city_name: "Pune",
+    state_name: "Maharashtra",
+    description: "Premium integrated development designed with high-span slabs and value-engineered structural framing.",
+    image: "/assets/our_project/Preet_Promotors.png",
     category: "Commercial"
   },
   {
     id: 13,
-    name: "Spectrum Grand Mall",
-    city_name: "Indore",
-    state_name: "Madhya Pradesh",
-    description: "PT Flat plate system engineered for a massive 13m internal span with dramatic 3m cantilevered balconies, structured to support multi-tier retail, multiplexes, and intensive pedestrian dynamic loading.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHSDPRCVQ6EE5T0KQY6KVT3.jpeg",
-    category: "Commercial"
+    name: "Prism City Greens",
+    city_name: "Pune",
+    state_name: "Maharashtra",
+    description: "Expansive green township project with custom structural infrastructure and advanced durability design.",
+    image: "/assets/our_project/Prism_city_greens.png",
+    category: "Township"
   },
   {
     id: 12,
-    name: "The Rise Mega Hub",
-    city_name: "Indore",
-    state_name: "Madhya Pradesh",
-    description: "712,000+ sq. ft. monumental commercial development featuring drop-cap flat slabs with an 8m fire tender perimeter loading span, a 16m central commercial span, and an architectural 5.0m cantilever overhang.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHS6FW770AXJHGYT21KV30K.jpg",
-    category: "Commercial"
-  },
-  {
-    id: 11,
-    name: "Manish Raghuvanshi Commercial Hub",
-    city_name: "Indore",
-    state_name: "Madhya Pradesh",
-    description: "Modern commercial complex engineered with a 12-meter bidirectional span PT flat slab system and drop panels, achieving significant concrete and reinforcement reduction without compromising seismic drift margins.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHS1GVAXQBXBF0JYHWGK93T.JPG",
-    category: "Commercial"
+    name: "Swastik Twin Tower",
+    city_name: "Pune",
+    state_name: "Maharashtra",
+    description: "Iconic twin skyscraper towers with high-performance lateral load-resisting RCC framing and deep raft foundations.",
+    image: "/assets/our_project/Swastik_Tween_Tower.png",
+    category: "Residential High-Rise"
   },
   {
     id: 10,
     name: "Cambridge International School",
     city_name: "Nashik",
     state_name: "Maharashtra",
-    description: "Premier educational campus engineered with 14m clear span post-tensioned beams integrated with 7m span PT slabs, providing vibration-free auditoriums, smart classrooms, and column-free indoor sports halls.",
+    description: "Premier educational campus engineered with 14m clear span post-tensioned beams integrated with 7m span PT slabs.",
     image: "https://admin.unifiedpts.com/storage/project-images/01KMHRPR0QHX8GAT4FPSQ113C3.png",
     category: "Institutional"
   },
-  {
-    id: 6,
-    name: "Aashray Eminent Towers",
-    city_name: "Vadodara",
-    state_name: "Gujarat",
-    description: "Luxury residential high-rise incorporating dynamic 4.0-meter cantilever post-tensioned slabs with integrated RCC framing, delivering panoramic open-view balconies and long-term crack-free structural performance.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHKX6M8G0VJ5SSPWZB1S234.jpeg",
-    category: "Residential High-Rise"
-  },
-  {
-    id: 5,
-    name: "18 PU-4 Corporate Complex",
-    city_name: "Indore",
-    state_name: "Madhya Pradesh",
-    description: "Commercial building utilizing a 7.0m single-span post-tensioned flat plate slab system, engineered for rapid construction cycles and high-efficiency MEP distribution routes.",
-    image: "https://admin.unifiedpts.com/storage/project-images/01KMHKQF230WJPK4DSD7VW18H6.JPG",
-    category: "Commercial"
-  }
 ];
 
 export default function ProjectsPage() {
   const [filter, setFilter] = useState<string>("All");
+  const [projectsList, setProjectsList] = useState<ProjectItem[]>(defaultRawProjects);
   const [activeProject, setActiveProject] = useState<ProjectItem | null>(null);
+
+  useEffect(() => {
+    fetchApi<any[]>('/projects').then((data) => {
+      if (data && data.length > 0) {
+        const mapped = data.map((p) => ({
+          id: p.id,
+          name: p.title,
+          city_name: p.location || "Pune",
+          state_name: "India",
+          description: p.description || p.subtitle || "",
+          image: p.image || "/assets/our_project/Panache_Aura.png",
+          category: p.category || "Commercial",
+        }));
+        setProjectsList(mapped);
+      }
+    });
+  }, []);
 
   const categories = ["All", "Commercial", "Residential High-Rise", "Institutional"];
 
   const filteredProjects = filter === "All"
-    ? rawProjects
-    : rawProjects.filter(p => p.category === filter);
+    ? projectsList
+    : projectsList.filter(p => p.category === filter);
 
   return (
     <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white">

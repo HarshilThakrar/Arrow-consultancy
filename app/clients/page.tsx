@@ -1,13 +1,55 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import BackgroundVideo from "../components/BackgroundVideo";
 import { Sparkles } from "lucide-react";
+import { fetchApi } from "../lib/api";
+
+interface ClientItem {
+  id: number | string;
+  name?: string;
+  logo: string;
+  website?: string | null;
+  location?: string | null;
+}
+
+const fallbackLogos = [
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJHJ4T1FQWJK66PK60MQET.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJHJ4W4FC88KMSZVFWVKNE.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRJ89K821W6E1VF634N3.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRK1Q8TE4B01ZBKJ0X1K.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRK52AW6YM4PCKN0SAGF.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YMK1P10PZXGB3G6P39P.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YN198Q5WRV20H9ZZ7RX.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YNSCT4MNX5GTRSCENF0.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YPQQA2997P1042FJZQ0.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YQHCZHP61ZJKFQAD8DT.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YR8JWBZ93HW236B5N6M.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YS3YAHENJVCWRKFAQRV.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA4Z667JQJ2HZ3N3P877.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5A2VQ2AF6K2F4PY0PP.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5C5GXMNJW2ZGZ89B3H.png",
+  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5EAMCTDVJRF7RZE1N4.png",
+];
 
 export default function ClientsPage() {
+  const [clients, setClients] = useState<ClientItem[]>([]);
+
+  useEffect(() => {
+    fetchApi<ClientItem[]>('/clients').then((data) => {
+      if (data && data.length > 0) {
+        setClients(data);
+      }
+    });
+  }, []);
+
+  const displayList = clients.length > 0
+    ? clients.map((c) => ({ logo: c.logo, name: c.name || "Client" }))
+    : fallbackLogos.map((url, i) => ({ logo: url, name: `Client Partner ${i + 1}` }));
   return (
     <div className="relative min-h-screen bg-[#faf8f5] font-sans text-zinc-900 selection:bg-[#b89565] selection:text-white">
       <Navbar />
@@ -183,52 +225,19 @@ export default function ClientsPage() {
 
               {/* 4-column logo grid matching reference */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-                {[
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJHJ4T1FQWJK66PK60MQET.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJHJ4W4FC88KMSZVFWVKNE.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRJ89K821W6E1VF634N3.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRK1Q8TE4B01ZBKJ0X1K.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJDRK52AW6YM4PCKN0SAGF.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YMK1P10PZXGB3G6P39P.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YN198Q5WRV20H9ZZ7RX.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YNSCT4MNX5GTRSCENF0.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YPQQA2997P1042FJZQ0.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YQHCZHP61ZJKFQAD8DT.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YR8JWBZ93HW236B5N6M.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M6TJ4YS3YAHENJVCWRKFAQRV.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA4Z667JQJ2HZ3N3P877.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5A2VQ2AF6K2F4PY0PP.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5C5GXMNJW2ZGZ89B3H.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5EAMCTDVJRF7RZE1N4.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5FQ4FCWV1XT72PKCTR.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5JK3B1GGKWKZ04AKF6.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5MKHWG0Z1YX1WT222J.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA5MKHWG0Z1YX1WT222K.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA6G8XM3G8GCGCSX3T93.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA78J9TEXCYVSK7KJXYA.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA8WJDDKZB73F8APH21D.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA9E5G7P591FSEVZBQ1X.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01M4Z5KA9JC6ENCY054BC7JREJ.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNBA9DXTT6YWFWC2M3W.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNCNBVFK8BSN19SB7Y9.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNDJ0KZANF4H82PZET6.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNER40EFWA6BF1FSDVT.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNER40EFWA6BF1FSDVV.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNFM0G7W2BRTC0RHPPD.png",
-                  "https://admin.unifiedpts.com/storage/client-images/01KWEN5CNFM0G7W2BRTC0RHPPE.png"
-                ].map((imgSrc, index) => (
+                {displayList.map((client, index) => (
                   <motion.div
                     key={index}
                     whileHover={{ y: -5, scale: 1.02 }}
                     transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-                    className="group aspect-[4/3] bg-white rounded-2xl border border-[#b89565]/20 hover:border-[#b89565] shadow-xs hover:shadow-xl hover:shadow-[#b89565]/15 p-6 flex items-center justify-center transition-all duration-300 ease-out cursor-pointer relative overflow-hidden transform-gpu"
+                    className="group aspect-[4/3] bg-white rounded-2xl border border-[#b89565]/20 hover:border-[#b89565] shadow-xs hover:shadow-xl hover:shadow-[#b89565]/15 p-6 flex flex-col items-center justify-center transition-all duration-300 ease-out cursor-pointer relative overflow-hidden transform-gpu"
                   >
                     {/* Top Golden Accent Edge */}
                     <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#ffe4ab] via-[#b89565] to-[#8d6935] opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-out" />
 
                     <img
-                      src={imgSrc}
-                      alt={`Client Partner ${index + 1}`}
+                      src={client.logo}
+                      alt={client.name}
                       className="max-h-full max-w-full object-contain filter group-hover:scale-105 transition-transform duration-300 ease-out transform-gpu"
                       loading="lazy"
                     />
